@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<canvas id="c" class="c"></canvas>
+<head><meta charset="UTF-8"><title>Document</title><link rel="stylesheet" href="Style.css"></link></head>
+<body>
+<header></header>
+<main>
+  <div id="main" class="container-nav">
+    
+    <div id="main" class="container-nav">
+      <nav id="nav2" class="container-nav"></nav>
+      <input id="search" class="search" type="text" placeholder="Escribe un dato que quieras encontrar disponible">
+      <ul id="ul" class="container-nav"></ul>
+    </div>
+    <nav id="nav" class="container-nav"></nav>
+    <div id='container' class="container-nav" style="
+  width: auto; /* Ancho fijo */
+  height: 2000px; /* Alto fijo, crucial para que el scroll funcione */
+  overflow-y: auto; /* Permite el scroll vertical solo cuando el contenido lo supera */
+  overflow-x: hidden; /* Oculta el scroll horizontal */
+  "></div>
+  </div>
+</main>
+<footer></footer>
+</body>
+<script type="module">
+import { fetchete } from './fetchete.js';
+import { ShowTable,Filas,Columnas } from './ShowTable.js';
+
+const ca = document.getElementById('c');ca.style.display='none';window.addEventListener('keydown',(ev)=>{if(ev.key === '/'){if(ca.style.display === 'none'){ca.style.display = 'flex';}else{ca.style.display = 'none';}}});
+const tmain = document.getElementById('main');
+const container = document.getElementById("container");
+const nav = document.getElementById("nav");
+const nav2 = document.getElementById("nav2");
+const search = document.getElementById("search");
+const ul = document.getElementById("ul");
+const url = 'http://localhost:3000/';
+var t = {};//Objeto de Tabla Global
+
+let currentResolve = null;
+let currentReject = null;
+
+//---------modal de la institución
+const nsc = document.createElement('div');nsc.classList.add('nsc');//contenedor de la info del colegio
+const dimg = document.createElement('div');dimg.classList.add('dimg');//contenedor de imagen del colegio
+const img = document.createElement('img');img.classList.add('img');//imagen del colegio
+img.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIYp97_amRVTjZLrnJ6N_pMh1qkl_oCBax6w8_QxtnWYSIt9RnbQmU7n3O&s=10';
+const title = document.createElement('h1');title.classList.add('title');title.textContent='Titulo';//titulo de cuadro informativo
+const txt = document.createElement('p');txt.classList.add('p');txt.textContent='Texto';//texto de cuadro informativo
+title.textContent = 'Unidad Educativa "Nuestra Señora de Coromoto”';txt.textContent = 'El colegio promueve una Educación Integral de estudiantes de acuerdo a los valores cristianos, tomando en cuenta cuatro pilares: aprender a crear, aprender a convivir, aprender a valorar y reflexionar. Incentivando así la capacidad cristiana, hacia la valoración y crecimiento de la persona en búsqueda de su realización y superación en el progreso de la Educación Técnica Pedagógica. Ofrece ser una institución de vanguardia de reconocida trayectoria, que brinda una educación de calidad, basada en valores, brindando a los estudiantes una formación religiosa que permita la disposición de individuos íntegros, críticos y creativos, capaces de adaptarse a los retos de transformación de la sociedad, con participación activa de la familia como ente mediador en el aprendizaje de sus hijos.';
+dimg.appendChild(img);
+nsc.appendChild(dimg);
+nsc.appendChild(title);
+nsc.appendChild(txt);
+//------------------
+
+
+const modal = document.createElement('div');modal.classList.add('modal');//fondo negro del modal
+const modalc = document.createElement('div');modalc.classList.add('modalc');//modal (login)
+modal.appendChild(nsc);//---------modal de la institución
+const prompt_titulo = document.createElement('h1');//titulo modal
+const prompt_parrafo = document.createElement('p');//texto modal
+const prompt_input = document.createElement('input');//input modal
+const prompt_boton = document.createElement('button');//boton modal
+prompt_boton.classList.add('botonModal');prompt_boton.textContent = 'Acceder';
+function enter(){
+  modalc.classList.remove('mostrar');
+  modalc.classList.add('ocultar');
+  setTimeout(() => {
+  const value = prompt_input.value;if(currentResolve){currentResolve(value);}
+  prompt_input.value = '';currentResolve = null;currentReject = null;
+  },500);
+}
+prompt_boton.addEventListener('click',enter);
+modal.appendChild(modalc);
+modalc.appendChild(prompt_titulo);
+modalc.appendChild(prompt_parrafo);
+modalc.appendChild(prompt_input);
+modalc.appendChild(prompt_boton);
+document.body.appendChild(modal);
+
+const fontSize = 'clamp(1vw, 1.2vw, 2vw)';
+const fontSize1 = 'clamp(1.5vw, 2vw, 5vw)';
+prompt_titulo.classList.add('prompt_titulo');
+prompt_parrafo.classList.add('prompt_parrafo');
+
+async function select(){//selector de tablas
+  const res = await fetchete([`SHOW tables;`],url+'api/pass');
+  select2();const div = document.createElement('div');
+  for(let i=0;i<res.length;i++){
+  const button = document.createElement('button');button.textContent = `${Object.values(res[i])}`;//school//🗃️
+  button.addEventListener('click',() => {
+    container.classList.remove('mostrar');
+    container.classList.add('ocultar');
+    nav2.classList.remove('mostrar');
+    nav2.classList.add('ocultar');
+    setTimeout(()=>{
+      container.classList.remove('ocultar');
+      nav2.classList.remove('ocultar');
+      if(container.children.length>0)container.removeChild(container.firstChild);
+      while(ul.children.length>0){ul.removeChild(ul.firstChild);}//------------------------------------------------------------------
+      ShowTable(button.textContent,container,url);
+      for(let r=0;r<div.children.length;r++){div.children[r].style.border = 'none';}//
+      button.style.border = '5px solid blue';//
+      t.SelectedTable = button.textContent;//
+      select2();search.value = '';while(ul.children.length>0){ul.removeChild(ul.firstChild);}//
+      container.classList.add('mostrar');
+      nav2.classList.add('mostrar');
+    },500);
+  });
+  div.appendChild(button);
+  }
+  nav.appendChild(div);
+}
+async function select2(){//selector de columnas
+  t.SelectedTable='libros';
+  const res = await fetchete([`SHOW COLUMNS FROM ${t.SelectedTable};`],url+'api/pass');
+  if(nav2.children.length>0)nav2.removeChild(nav2.firstChild);
+  const div = document.createElement('div');
+  for(let i=0;i<res.length;i++){
+  const button = document.createElement('button');button.textContent = `${res[i].Field}`;//🔎
+  button.addEventListener('click',() => {
+    for(let r=0;r<div.children.length;r++){div.children[r].style.border = 'none';}
+    button.style.border = '5px solid blue';t.FileSelectedTable = button.textContent;
+    search.value = '';while(ul.children.length>0){ul.removeChild(ul.firstChild);}
+  });
+  div.appendChild(button);
+  }
+  nav2.appendChild(div);
+}
+async function funsearch(a){
+  ul.classList.remove('mostrar');
+  ul.classList.add('ocultar');
+  const patron = /^[^']*$/;
+  if(a != '' && patron.test(a)){
+  const res = await fetchete([`SELECT * FROM ${t.SelectedTable} WHERE ${t.FileSelectedTable} LIKE '${a}%';`],url+'api/pass');
+  setTimeout(()=>{
+    while(ul.children.length>0){ul.removeChild(ul.firstChild);}
+    for(let i in res){
+      let iii = Object.keys(res[i]);const li = document.createElement('li');let iiii=0;
+      for(let ii in res[i]){li.textContent += ` ${iii[iiii]} : ${res[i][ii]} || `;iiii+=1;}
+      ul.appendChild(li);
+    }
+    ul.classList.remove('ocultar');ul.classList.add('mostrar'); 
+  },500);
+  }else{
+  setTimeout(()=>{
+    while(ul.children.length>0){ul.removeChild(ul.firstChild);}
+    ul.classList.remove('ocultar');
+    ul.classList.add('mostrar');
+  },500);
+  }
+} 
+let temporizador;
+search.addEventListener('input',()=>{
+  clearTimeout(temporizador);
+    temporizador = setTimeout(() => {
+    funsearch(search.value);
+  },500);
+});
+//solo cambia el estado del usuario
+async function session(id){const res = await fetchete([`UPDATE usuarios SET estado = 'Sesión Activada' WHERE id = ${id};`],url+'api/pass');}
+
+/*
+function enter(){
+  modalc.classList.remove('mostrar');
+  modalc.classList.add('ocultar');
+  setTimeout(() => {
+  const value = prompt_input.value;if(currentResolve){currentResolve(value);}
+  prompt_input.value = '';currentResolve = null;currentReject = null;
+  },500);
+}
+prompt_boton.addEventListener('click',enter);
+modal.appendChild(modalc);
+modalc.appendChild(prompt_titulo);
+modalc.appendChild(prompt_parrafo);
+modalc.appendChild(prompt_input);
+modalc.appendChild(prompt_boton);
+document.body.appendChild(modal);
+*/
+
+//prompt experimental
+function newprompt(option,callback){
+  /*
+  option:
+    fondo     const modal = document.createElement('div');modal.classList.add('modal');//fondo negro del modal
+    background      const modalc = document.createElement('div');modalc.classList.add('modalc');//modal (login/register)
+    titulo      const prompt_titulo = document.createElement('h1');//titulo modal
+    texto     const prompt_parrafo = document.createElement('p');//texto modal
+    inputs=[{type,text/placeholder}]      const prompt_input = document.createElement('input');//input modal
+    footer
+  callback:()=>{}     debe ser para el ultimo input
+  */
+
+  const modal = document.createElement('div');modal.classList.add('modal');
+
+  
+  const modalc = document.createElement('div');modalc.classList.add('modalc');
+  modal.appendChild(modalc);
+
+  const prompt_titulo = document.createElement('h1');
+  prompt_titulo.classList.add('prompt_titulo');
+  prompt_titulo.textContent = option.titulo;
+  modalc.appendChild(prompt_titulo);
+
+  if(option.texto){
+    const prompt_parrafo = document.createElement('p');
+    prompt_parrafo.classList.add('prompt_parrafo');
+    prompt_parrafo.textContent = option.texto;
+    modalc.appendChild(prompt_parrafo);
+  }
+
+  if(option.inputs){
+    for(i of option.inputs){
+      const prompt_input = document.createElement('input');
+      prompt_input.type = i.type;console.log(i);
+      
+      if(i.type==='text'){
+        prompt_input.placeholder = i.text;
+      }
+
+      if(i.type==='button'){
+        prompt_input.value = i.text;
+      }
+      
+      if(callback){
+        if(i===option.inputs[option.inputs.length-1] && prompt_input.type==='button'){
+          prompt_input.onclick=callback;
+        }
+      }
+      
+      modalc.appendChild(prompt_input);
+    } 
+  }
+
+  if(option.footer){
+    const prompt_footer = document.createElement('p');
+    prompt_footer.classList.add('prompt_footer');
+    prompt_footer.textContent = option.footer;
+    modalc.appendChild(prompt_footer);
+  }
+
+  document.body.appendChild(modal);
+
+  //el callback debe contener 'document.body.removeChild(modal);'
+}
+
+async function login(www){
+  let v = '';let w = '';
+  if(www){
+  nsc.classList.remove('ocultar');
+  nsc.classList.add('mostrar');
+  await miprompt('text','Iniciar seción','Ingresa el nombre del Administrador','').then(value => {if(value){v = value}});
+  await miprompt('text','Iniciar seción','Ingresa la contraseña del Administrador','').then(value => {if(value){w = value}});
+  nsc.classList.remove('mostrar');
+  nsc.classList.add('ocultar');
+  setTimeout(()=>{
+  modal.removeChild(nsc);   
+  },500);
+  }
+  const res = await fetchete([`SELECT id,nombre,rol,contraseña FROM usuarios;`],url+'api/pass');  
+  if(www){  
+    let ii=false;
+    for(let i of res){
+      if(v === i.nombre && w === i.contraseña){
+      session(i.id);
+      localStorage.setItem('session',i.id);ii=true;
+      localStorage.setItem('rol',i.rol);
+      setTimeout(()=>{modal.style.display = 'none';},1000);
+      break;
+      }
+    }
+    if(!ii){
+      modal.style.display = "flex";prompt_input.style.display = 'none';prompt_boton.style.display = 'none';
+      await miprompt('text','Inicio de Seción Fallido','Nombre o Contraseña Incorrectos','',true);
+    }else{
+      setTimeout(()=>{modal.classList.add('ocultar');},500);
+    }
+  }else{session(1);localStorage.setItem('session',1);}
+}
+
+function miprompt(tipo,titulo,parrafo,valor){
+  modalc.classList.remove('ocultar');
+  modalc.classList.add('mostrar');
+  modal.style.display = "flex";modal.style.flexDirection = "row";
+  prompt_input.type = tipo;
+  prompt_input.value=valor;
+  prompt_titulo.textContent = titulo;
+  prompt_parrafo.textContent = parrafo;
+  return new Promise((resolve,reject)=>{currentResolve = resolve;currentReject = reject;});
+}
+async function init(www,ww){
+  /*
+  newprompt(
+    {
+      titulo:'Titulo',
+      texto:'prpprprprprp',
+      inputs:[{type:'text',text:'ppp'},{type:'button',text:'sss'}],
+      footer:'pp'
+    },
+    ()=>{
+      console.log('ppp');
+    }
+  );
+  */
+
+  if(ww){
+    await register(www);
+  }else{
+    await login(www);
+  }
+  const res = await fetchete([`SHOW tables;`],url+'api/pass');
+  ShowTable('libros',container,url);//res[2].Tables_in_school
+  tmain.classList.add('mostrar');
+  select();
+  
+}
+//init(true,true);
+init(true,false);
+//init(false,false);
+
+async function ful(){
+  const res = await fetchete([`SELECT nombre FROM usuarios;`],url+'api/pass');
+  const ress = await fetchete([`SELECT titulo FROM libros WHERE disponibles = 0;`],url+'api/pass');
+  console.log(res);
+  console.log(ress);
+}
+
+async function register(www){
+let v = '';let w = '';
+  if(www){
+  nsc.classList.remove('ocultar');
+  nsc.classList.add('mostrar');
+  await miprompt('text','Registrar','Ingresa el nombre del Administrador','').then(value => {if(value){v = value}});
+  await miprompt('text','Registrar','Ingresa la contraseña del Administrador','').then(value => {if(value){w = value}});
+  nsc.classList.remove('mostrar');
+  nsc.classList.add('ocultar');
+  setTimeout(()=>{
+  modal.removeChild(nsc);   
+  },500);
+  }
+  const res = await fetchete([`SELECT id,nombre,rol,contraseña FROM usuarios;`],url+'api/pass');  
+  if(www){  
+    let ii=false;
+    for(let i of res){
+      if(v === i.nombre){
+      ii=true;
+      break;
+      }
+    }
+    if(ii){
+      modal.style.display = "flex";prompt_input.style.display = 'none';prompt_boton.style.display = 'none';
+      await miprompt('text','Registro Fallido','Nombre ya existente','');
+    }else{
+      setTimeout(()=>{modal.style.display = 'none';},1000);
+      setTimeout(async()=>{
+        modal.classList.add('ocultar');
+        await fetchete([`INSERT INTO usuarios (nombre,contraseña) VALUES ('${v}','${w}');`],url+'api/pass');
+        const res = await fetchete([`SELECT id,nombre,rol,contraseña FROM usuarios WHERE nombre = '${v}';`],url+'api/pass');
+        session(res[0].id);
+      localStorage.setItem('session',res[0].id);
+      localStorage.setItem('rol',res[0].rol);
+      },500);
+    }
+  }else{session(1);localStorage.setItem('session',1);}
+}
+async function actions(button,p,table){
+  modal.classList.remove('ocultar');
+  modal.classList.add('mostrar');
+  let prom = '';if(button.tipo === 'string')button.tipo = 'text';await miprompt(button.tipo,'Añadir Dato','Ingresa el nuevo dato',p.textContent).then(value => {if(value){prom = value}});//
+  if(prom != null && prom != ''){p.textContent = prom;modal.classList.remove('mostrar');modal.classList.add('ocultar');setTimeout(()=>{modal.style.display = 'none';},500);const res = await fetchete([`UPDATE ${table} SET ${button.column} = '${prom}' WHERE id = ${button.id};`],url+'api/pass');}
+}
+
+window.addEventListener('pagehide', (event) => {
+  if (!event.persisted && localStorage.getItem('session') !== undefined) {
+    const query = [`UPDATE usuarios SET estado = 'Sesión Desactivada' WHERE id = ${localStorage.getItem('session')};`];
+    const blob = new Blob([JSON.stringify({query})],{type:'application/json'});localStorage.removeItem('session');
+    navigator.sendBeacon(url+'api/pass',blob);
+  }
+});
+
+</script>
+<script src="c.js"></script>
+</html>

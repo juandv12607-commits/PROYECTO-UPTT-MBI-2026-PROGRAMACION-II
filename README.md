@@ -62,11 +62,8 @@ Optimizar y automatizar los procesos administrativos y de consulta de la bibliot
 **Entidades principales:**
 - `usuarios` (id, nombre, rol, email, contraseña, estado)
 - `libros` (id, titulo, autor, editorial, año, cantidad_total, disponibles)
-<<<<<<< HEAD
 - `prestamos` (id, usuario_id, libro_id, fecha_prestamo, fecha_devolucion_estimada, fecha_devolucion_real, estado, multa)
-=======
 - `prestamos` (id, usuario_id, libro_id, fecha_prestamo, fecha_devolucion_estimada, fecha_devolucion_real, estado)
->>>>>>> 38fd8269775dc548c726f70efc0c332c9fcca154
 - `categorias` (id, nombre)
 - `libro_categoria` (libro_id, categoria_id)
 
@@ -81,11 +78,8 @@ Optimizar y automatizar los procesos administrativos y de consulta de la bibliot
 
 1. **Un usuario no puede tener más de 3 préstamos activos al mismo tiempo** (excepto docentes, que pueden tener hasta 5).
 2. **Si un libro tiene 0 ejemplares disponibles, no puede ser prestado**.
-<<<<<<< HEAD
 3. **Al registrar una devolución después de la fecha estimada**, el sistema calcula automáticamente una multa (ej: 0.10$ por día de retraso).
-=======
 3. **Al registrar una devolución después de la fecha estimada**.
->>>>>>> 38fd8269775dc548c726f70efc0c332c9fcca154
 4. **Los usuarios con multa pendiente no pueden solicitar nuevos préstamos**.
 5. **El sistema debe impedir eliminar un libro si tiene préstamos activos asociados**.
 6. **Cada préstamo debe estar asociado a un usuario registrado** (no anónimo).
@@ -108,8 +102,5 @@ Optimizar y automatizar los procesos administrativos y de consulta de la bibliot
 - **Línea de investigación PNF en Informática:** Sistemas de información y modelado de datos.
 - **Justificación técnica:** Uso de herramientas libres y mantenimiento posible por los propios estudiantes o personal capacitado.
 - **Justificación comunitaria:** Solución tecnológica real, escalable y con impacto directo en la comunidad educativa.
-<<<<<<< HEAD
 - **Factibilidad operativa:** El sistema puede ser instalado en los equipos ya mantenidos durante el proyecto.
-=======
 - **Factibilidad operativa:** El sistema puede ser instalado en los equipos ya mantenidos durante el proyecto.
->>>>>>> 38fd8269775dc548c726f70efc0c332c9fcca154

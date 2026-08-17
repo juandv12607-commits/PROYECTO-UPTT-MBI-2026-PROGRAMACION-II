@@ -1,4 +1,7 @@
-export async function Filas(tbody,Rows,ColumnsName,whether,table){//t.Rows=[{},{}]
+import {fetchete} from './fetchete.js';
+import {url,newprompt} from './script.js';
+
+export async function Filas(tbody,Rows,ColumnsName,whether,table,changes){//t.Rows=[{},{}]
   if(whether){await fetchete([`INSERT INTO ${table} VALUES ();`],url+'api/pass');const res = await fetchete([`SELECT * FROM ${table};`],url+'api/pass');Rows = [res[res.length-1]];}
 
   for(let i in Rows){//valor de cada fila
@@ -6,18 +9,78 @@ export async function Filas(tbody,Rows,ColumnsName,whether,table){//t.Rows=[{},{
     const check = document.createElement('input');check.type = 'checkbox';
     const td = document.createElement('td');
     td.appendChild(check);
-    if(localStorage.getItem('rol')==='Admin'){tr.appendChild(td);/*checkboxes para seleccionar filas a eliminar*/}
+    if(localStorage.getItem('rol')==='Admin'){if(changes)tr.appendChild(td);/*checkboxes para seleccionar filas a eliminar*/}
     tbody.appendChild(tr);let iii = 0;
     for(let ii in Rows[i]){//valor de cada celda
       const p = document.createElement('p');p.className = 'pnr';p.textContent = `${Rows[i][ii]}`;
       const button = document.createElement('button');button.classList.add('botonE');button.textContent='✏️';
-      button.id = `${Rows[i].id}`;button.column = ColumnsName[iii];button.tipo = typeof(Rows[i][ii]);iii += 1;
-      button.addEventListener('click',async()=>{actions(button,p,table);});
+      button.id = `${Rows[i].id}`;button.column = ColumnsName[iii];
+      if(button.column === 'usuario_id' || button.column === 'libro_id' || button.column === 'categoria_id'){button.tipo = 'ids';iii += 1;/*seleccionables de ids*/}else{button.tipo = typeof(Rows[i][ii]);iii += 1;}
+      if(button.tipo !== 'ids'){
+        button.addEventListener('click',async()=>{
+          newprompt({titulo:'Update',texto:'Introduce los datos para actualizar',inputs:[{type:`${button.tipo}`,text:'datos',value:`${p.textContent}`},{type:'button',text:'Update',fun:'update'}],footer:''},p,button.column,table,button.id);
+        });
+      }else{
+        if(button.column==='usuario_id'){
+          button.addEventListener('click',async()=>{
+            const res = await fetchete([`SELECT id,nombre FROM usuarios;`],url+'api/pass');
+            const ress = () => {
+              let ii = [];
+              for(let i of res){
+                let iii={type:`button`,text:`${i.nombre}`,v:`${i.id}`,fun:`ids`}
+                ii.push(iii);
+              }
+              return ii;
+            }
+            let ii = ress();
+            newprompt({titulo:'Ids',texto:'Selecciona un id',inputs:
+              ii
+              ,footer:''}
+              ,p,button.column,table,button.id);
+            });
+        }else if(button.column==='categoria_id'){
+          button.addEventListener('click',async()=>{
+            const res = await fetchete([`SELECT id,nombre FROM categorias;`],url+'api/pass');
+            const ress = () => {
+              let ii = [];
+              for(let i of res){
+                let iii={type:`button`,text:`${i.nombre}`,v:`${i.id}`,fun:`ids`}
+                ii.push(iii);
+              }
+              return ii;
+            }
+            let ii = ress();
+            newprompt({titulo:'Ids',texto:'Selecciona un id',inputs:
+              ii
+              ,footer:''}
+              ,p,button.column,table,button.id);
+            });
+        }else if(button.column==='libro_id'){
+          button.addEventListener('click',async()=>{
+            const res = await fetchete([`SELECT id,titulo FROM libros;`],url+'api/pass');
+            const ress = () => {
+              let ii = [];
+              for(let i of res){
+                let iii={type:`button`,text:`${i.titulo}`,v:`${i.id}`,fun:`ids`}
+                ii.push(iii);
+              }
+              return ii;
+            }
+            let ii = ress();
+            newprompt({titulo:'Ids',texto:'Selecciona un id',inputs:
+              ii
+              ,footer:''}
+              ,p,button.column,table,button.id);
+            });
+        }
+      }
       const td = document.createElement('td');
       td.appendChild(p);
-      if(localStorage.getItem('rol')==='Admin'){
-        if(button.column != 'id' && button.column != 'estado' && button.column != 'rol' && button.column != 'fecha_devolucion_estimada'){td.appendChild(button);}
-      }else if(table==='usuarios'){if(button.column != 'id' && button.column != 'estado' && button.column != 'rol'){td.appendChild(button);}}
+      if(changes){
+        if(localStorage.getItem('rol')==='Admin'){
+          if(button.column != 'id' && button.column != 'estado' && button.column != 'rol' && button.column != 'fecha_devolucion_estimada'){td.appendChild(button);}
+        }else if(table==='usuarios'){if(button.column != 'id' && button.column != 'estado' && button.column != 'rol'){td.appendChild(button);}}
+      }
       tr.appendChild(td);
     }
   }
@@ -25,8 +88,9 @@ export async function Filas(tbody,Rows,ColumnsName,whether,table){//t.Rows=[{},{
 
 export function Columnas(thead_tr,ColumnsName){for(let i = 0;i < ColumnsName.length;i++){/*nombre de columnas*/const th = document.createElement('th');const p = document.createElement('p');p.textContent = ' ' + ColumnsName[i] + ' ';p.className = 'pnr';th.appendChild(p);thead_tr.appendChild(th);}}
 
-export async function ShowTable(table,container,url){
+export async function ShowTable(table,container,url,www=true){
   let query;
+if(www){  
   if(localStorage.getItem('rol')==='Admin'){
     query = `SELECT * FROM ${table};`;
   }else{
@@ -40,9 +104,13 @@ export async function ShowTable(table,container,url){
       query = `SELECT * FROM ${table};`;//puedo quitar esto al eliminar la tabla categoria_libro de la base de datos
     }
   }
+}else{
+  query = `SELECT * FROM ${table};`;
+}
   const response = await fetch(url+'api/post',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query})});
   const res = await response.json();
   let t=res;
+  
   t.TableName = table;
   t.SelectedTable = table;
   t.FileSelectedTable = t.ColumnsName[1];//aqui debe ir una condicion en caso que el array sea muy corto
@@ -56,12 +124,12 @@ export async function ShowTable(table,container,url){
   table_container.appendChild(table_name);table_container.appendChild(ttable);ttable.appendChild(thead);thead.appendChild(thead_tr);ttable.appendChild(tbody);container.appendChild(table_container);
   if(localStorage.getItem('rol')==='Admin'){
     const nr = document.createElement('button');nr.id = 'new-row';nr.textContent = '➕ Nueva Fila ➕';nr.className = 'nr-del';
-    nr.addEventListener('click',async () => {Filas(tbody,[t.Rows[t.Rows.length-1]],t.ColumnsName,true,table);});
+/**/nr.addEventListener('click',async () => {Filas(tbody,[t.Rows[t.Rows.length-1]],t.ColumnsName,true,table,www);});
     table_name.appendChild(nr);//boton de nueva fila
   }
 const del = document.createElement('button');del.id = 'delete';del.textContent = '❌ Eliminar Fila ❌';del.style.display = 'none';del.className = 'nr-del';
 del.addEventListener('click',async () => {
-  i = 0;ii = [];
+  let i = 0;let ii = [];let iii = 0;
   while(i < tbody.children.length){if(tbody.children[i].firstChild.firstChild.checked === true){ii.push(tbody.children[i].children[1].children[0].textContent);/*numero de id de la fila*/tbody.removeChild(tbody.children[i]);if(tbody.children.length > 0){iii = Number(tbody.children[tbody.children.length-1].children[1].textContent);}else{iii = 1;}}else{i += 1;}}
   del.style.display = 'none';
   const res = await fetchete([`SET FOREIGN_KEY_CHECKS = 0;`,`DELETE FROM ${table} WHERE id IN (${ii});`,`ALTER TABLE ${table} AUTO_INCREMENT = ${iii};`,`SET FOREIGN_KEY_CHECKS = 1;`,`SELECT * FROM ${table};`],url+'api/pass');
@@ -73,7 +141,7 @@ table_name.appendChild(del);//boton de eliminar fila
 const select_delete = document.createElement('th');select_delete.textContent = 'SELECCIONAR PARA ELIMINAR';select_delete.className = 'pnr';
 if(localStorage.getItem('rol')==='Admin')thead_tr.appendChild(select_delete);//columna de seleccion de filas a eliminar
 Columnas(thead_tr,t.ColumnsName);//Imprimir columnas
-Filas(tbody,t.Rows,t.ColumnsName,false,table);//Imprimir filas
+/**/Filas(tbody,t.Rows,t.ColumnsName,false,table,www);//Imprimir filas
 window.addEventListener('click',()=>{
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 checkboxes.forEach(checkbox => {

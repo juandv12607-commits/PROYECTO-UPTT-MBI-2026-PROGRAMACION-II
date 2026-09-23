@@ -27,8 +27,3 @@ const pool = mysql.createPool({
 */
 
 module.exports = pool;
-
-/*
-Recordatorio: Al Cambiar de Base de Datos
-1) Las tablas deben que tener Valores por defecto
-*/

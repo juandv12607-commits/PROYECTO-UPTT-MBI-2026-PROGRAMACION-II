@@ -1,5 +1,5 @@
 import {fetchete} from './fetchete.js';
-import {url,newprompt} from './script.js';
+import {url,newprompt,ttt} from './script.js';
 
 export async function Filas(tbody,Rows,ColumnsName,whether,table,changes){//t.Rows=[{},{}]
   if(whether){await fetchete([`INSERT INTO ${table} VALUES ();`],url+'api/pass');const res = await fetchete([`SELECT * FROM ${table};`],url+'api/pass');Rows = [res[res.length-1]];}

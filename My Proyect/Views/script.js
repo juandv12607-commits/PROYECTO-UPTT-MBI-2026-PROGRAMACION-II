@@ -11,6 +11,38 @@ const ul = document.getElementById("ul");
 export const url = 'http://localhost:3000/';
 var t = {};//Objeto de Tabla Global
 
+export let ttt;
+
+export class Table {
+  constructor(TableName,ColumnsName,Rows,SelectedTable,FileSelectedTable){
+    this.TableName = TableName;
+    this.ColumnsName = ColumnsName;
+    this.Rows = Rows;
+    this.SelectedTable = SelectedTable;
+    this.FileSelectedTable = FileSelectedTable;
+  }
+}
+//let table = new Table('libros',fetchete([`SHOW COLUMNS FROM 'categorias';`],url+'api/pass'),fetchete([`SELECT * FROM 'categorias';`],url+'api/pass'),'libros','titulo');
+/*
+const t1 = 'categorias';
+const t2 = fetchete([`SHOW COLUMNS FROM 'categorias';`],url+'api/pass');
+const t3 = fetchete([`SELECT * FROM 'categorias';`],url+'api/pass');
+const t4 = 'categorias';
+const t5 = 'nombre';
+console.log(t1,t2,t3,t4,t5);
+*/
+
+/*
+Problemas:
+session/showtable
+register debe ser acceible desde login y viseversa
+init
+(exportar todo aquello que no necesita mas modificaciones)
+cambiar los id de prestamos por los nombres de los libros
+solo debe permitirse el login si la sesion no esta activa
+boton de logout
+*/
+
 let currentResolve = null;
 let currentReject = null;
 
@@ -28,28 +60,20 @@ nsc.appendChild(title);
 nsc.appendChild(txt);
 //------------------
 
-async function select(){//selector de tablas
+async function select(ss=true){//selector de tablas
   const res = await fetchete([`SHOW tables;`],url+'api/pass');
-  select2();const div = document.createElement('div');
+  const div = document.createElement('div');
   for(let i=0;i<res.length;i++){
   const button = document.createElement('button');button.textContent = `${Object.values(res[i])}`;
   button.addEventListener('click',() => {
-    container.classList.remove('mostrar');
-    container.classList.add('ocultar');
-    nav2.classList.remove('mostrar');
-    nav2.classList.add('ocultar');
+    container.classList.remove('mostrar');container.classList.add('ocultar');nav2.classList.remove('mostrar');nav2.classList.add('ocultar');
     setTimeout(()=>{
-      container.classList.remove('ocultar');
-      nav2.classList.remove('ocultar');
+      container.classList.remove('ocultar');nav2.classList.remove('ocultar');
       if(container.children.length>0)container.removeChild(container.firstChild);
-      while(ul.children.length>0){ul.removeChild(ul.firstChild);}//------------------------------------------------------------------
       ShowTable(button.textContent,container,url);
-      for(let r=0;r<div.children.length;r++){div.children[r].style.border = 'none';}//
-      button.style.border = '5px solid blue';//
       t.SelectedTable = button.textContent;//
-      select2();search.value = '';while(ul.children.length>0){ul.removeChild(ul.firstChild);}//
-      container.classList.add('mostrar');
-      nav2.classList.add('mostrar');
+      select2();search.value = '';
+      container.classList.add('mostrar');nav2.classList.add('mostrar');
     },500);
   });
   div.appendChild(button);
@@ -58,60 +82,47 @@ async function select(){//selector de tablas
 }
 
 async function select2(){//selector de columnas
-  t.SelectedTable='libros';
   const res = await fetchete([`SHOW COLUMNS FROM ${t.SelectedTable};`],url+'api/pass');
   if(nav2.children.length>0)nav2.removeChild(nav2.firstChild);
   const div = document.createElement('div');
   for(let i=0;i<res.length;i++){
   const button = document.createElement('button');button.textContent = `${res[i].Field}`;//🔎
   button.addEventListener('click',() => {
-    for(let r=0;r<div.children.length;r++){div.children[r].style.border = 'none';}
-    button.style.border = '5px solid blue';t.FileSelectedTable = button.textContent;
-    search.value = '';while(ul.children.length>0){ul.removeChild(ul.firstChild);}
+    t.FileSelectedTable = button.textContent;
+    search.value = '';
   });
   div.appendChild(button);
   }
   nav2.appendChild(div);
 }
 async function funsearch(a){
-  ul.classList.remove('mostrar');
-  ul.classList.add('ocultar');
-  const patron = /^[^']*$/;
-  if(a != '' && patron.test(a)){
-  const res = await fetchete([`SELECT * FROM ${t.SelectedTable} WHERE ${t.FileSelectedTable} LIKE '${a}%';`],url+'api/pass');
-  setTimeout(()=>{
-    while(ul.children.length>0){ul.removeChild(ul.firstChild);}
-    Filas(ul,res,t.FileSelectedTable,false,t.SelectedTable,false);
-    ul.classList.remove('ocultar');ul.classList.add('mostrar'); 
-  },500);
-  }else{
-  setTimeout(()=>{
-    while(ul.children.length>0){ul.removeChild(ul.firstChild);}
-    ul.classList.remove('ocultar');
-    ul.classList.add('mostrar');
-  },500);
+  if(t.FileSelectedTable){
+    ul.classList.remove('mostrar');ul.classList.add('ocultar');const patron = /^[^']*$/;
+    const res = await fetchete([`SELECT * FROM ${t.SelectedTable} WHERE ${t.FileSelectedTable} LIKE '${a}%';`],url+'api/pass');
+    setTimeout(()=>{
+      while(ul.children.length>0){ul.removeChild(ul.firstChild);}
+      if(a != '' && patron.test(a)){Filas(ul,res,t.FileSelectedTable,false,t.SelectedTable,false);}
+      ul.classList.remove('ocultar');ul.classList.add('mostrar');
+    },500);
   }
 } 
 let temporizador;
-search.addEventListener('input',()=>{
-  clearTimeout(temporizador);
-    temporizador = setTimeout(() => {
-    funsearch(search.value);
-  },500);
-});
+search.addEventListener('input',()=>{clearTimeout(temporizador);temporizador = setTimeout(() => {funsearch(search.value);},500);});
+
 //solo cambia el estado del usuario
-async function session(i){
-  const res = await fetchete([`UPDATE usuarios SET estado = 'Sesión Activada' WHERE id = ${i.id};`],url+'api/pass');localStorage.setItem('session',i.id);localStorage.setItem('rol',i.rol);
+async function session(i,ii){//ii es true para guardar el rol del usuario y false para borrarlo
+  if(ii){
+    await fetchete([`UPDATE usuarios SET estado = 'Sesión Activada' WHERE id = ${i.id};`],url+'api/pass');localStorage.setItem('session',i.id);localStorage.setItem('rol',i.rol);
+  }else{
+    await fetchete([`UPDATE usuarios SET estado = 'Sesión Desactivada' WHERE id = ${localStorage.getItem('session')};`],url+'api/pass');localStorage.removeItem('session');localStorage.removeItem('rol');
+  }
 }
 
 export async function newprompt(option,p,column,table,id){
   const modal = document.createElement('div');modal.classList.add('modal');
-  const modalc = document.createElement('div');modalc.classList.add('modalc');
-  modal.appendChild(modalc);
-  const prompt_titulo = document.createElement('h1');prompt_titulo.classList.add('prompt_titulo');
-  prompt_titulo.textContent = option.titulo;modalc.appendChild(prompt_titulo);
-  const prompt_parrafo = document.createElement('p');prompt_parrafo.classList.add('prompt_parrafo');
-  prompt_parrafo.textContent = option.texto;modalc.appendChild(prompt_parrafo);
+  const modalc = document.createElement('div');modalc.classList.add('modalc');modal.appendChild(modalc);
+  const prompt_titulo = document.createElement('h1');prompt_titulo.classList.add('prompt_titulo');prompt_titulo.textContent = option.titulo;modalc.appendChild(prompt_titulo);
+  const prompt_parrafo = document.createElement('p');prompt_parrafo.classList.add('prompt_parrafo');prompt_parrafo.textContent = option.texto;modalc.appendChild(prompt_parrafo);
   const res = await fetchete([`SELECT id,nombre,rol,contraseña FROM usuarios;`],url+'api/pass');
   let ii = [];
   if(option.inputs){
@@ -128,79 +139,55 @@ export async function newprompt(option,p,column,table,id){
         prompt_input.value = i.text;
         prompt_input.onclick = () => {
           new Promise((resolve, reject) => {
-            let op = ii.filter(input => input.type==='text' || input.type === 'number');
-            let opt = {};
-            for(let i of op){
-              opt[i.placeholder]=i.value;
-            }
-            opt['fun']=i.fun;
-            if(i.v)opt['v']=i.v;
+            let op = ii.filter(input => input.type==='text' || input.type === 'number');let opt = {};
+            for(let i of op){opt[i.placeholder]=i.value;}opt['fun']=i.fun;if(i.v)opt['v']=i.v;
             if(resolve){resolve(opt);}else if(reject){reject('Polvazo');}
           }).then(async (values) => {
             if(values.fun==='register'){
-              let tt=false;
-              for(let i of res){
-                if(i.nombre.toUpperCase() === values.nombre.toUpperCase()){
-                tt=true;
-                break;
-                }
-              }
+              let tt=false;for(let i of res){if(i.nombre.toUpperCase() === values.nombre.toUpperCase()){tt=true;break;}}
               if(tt){
-                prompt_titulo.textContent = 'Registro Fallido';
-                prompt_parrafo.textContent = 'Usuario ya existente';
+                prompt_titulo.textContent = 'Registro Fallido';prompt_parrafo.textContent = 'Usuario ya existente';
               }else{
                 await fetchete([`INSERT INTO usuarios (nombre,contraseña) VALUES ('${values.nombre}','${values.contraseña}');`],url+'api/pass');
                 const ress = await fetchete([`SELECT id,nombre,rol,contraseña FROM usuarios WHERE nombre = '${values.nombre}';`],url+'api/pass');
                 session(ress[0]);
-                modal.classList.remove('mostrar');
-                modal.classList.add('ocultar');
-                setTimeout(()=>{
-                  document.body.removeChild(modal);
-                },500);
+                modal.classList.remove('mostrar');modal.classList.add('ocultar');
+                setTimeout(()=>{document.body.removeChild(modal);},500);
               }
             }else if(values.fun==='login'){
-              let tt=false;
-              for(let i of res){
-                if(i.nombre.toUpperCase() === values.nombre.toUpperCase() && i.contraseña === values.contraseña){
-                  session(i);
-                  tt=true;
-                  break;
-                }
-              }
-              if(!tt){
-                prompt_titulo.textContent = 'Inicio de Seción Fallido';
-                prompt_parrafo.textContent = 'Nombre o Contraseña Incorrectos';
-              }else{
-                modal.classList.remove('mostrar');
-                modal.classList.add('ocultar');
-                setTimeout(()=>{
-                  document.body.removeChild(modal);
-                },500);
-              }
+              // --- LOGIN ---
+  async function login(name, password) {
+    const res = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',   // ← ¡envía y recibe cookies!
+      body: JSON.stringify({ name, password })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      console.log('Login exitoso, usuario:', data.user);
+      ttt=data.user;
+      session(ttt,true);
+      modal.classList.remove('mostrar');modal.classList.add('ocultar');
+      setTimeout(()=>{document.body.removeChild(modal);},500);
+    } else {
+      prompt_titulo.textContent = 'Inicio de Seción Fallido';
+      prompt_parrafo.textContent = 'Nombre o Contraseña Incorrectos';
+    }
+  }
+  login(values.nombre.toUpperCase(),values.contraseña);
             }else if(values.fun==='update'){
-              modal.classList.remove('ocultar');
-              modal.classList.add('mostrar');
+              modal.classList.remove('ocultar');modal.classList.add('mostrar');
               if(values.datos !== undefined)p.textContent = values.datos;
-                modal.classList.remove('mostrar');
-                modal.classList.add('ocultar');
-                setTimeout(()=>{
-                  document.body.removeChild(modal);
-                },500);
-              if(values.datos != null && values.datos != ''){
-                await fetchete([`UPDATE ${table} SET ${column} = '${values.datos}' WHERE id = ${id};`],url+'api/pass');
-              }
+                modal.classList.remove('mostrar');modal.classList.add('ocultar');
+                setTimeout(()=>{document.body.removeChild(modal);},500);
+              if(values.datos != null && values.datos != ''){await fetchete([`UPDATE ${table} SET ${column} = '${values.datos}' WHERE id = ${id};`],url+'api/pass');}
             }else if(values.fun==='ids'){
-              modal.classList.remove('ocultar');
-              modal.classList.add('mostrar');
+              modal.classList.remove('ocultar');modal.classList.add('mostrar');
               if(values.v !== undefined)p.textContent = values.v;
-              modal.classList.remove('mostrar');
-              modal.classList.add('ocultar');
-                setTimeout(()=>{
-                  document.body.removeChild(modal);
-                },500);
-              if(values.v != null && values.v != ''){
-                await fetchete([`UPDATE ${table} SET ${column} = '${values.v}' WHERE id = ${id};`],url+'api/pass');
-              }
+              modal.classList.remove('mostrar');modal.classList.add('ocultar');
+                setTimeout(()=>{document.body.removeChild(modal);},500);
+              if(values.v != null && values.v != ''){await fetchete([`UPDATE ${table} SET ${column} = '${values.v}' WHERE id = ${id};`],url+'api/pass');}
             }
           });
         };
@@ -209,36 +196,41 @@ export async function newprompt(option,p,column,table,id){
     } 
   }
   const prompt_footer = document.createElement('p');prompt_footer.classList.add('prompt_footer');
-  prompt_footer.textContent = option.footer;modalc.appendChild(prompt_footer);
-  document.body.appendChild(modal);
-  modalc.classList.remove('ocultar');
-  modalc.classList.add('mostrar');
+  prompt_footer.textContent = option.footer;modalc.appendChild(prompt_footer);document.body.appendChild(modal);
+  modalc.classList.remove('ocultar');modalc.classList.add('mostrar');
 }
 
 async function init(www,ww){
-  //ful();
+  async function obtenerPerfil() {
+    const res = await fetch('http://localhost:3000/api/me', {
+      method: 'GET',
+      credentials: 'include'   // la cookie viaja sola
+    });
+    if (res.ok) {
+      const data = await res.json();
+      //console.log('Sesión activa, usuario:', data);
+    } else {
+      // Redirigir al login si no hay sesión
+      console.log(document.cookie);
+      session(ttt,false);
+      newprompt({titulo:'Login',texto:'Introduce tus datos como usuario',inputs:[{type:'text',text:'nombre'},{type:'text',text:'contraseña'},{type:'button',text:'Login',fun:'login'}],footer:'Register'});  
+      //window.location.href = '/login.html';
+      //alert('login');
+    }
+  }
+
   if(www){
     if(ww){
-      newprompt({titulo:'Login',texto:'Introduce tus datos como usuario',inputs:[{type:'text',text:'nombre'},{type:'text',text:'contraseña'},{type:'button',text:'Login',fun:'login'}],footer:'Register'});
+      obtenerPerfil();
     }else{
       newprompt({titulo:'Register',texto:'Introduce tus datos como usuario',inputs:[{type:'text',text:'nombre'},{type:'text',text:'contraseña'},{type:'button',text:'Register',fun:'register'}],footer:'Login'});
     }
   }
-  const res = await fetchete([`SHOW tables;`],url+'api/pass');
-  
-  ShowTable('libros',container,url,www);//res[2].Tables_in_school
+  //const res = await fetchete([`SHOW tables;`],url+'api/pass');
+  //ShowTable(res[0].Tables_in_school,container,url,www);//res[0].Tables_in_school
   tmain.classList.add('mostrar');
-  select();
+  select(false);
 }
 init(true,true);//login
 //init(true,false);//register
 //init(false,false);
-
-window.addEventListener('pagehide', (event) => {
-  if (!event.persisted && localStorage.getItem('session') !== undefined) {
-    const query = [`UPDATE usuarios SET estado = 'Sesión Desactivada' WHERE id = ${localStorage.getItem('session')};`];
-    const blob = new Blob([JSON.stringify({query})],{type:'application/json'});localStorage.removeItem('session');
-    navigator.sendBeacon(url+'api/pass',blob);
-  }
-});
-

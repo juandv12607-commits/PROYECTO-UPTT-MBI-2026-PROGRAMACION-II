@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     rol VARCHAR(50) DEFAULT 'estudiante', 
     email VARCHAR(50) DEFAULT '...@email.com', 
     contraseña VARCHAR(50) DEFAULT '****', 
-    estado VARCHAR(50) DEFAULT '...'
+    estado VARCHAR(50) DEFAULT 'Sesión Desactivada'
 =======
     nombre VARCHAR(50), 
     rol VARCHAR(50), 

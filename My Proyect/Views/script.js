@@ -158,7 +158,7 @@ export async function newprompt(option,p,column,table,id){
             }else if(values.fun==='login'){
               // --- LOGIN ---
   async function login(name, password) {
-    const res = await fetch('https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/api/login', {
+    const res = await fetch(url + 'api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',   // ← ¡envía y recibe cookies!
@@ -203,7 +203,7 @@ export async function newprompt(option,p,column,table,id){
 
 async function init(www,ww){
   async function obtenerPerfil() {
-    const res = await fetch('http://localhost:3000/api/me', {
+    const res = await fetch(url + '/api/me', {
       method: 'GET',
       credentials: 'include'   // la cookie viaja sola
     });

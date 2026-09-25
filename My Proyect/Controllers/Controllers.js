@@ -54,7 +54,7 @@ class controller{
                 // Guardar token en cookie HttpOnly
                 res.cookie('auth_token', token, {
                     httpOnly: false,        // JavaScript no puede leerla
-                    secure: false,         // true en producción con HTTPS
+                    secure: true,         // true en producción con HTTPS
                     sameSite: 'lax',       // protección CSRF
                     maxAge: 24 * 60 * 60 * 1000, //24 * 60 * 60 * 1000 = 1 día
                     path: '/'

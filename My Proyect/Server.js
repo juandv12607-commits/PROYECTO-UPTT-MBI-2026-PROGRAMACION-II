@@ -24,6 +24,16 @@ app.use(express.static(path.join(__dirname, 'Views')));
 
 // 4. Rutas de la API
 app.use('/api', router);
+/*
+// ... Tus rutas de la API anteriores
+app.use('/api', router);
+*/
+// SOLUCIÓN AL 404: Ruta explícita para la raíz
+app.get('/', (req, res) => {
+  // IMPORTANTE: Cambia 'index.html' por el nombre EXACTO de tu archivo (ej: 'login.html')
+  // Asegúrate también de que 'Views' coincida en mayúsculas/minúsculas con tu carpeta en GitHub
+  res.sendFile(path.join(__dirname, 'Views', 'index.html')); 
+});
 
 // 5. Escuchar en el puerto dinámico de la nube
 app.use(express.static(path.join(__dirname, 'Views')));

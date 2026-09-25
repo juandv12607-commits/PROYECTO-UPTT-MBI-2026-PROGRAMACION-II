@@ -32,7 +32,7 @@ app.use('/api', router);
 app.get('/', (req, res) => {
   // IMPORTANTE: Cambia 'index.html' por el nombre EXACTO de tu archivo (ej: 'login.html')
   // Asegúrate también de que 'Views' coincida en mayúsculas/minúsculas con tu carpeta en GitHub
-  res.sendFile(path.join(__dirname, 'Views', 'index.html')); 
+  res.sendFile(path.join(__dirname, 'Views', 'Index.html')); 
 });
 
 // 5. Escuchar en el puerto dinámico de la nube

@@ -19,7 +19,7 @@ function authenticate(req, res, next) {
     req.user = payload;   // { name, password }
     next();
   } catch (err) {
-    return res.status(401).json({ error: 'Token inválido o expirado' });
+    res.status(401).json({ error: 'Token inválido o expirado' });
   }
 }
 

@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-
+/*
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -9,8 +9,8 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
+*/
 
-/*
 const pool = mysql.createPool({
     host: 'mysql-2ed6ac4a-juandv12607-f7c9.e.aivencloud.com',
     user: 'avnadmin',
@@ -24,6 +24,6 @@ const pool = mysql.createPool({
     rejectUnauthorized: false // Permite la conexión segura sin validar el archivo local
   }
 });
-*/
+
 
 module.exports = pool;

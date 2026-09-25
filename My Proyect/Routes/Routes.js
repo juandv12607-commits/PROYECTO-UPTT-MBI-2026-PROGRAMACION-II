@@ -10,7 +10,6 @@ const JWT_SECRET = 'super-secreto-no-hardcode-en-produccion';
 // -------------- MIDDLEWARE DE AUTH --------------
 function authenticate(req, res, next) {
   const token = req.cookies.auth_token; // ¡No necesitas cabecera Authorization!
-  console.log(token);
   if (!token) {
     return res.status(401).json({ error: 'No autenticado' });
   }

@@ -166,7 +166,7 @@ export async function newprompt(option,p,column,table,id){
     });
     if (res.ok) {
       const data = await res.json();
-      console.log('Login exitoso, usuario:', data.user);
+      //console.log('Login exitoso, usuario:', data.user);
       ttt=data.user;
       session(ttt,true);
       modal.classList.remove('mostrar');modal.classList.add('ocultar');
@@ -212,7 +212,7 @@ async function init(www,ww){
       //console.log('Sesión activa, usuario:', data);
     } else {
       // Redirigir al login si no hay sesión
-      console.log(document.cookie);
+      //console.log(document.cookie);
       session(ttt,false);
       newprompt({titulo:'Login',texto:'Introduce tus datos como usuario',inputs:[{type:'text',text:'nombre'},{type:'text',text:'contraseña'},{type:'button',text:'Login',fun:'login'}],footer:'Register'});  
       //window.location.href = '/login.html';

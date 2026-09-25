@@ -8,7 +8,8 @@ const nav = document.getElementById("nav");
 const nav2 = document.getElementById("nav2");
 const search = document.getElementById("search");
 const ul = document.getElementById("ul");
-export const url = 'http://localhost:3000/';
+//export const url = 'http://localhost:3000/';
+export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
 var t = {};//Objeto de Tabla Global
 
 export let ttt;

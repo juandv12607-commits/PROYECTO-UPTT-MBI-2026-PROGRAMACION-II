@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'Views')));
 
 // 4. Rutas de la API
-app.use('api', router);
+app.use('/api', router);
 
 // SOLUCIÓN AL 404: Ruta explícita para la raíz
 app.get('/', (req, res) => {

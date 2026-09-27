@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'Views')));
 
 // 4. Rutas de la API
-app.use('/api', router);
+app.use('api', router);
 /*
 // ... Tus rutas de la API anteriores
 app.use('/api', router);

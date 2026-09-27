@@ -1,3 +1,4 @@
+import {fetchete} from './fetchete.js';
 //solo cambia el estado del usuario
 export async function session(i,ii){//ii es true para guardar el rol del usuario y false para borrarlo
   if(ii){

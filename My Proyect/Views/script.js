@@ -1,16 +1,18 @@
 import { fetchete } from './fetchete.js';
 import { ShowTable,Filas,Columnas } from './ShowTable.js';
+import { select,funsearch } from './Select.js';
+import { session } from './Session.js';
 
 const ca = document.getElementById('c');ca.style.display='none';window.addEventListener('keydown',(ev)=>{if(ev.key === '/'){if(ca.style.display === 'none'){ca.style.display = 'flex';}else{ca.style.display = 'none';}}});
 const tmain = document.getElementById('main');
-const container = document.getElementById("container");
-const nav = document.getElementById("nav");
-const nav2 = document.getElementById("nav2");
-const search = document.getElementById("search");
-const ul = document.getElementById("ul");
+export const container = document.getElementById("container");
+export const nav = document.getElementById("nav");
+export const nav2 = document.getElementById("nav2");
+export const search = document.getElementById("search");
+export const ul = document.getElementById("ul");
 //export const url = 'http://localhost:3000/';
 export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
-var t = {};//Objeto de Tabla Global
+export var t = {};//Objeto de Tabla Global
 
 export let ttt;
 
@@ -23,15 +25,6 @@ export class Table {
     this.FileSelectedTable = FileSelectedTable;
   }
 }
-//let table = new Table('libros',fetchete([`SHOW COLUMNS FROM 'categorias';`],url+'api/pass'),fetchete([`SELECT * FROM 'categorias';`],url+'api/pass'),'libros','titulo');
-/*
-const t1 = 'categorias';
-const t2 = fetchete([`SHOW COLUMNS FROM 'categorias';`],url+'api/pass');
-const t3 = fetchete([`SELECT * FROM 'categorias';`],url+'api/pass');
-const t4 = 'categorias';
-const t5 = 'nombre';
-console.log(t1,t2,t3,t4,t5);
-*/
 
 /*
 Problemas:
@@ -40,7 +33,6 @@ register debe ser acceible desde login y viseversa
 init
 (exportar todo aquello que no necesita mas modificaciones)
 cambiar los id de prestamos por los nombres de los libros
-solo debe permitirse el login si la sesion no esta activa
 boton de logout
 */
 
@@ -60,64 +52,8 @@ nsc.appendChild(dimg);
 nsc.appendChild(title);
 nsc.appendChild(txt);
 //------------------
-
-async function select(ss=true){//selector de tablas
-  const res = await fetchete([`SHOW tables;`],url+'api/pass');
-  const div = document.createElement('div');
-  for(let i=0;i<res.length;i++){
-  const button = document.createElement('button');button.textContent = `${Object.values(res[i])}`;
-  button.addEventListener('click',() => {
-    container.classList.remove('mostrar');container.classList.add('ocultar');nav2.classList.remove('mostrar');nav2.classList.add('ocultar');
-    setTimeout(()=>{
-      container.classList.remove('ocultar');nav2.classList.remove('ocultar');
-      if(container.children.length>0)container.removeChild(container.firstChild);
-      ShowTable(button.textContent,container,url);
-      t.SelectedTable = button.textContent;//
-      select2();search.value = '';
-      container.classList.add('mostrar');nav2.classList.add('mostrar');
-    },500);
-  });
-  div.appendChild(button);
-  }
-  nav.appendChild(div);
-}
-
-async function select2(){//selector de columnas
-  const res = await fetchete([`SHOW COLUMNS FROM ${t.SelectedTable};`],url+'api/pass');
-  if(nav2.children.length>0)nav2.removeChild(nav2.firstChild);
-  const div = document.createElement('div');
-  for(let i=0;i<res.length;i++){
-  const button = document.createElement('button');button.textContent = `${res[i].Field}`;//🔎
-  button.addEventListener('click',() => {
-    t.FileSelectedTable = button.textContent;
-    search.value = '';
-  });
-  div.appendChild(button);
-  }
-  nav2.appendChild(div);
-}
-async function funsearch(a){
-  if(t.FileSelectedTable){
-    ul.classList.remove('mostrar');ul.classList.add('ocultar');const patron = /^[^']*$/;
-    const res = await fetchete([`SELECT * FROM ${t.SelectedTable} WHERE ${t.FileSelectedTable} LIKE '${a}%';`],url+'api/pass');
-    setTimeout(()=>{
-      while(ul.children.length>0){ul.removeChild(ul.firstChild);}
-      if(a != '' && patron.test(a)){Filas(ul,res,t.FileSelectedTable,false,t.SelectedTable,false);}
-      ul.classList.remove('ocultar');ul.classList.add('mostrar');
-    },500);
-  }
-} 
 let temporizador;
 search.addEventListener('input',()=>{clearTimeout(temporizador);temporizador = setTimeout(() => {funsearch(search.value);},500);});
-
-//solo cambia el estado del usuario
-async function session(i,ii){//ii es true para guardar el rol del usuario y false para borrarlo
-  if(ii){
-    await fetchete([`UPDATE usuarios SET estado = 'Sesión Activada' WHERE id = ${i.id};`],url+'api/pass');localStorage.setItem('session',i.id);localStorage.setItem('rol',i.rol);
-  }else{
-    await fetchete([`UPDATE usuarios SET estado = 'Sesión Desactivada' WHERE id = ${localStorage.getItem('session')};`],url+'api/pass');localStorage.removeItem('session');localStorage.removeItem('rol');
-  }
-}
 
 export async function newprompt(option,p,column,table,id){
   const modal = document.createElement('div');modal.classList.add('modal');
@@ -211,12 +147,8 @@ async function init(www,ww){
       const data = await res.json();
       //console.log('Sesión activa, usuario:', data);
     } else {
-      // Redirigir al login si no hay sesión
-      //console.log(document.cookie);
       session(ttt,false);
       newprompt({titulo:'Login',texto:'Introduce tus datos como usuario',inputs:[{type:'text',text:'nombre'},{type:'text',text:'contraseña'},{type:'button',text:'Login',fun:'login'}],footer:'Register'});  
-      //window.location.href = '/login.html';
-      //alert('login');
     }
   }
 
@@ -227,8 +159,6 @@ async function init(www,ww){
       newprompt({titulo:'Register',texto:'Introduce tus datos como usuario',inputs:[{type:'text',text:'nombre'},{type:'text',text:'contraseña'},{type:'button',text:'Register',fun:'register'}],footer:'Login'});
     }
   }
-  //const res = await fetchete([`SHOW tables;`],url+'api/pass');
-  //ShowTable(res[0].Tables_in_school,container,url,www);//res[0].Tables_in_school
   tmain.classList.add('mostrar');
   select(false);
 }

@@ -1,9 +1,7 @@
 const express = require('express');
-const db = require('./DataBase.js');
 const router = require('./Routes/Routes.js');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
 const cors = require('cors'); 
 const app = express();
 
@@ -36,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 // 5. Escuchar en el puerto dinámico de la nube
-app.use(express.static(path.join(__dirname, 'Views')));
+//app.use(express.static(path.join(__dirname, 'Views')));
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Servidor de la Biblioteca corriendo exitosamente en el puerto ${port}`);

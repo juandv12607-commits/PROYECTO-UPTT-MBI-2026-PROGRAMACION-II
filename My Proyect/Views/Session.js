@@ -1,5 +1,5 @@
 //solo cambia el estado del usuario
-async function session(i,ii){//ii es true para guardar el rol del usuario y false para borrarlo
+export async function session(i,ii){//ii es true para guardar el rol del usuario y false para borrarlo
   if(ii){
     await fetchete([`UPDATE usuarios SET estado = 'Sesión Activada' WHERE id = ${i.id};`],url+'api/pass');localStorage.setItem('session',i.id);localStorage.setItem('rol',i.rol);
   }else{

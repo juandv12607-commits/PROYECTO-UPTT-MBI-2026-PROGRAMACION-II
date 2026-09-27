@@ -1,5 +1,4 @@
 const db = require('../DataBase.js');
-const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'super-secreto-no-hardcode-en-produccion';

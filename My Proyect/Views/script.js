@@ -1,5 +1,4 @@
 import { fetchete } from './fetchete.js';
-import { ShowTable,Filas,Columnas } from './ShowTable.js';
 import { select,funsearch } from './Select.js';
 import { session } from './Session.js';
 

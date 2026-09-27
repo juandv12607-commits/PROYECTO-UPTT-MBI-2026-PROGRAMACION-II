@@ -138,7 +138,7 @@ export async function newprompt(option,p,column,table,id){
 
 async function init(www,ww){
   async function obtenerPerfil() {
-    const res = await fetch(url + '/api/me', {
+    const res = await fetch(url + 'api/me', {
       method: 'GET',
       credentials: 'include'   // la cookie viaja sola
     });

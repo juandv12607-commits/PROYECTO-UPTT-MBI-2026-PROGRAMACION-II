@@ -21,7 +21,7 @@ db.query(`SELECT * FROM libros;`, (err, results, fields) => {
     }
     //console.log(results);
     table = new Table('libros',fields.map(field=>field.name),results,'libros','titulo');
-    console.log('Se inicio Table');           
+    console.log('Inicio Table');           
 });
 
 

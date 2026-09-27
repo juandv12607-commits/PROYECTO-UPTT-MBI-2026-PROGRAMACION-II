@@ -1,6 +1,6 @@
 import {fetchete} from './fetchete.js';
 import {container,nav,nav2,t,search,url} from './script.js';
-import {ShowTable} from './ShowTable.js';
+import {ShowTable,Filas} from './ShowTable.js';
 
 export async function select(ss=true){//selector de tablas
   const res = await fetchete([`SHOW tables;`],url+'api/pass');

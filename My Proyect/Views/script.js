@@ -107,7 +107,7 @@ export async function newprompt(option,p,column,table,id){
       modal.classList.remove('mostrar');modal.classList.add('ocultar');
       setTimeout(()=>{document.body.removeChild(modal);},500);
     } else {
-      prompt_titulo.textContent = 'Inicio de Seción Fallido';
+      prompt_titulo.textContent = 'Inicio de Sesión Fallido';
       prompt_parrafo.textContent = 'Nombre o Contraseña Incorrectos';
     }
   }

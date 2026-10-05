@@ -19,7 +19,7 @@ logout.addEventListener('click',async ()=>{
       method: 'GET',
       credentials: 'include'// la cookie viaja sola
     });
-    window.reload();
+    location.reload();
 });
 
 //https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/api/logout

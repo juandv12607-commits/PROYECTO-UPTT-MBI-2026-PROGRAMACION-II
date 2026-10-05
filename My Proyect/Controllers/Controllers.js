@@ -30,6 +30,7 @@ class controller{
     static logout(req, res){
         res.clearCookie('auth_token', { path: '/' });
         res.json({ ok: true });
+        console.log('LogOut');
     }
 
     static me(req,res){

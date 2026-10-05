@@ -13,6 +13,13 @@ export const ul = document.getElementById("ul");
 export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
 export var t = {};//Objeto de Tabla Global
 
+const logout = document.getElementById('logout');
+logout.addEventListener('click',async ()=>{
+    await fetch(url + 'api/logout');
+});
+
+//https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/api/logout
+
 export let ttt;
 
 export class Table {
@@ -80,6 +87,27 @@ export async function newprompt(option,p,column,table,id){
             if(resolve){resolve(opt);}else if(reject){reject('Polvazo');}
           }).then(async (values) => {
             if(values.fun==='register'){
+  async function register(name, password) {
+    const res = await fetch(url + 'api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',   // ← ¡envía y recibe cookies!
+      body: JSON.stringify({ name, password })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      //console.log('Login exitoso, usuario:', data.user);
+      ttt=data.user;
+      session(ttt,true);
+      modal.classList.remove('mostrar');modal.classList.add('ocultar');
+      setTimeout(()=>{document.body.removeChild(modal);},500);
+    } else {
+      prompt_titulo.textContent = 'Registro Fallido';
+      prompt_parrafo.textContent = 'Usuario ya existente';
+    }
+  }
+  register(values.nombre.toUpperCase(),values.contraseña);
+              /*
               let tt=false;for(let i of res){if(i.nombre.toUpperCase() === values.nombre.toUpperCase()){tt=true;break;}}
               if(tt){
                 prompt_titulo.textContent = 'Registro Fallido';prompt_parrafo.textContent = 'Usuario ya existente';
@@ -90,6 +118,7 @@ export async function newprompt(option,p,column,table,id){
                 modal.classList.remove('mostrar');modal.classList.add('ocultar');
                 setTimeout(()=>{document.body.removeChild(modal);},500);
               }
+              */
             }else if(values.fun==='login'){
               // --- LOGIN ---
   async function login(name, password) {
@@ -100,8 +129,7 @@ export async function newprompt(option,p,column,table,id){
       body: JSON.stringify({ name, password })
     });
     if (res.ok) {
-      const data = await res.json();
-      //console.log('Login exitoso, usuario:', data.user);
+      const data = await res.json();//console.log('Login exitoso, usuario:', data.user);
       ttt=data.user;
       session(ttt,true);
       modal.classList.remove('mostrar');modal.classList.add('ocultar');
@@ -131,7 +159,9 @@ export async function newprompt(option,p,column,table,id){
       modalc.appendChild(prompt_input);
     } 
   }
-  const prompt_footer = document.createElement('p');prompt_footer.classList.add('prompt_footer');
+  const prompt_footer = document.createElement('a');
+  //prompt_footer.href = "https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/api/register";
+  prompt_footer.classList.add('prompt_footer');
   prompt_footer.textContent = option.footer;modalc.appendChild(prompt_footer);document.body.appendChild(modal);
   modalc.classList.remove('ocultar');modalc.classList.add('mostrar');
 }
@@ -140,7 +170,7 @@ async function init(www,ww){
   async function obtenerPerfil() {
     const res = await fetch(url + 'api/me', {
       method: 'GET',
-      credentials: 'include'   // la cookie viaja sola
+      credentials: 'include'// la cookie viaja sola
     });
     if (res.ok) {
       const data = await res.json();

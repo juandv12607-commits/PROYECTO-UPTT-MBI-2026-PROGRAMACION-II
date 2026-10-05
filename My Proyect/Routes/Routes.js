@@ -22,6 +22,7 @@ function authenticate(req, res, next) {
 
 router.get('/me',authenticate,controller.me);
 router.post('/login',controller.login);
+router.post('/register',controller.register);
 router.get('/logout',controller.logout);
 router.post('/post',controller.funpost);
 router.post('/pass',controller.funpass);

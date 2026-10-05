@@ -36,6 +36,47 @@ class controller{
         res.json({ ok: true });
     }
 
+    static register(req,res){
+        const {name,password} = req.body;
+
+        db.query(`SELECT nombre,contraseña FROM usuarios WHERE nombre = '${name}' AND contraseña = '${password}';`, (err, results, fields) => {
+
+        if(results){
+
+        db.query(`INSERT INTO usuarios (rol,nombre,contraseña,estado) VALUES ('Estudiante',${name},${password},'Sesión Activada');`, (err, results, fields) => {
+            if(err){console.log(err);return;}
+            if(results.length === 1){
+                console.log(`User: ${name} ${password}`);   
+                // Crear JWT con datos mínimos (id, email, nombre...)
+                const token = jwt.sign(
+                    { rol: 'Estudiante', name: name, password: password },
+                    JWT_SECRET,
+                    { expiresIn: '1d' }//1d
+                );
+
+                // Guardar token en cookie HttpOnly
+                res.cookie('auth_token', token, {
+                    httpOnly: false,        // JavaScript no puede leerla
+                    secure: true,         // true en producción con HTTPS
+                    sameSite: 'lax',       // protección CSRF
+                    maxAge: 24 * 60 * 60 * 1000, //24 * 60 * 60 * 1000 = 1 día
+                    path: '/'
+                });
+
+                // No enviamos el token en el body, solo confirmación
+                res.json({ ok: true, user: { rol: 'Estudiante', name: name, password: password } });
+            }else{ 
+                res.status(401).json({ ok: false, error: 'Error de Registro. Intentar de nuevo más tarde' });
+            }
+        });
+
+        }else{
+            res.status(401).json({ ok: false, error: 'Usuario ya existente' });
+        }
+
+        });
+    }
+
     static login(req,res){
         const {name,password} = req.body;
 

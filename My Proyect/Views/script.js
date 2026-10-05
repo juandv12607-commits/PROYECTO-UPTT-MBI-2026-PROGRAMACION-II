@@ -15,7 +15,10 @@ export var t = {};//Objeto de Tabla Global
 
 const logout = document.getElementById('logout');
 logout.addEventListener('click',async ()=>{
-    await fetch(url + 'api/logout');
+    await fetch(url + 'api/logout', {
+      method: 'GET',
+      credentials: 'include'// la cookie viaja sola
+    });
     window.reload();
 });
 

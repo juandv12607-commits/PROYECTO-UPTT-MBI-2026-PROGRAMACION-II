@@ -16,6 +16,7 @@ export var t = {};//Objeto de Tabla Global
 const logout = document.getElementById('logout');
 logout.addEventListener('click',async ()=>{
     await fetch(url + 'api/logout');
+    window.reload();
 });
 
 //https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/api/logout

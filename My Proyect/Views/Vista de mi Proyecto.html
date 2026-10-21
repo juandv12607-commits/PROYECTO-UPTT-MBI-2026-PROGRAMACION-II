@@ -370,7 +370,6 @@ search.addEventListener('input',async ()=>{
         for(let i of res){
             const article = libro_card.cloneNode(true);
             article.style.display ='flex';
-            console.log(i);
             article.children[1].children[1].children[0].children[1].textContent = i.titulo;
             article.children[1].children[1].children[1].children[1].textContent = i.autor;
             article.children[1].children[1].children[2].children[1].textContent = i.editorial;

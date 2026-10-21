@@ -88,7 +88,7 @@ export async function Filas(tbody,Rows,ColumnsName,whether,table,changes){//t.Ro
 
 export function Columnas(thead_tr,ColumnsName){for(let i = 0;i < ColumnsName.length;i++){/*nombre de columnas*/const th = document.createElement('th');const p = document.createElement('p');p.textContent = ' ' + ColumnsName[i] + ' ';p.className = 'pnr';th.appendChild(p);thead_tr.appendChild(th);}}
 
-export async function ShowTable(table,container,url,www=true){
+export async function ShowTable(table,container,www=true){
   let query;
 if(www){  
   if(localStorage.getItem('rol')==='Admin'){

@@ -1,0 +1,141 @@
+/* ===== Libro Card (adaptable al padre) ===== */
+
+.libro-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  font-family: system-ui, sans-serif;
+  color: #1a1a1a;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.libro-card *,
+.libro-card *::before,
+.libro-card *::after {
+  box-sizing: border-box;
+}
+
+/* Portada: ocupa 140px o se ajusta si el padre es pequeño */
+.libro-card .libro-portada {
+  flex: 0 1 140px;
+  min-width: 100px;
+}
+
+.libro-card .libro-portada img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Datos: ocupa el resto del espacio */
+.libro-card .libro-datos {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.libro-card .libro-titulo {
+  margin: 0 0 .4rem;
+  font-size: 1.2rem;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+.libro-card .libro-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .9rem;
+  font-size: .8rem;
+  color: #475569;
+  margin-bottom: .6rem;
+}
+
+.libro-card .libro-descripcion {
+  font-size: .875rem;
+  line-height: 1.5;
+  color: #334155;
+  margin: 0 0 .8rem;
+}
+
+.libro-card .libro-acciones {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.libro-card .btn {
+  padding: .5rem 1rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 500;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  transition: background .2s;
+}
+
+.libro-card .btn:hover { background: #1d4ed8; }
+.libro-card .btn:disabled { background: #94a3b8; cursor: not-allowed; }
+.libro-card .btn-secundario { background: #64748b; }
+.libro-card .btn-secundario:hover { background: #475569; }
+
+/* Vista previa: 100% del ancho, debajo de los datos */
+.libro-card .libro-preview {
+  flex: 1 1 100%;
+  min-height: 180px;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: .75rem;
+}
+
+.libro-card .preview-placeholder {
+  text-align: center;
+  color: #94a3b8;
+  font-size: .85rem;
+  margin: 0;
+}
+
+.libro-card .pdf-pages {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.libro-card .pdf-pages canvas {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+.libro-card .loading-text,
+.libro-card .error-text {
+  font-size: .85rem;
+  padding: .5rem;
+  margin: 0;
+  text-align: center;
+}
+
+.libro-card .loading-text { color: #475569; }
+.libro-card .error-text { color: #dc2626; }

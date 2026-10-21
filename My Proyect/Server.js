@@ -1,8 +1,13 @@
-const express = require('express');
-const router = require('./Routes/Routes.js');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const cors = require('cors'); 
+import express from 'express';
+import router from './Routes/Routes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config(); 
 const app = express();
 
 // 1. Leer el puerto dinámico asignado por Render (o usar 10000 por defecto)
@@ -27,7 +32,7 @@ app.use('/api', router);
 app.get('/', (req, res) => {
   // IMPORTANTE: Cambia 'index.html' por el nombre EXACTO de tu archivo (ej: 'login.html')
   // Asegúrate también de que 'Views' coincida en mayúsculas/minúsculas con tu carpeta en GitHub
-  res.sendFile(path.join(__dirname, 'Views', 'Index.html')); 
+  res.sendFile(path.join(__dirname, 'Views', 'Vista de mi Proyecto.html')); 
 });
 
 // 5. Escuchar en el puerto dinámico de la nube

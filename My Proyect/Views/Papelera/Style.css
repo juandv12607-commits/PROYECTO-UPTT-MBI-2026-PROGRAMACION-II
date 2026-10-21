@@ -1,0 +1,19 @@
+:root{--border:5px solid gray;}
+* {font-family:'Times New Roman';font-size: 30px;font-weight:bold;line-height:50px;/*text-transform:uppercase;*/}/**/
+body{min-height: 100vh;background: linear-gradient(135deg, #009dcc 0%, #0d00cc 100%);}
+@keyframes aparecer {from {opacity: 0;transform: translateY(20px);}to {opacity: 1;transform: translateY(0);}}
+@keyframes desaparecer {from {opacity: 1;transform: translateY(0);}to {opacity: 0;transform: translateY(-20px);}}
+div{text-align: center;}
+
+.prompt_titulo{margin:20px;padding:0;font-size:clamp(3.5vw, 2vw, 5vw);color:#0d00cc;}
+.prompt_parrafo{margin:0;padding:0;font-size:clamp(1.5vw, 2vw, 5vw);}
+.prompt_footer{margin:0;padding:0;font-size:clamp(0.5vw, 1vw, 3vw);}
+/* ? */
+.pnr{
+  font-size:clamp(1vw, 1.2vw, 2vw);
+  overflow:hidden;
+  overflow-wrap:break-word;
+  line-height:1.5;
+}
+/* CUBO 3D*/
+.c{border: 2px solid #333;box-shadow: 0 0 20px rgba(0,255,0,0.2);display:flex; position: fixed;z-index: 1000;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);}

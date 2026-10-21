@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const controller = require('../Controllers/Controllers');
-const jwt = require('jsonwebtoken');
+import controller from '../Controllers/Controllers.js';
+import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = 'super-secreto-no-hardcode-en-produccion';
 
@@ -19,12 +19,23 @@ function authenticate(req, res, next) {
     res.status(401).json({ error: 'Token inválido o expirado' });
   }
 }
-
+/*
 router.get('/me',authenticate,controller.me);
 router.post('/login',controller.login);
 router.post('/register',controller.register);
 router.get('/logout',controller.logout);
+*/
 router.post('/post',controller.funpost);
-router.post('/pass',controller.funpass);
+router.post('/books',controller.books);
+router.post('/search',controller.search);
+router.post('/id1',controller.id1);
+router.post('/id2',controller.id2);
+router.post('/nr_p',controller.nr_p);
+router.post('/nr_u',controller.nr_u);
+router.post('/nr_l',controller.nr_l);
+router.delete('/delete',controller.delete);
+router.post('/login',controller.login);
+router.post('/logout',controller.logout);
 
-module.exports = router;
+export default router;
+//module.exports = router;

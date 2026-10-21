@@ -1,0 +1,13 @@
+/* MAIN */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: calc(var(--navbar-height) + 25px) 25px 25px;
+    min-height: 100vh; animation: fadeIn 0.8s ease;
+}
+.page-title {
+    font-size: 1.8rem; margin-bottom: 6px;
+    background: linear-gradient(135deg, #fff, var(--secondary));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.page-subtitle { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }

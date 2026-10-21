@@ -1,0 +1,48 @@
+/* MODAL */
+.modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 300; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+    background: rgba(20, 18, 50, 0.98);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px; padding: 30px;
+    width: 100%; max-width: 400px;
+    animation: popIn 0.35s ease; position: relative;
+}
+.modal-close {
+    position: absolute; top: 15px; right: 18px;
+    background: transparent; border: none; color: var(--text-muted);
+    font-size: 1.4rem; cursor: pointer; transition: color 0.3s;
+}
+.modal-close:hover { color: white; }
+.modal h2 {
+    text-align: center; margin-bottom: 6px;
+    background: linear-gradient(135deg, #fff, var(--secondary));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.modal p.sub { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 22px; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 5px; }
+.form-group input {
+    width: 100%; padding: 11px 14px; border-radius: 10px;
+    border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3);
+    color: white; outline: none; font-size: 0.92rem; transition: all 0.3s;
+}
+.form-group input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12); }
+
+.modal .btn-primary { width: 100%; justify-content: center; margin-top: 8px; padding: 12px; }
+.modal-switch { text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); }
+.modal-switch a { color: var(--secondary); cursor: pointer; font-weight: 600; text-decoration: none; }
+.modal-switch a:hover { text-decoration: underline; }
+
+.sidebar-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 85; display: none;
+}
+.sidebar-overlay.open { display: block; }

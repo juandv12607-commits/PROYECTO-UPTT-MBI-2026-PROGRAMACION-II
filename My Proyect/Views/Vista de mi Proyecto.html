@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Digital - Tabla con Inputs Inline</title>
+<link rel="stylesheet" href="Animations.css">
+<link rel="stylesheet" href="SideBar.css">
+<link rel="stylesheet" href="NavBar.css">
+<link rel="stylesheet" href="Inputs.css">
+<link rel="stylesheet" href="Fondo 3D.css">
+<link rel="stylesheet" href="ChatBot.css">
+<link rel="stylesheet" href="Main.css">
+<link rel="stylesheet" href="Search.css">
+<link rel="stylesheet" href="Modal.css">
+<link rel="stylesheet" href="Table.css">
+<link rel="stylesheet" href="Books.css">
+<link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<!-- PDF.js para vista previa real del PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+
+<div class="bg-3d-container">
+    <div class="bg-3d-cube"><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div></div>
+    <div class="bg-3d-cube"><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div></div>
+    <div class="bg-3d-cube"><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div></div>
+</div>
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+
+<nav class="navbar">
+    <div class="logo">
+        <div class="logo-icon">📚</div>
+        <div class="logo-text">Biblioteca<span>Digital</span></div>
+    </div>
+    <div class="nav-actions">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <button id="logout" class="btn btn-outline">🔒 <span class="label">Cerrar Sesión</span></button>
+        <button id="btn_login" class="btn btn-outline" onclick="openModal('login')">🔑 <span class="label">Iniciar Sesión</span></button>
+        <button id="btn_register" class="btn btn-primary" onclick="openModal('register')">✨ <span class="label">Registrarse</span></button>
+    </div>
+</nav>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">Principal</div>
+    <div class="sidebar-item active" id="dashboard"><span class="icon">🏠</span> Dashboard</div>
+    <div class="sidebar-item" id="libros"><span class="icon">📖</span> Catálogo de Libros</div>
+    <div class="sidebar-item" id="usuarios"><span class="icon">👥</span> Gestión de Usuarios</div>
+    <div class="sidebar-item" id="prestamos"><span class="icon">📤</span> Préstamos</div>
+    <div class="sidebar-item" style="display: none;"><span class="icon">📥</span> Devoluciones</div>
+    <div class="sidebar-title">Análisis</div>
+    <div class="sidebar-item"><span class="icon">📊</span> Reportes</div>
+    <div class="sidebar-item"><span class="icon">⭐</span> Favoritos</div>
+    <div class="sidebar-title">Sistema</div>
+    <div class="sidebar-item"><span class="icon">⚙️</span> Configuración</div>
+    <div class="sidebar-item"><span class="icon">❓</span> Ayuda</div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<article id="libro-card" class="libro-card" itemscope itemtype="https://schema.org/Book" style="display:none;">
+  <div class="libro-portada">
+    <img src="assets/portada.jpg" alt="Portada" itemprop="image" loading="lazy">
+  </div>
+
+  <div class="libro-datos">
+    <h2 class="libro-titulo" itemprop="name">Mi Libro de Ejemplo</h2>
+    <div class="libro-meta">
+      <span><strong>Titulo:</strong> <span itemprop="title" id="titulo">Nombre</span></span>
+      <span><strong>Autor:</strong> <span itemprop="author" id="autor">Nombre</span></span>
+      <span><strong>Año:</strong> <span itemprop="datePublished" id="año">2025</span></span>
+      <span><strong>Editorial:</strong> <span itemprop="datePublished" id="editorial">Edit</span></span>
+      <span><strong>Cantidad_Total:</strong> <span itemprop="datePublished" id="cantidad_total">25</span></span>
+      <span><strong>Cantidad_Disponible:</strong> <span itemprop="datePublished" id="cantidad_disponible">25</span></span>
+    </div>
+    <p class="libro-descripcion" itemprop="description">
+      Descripción breve del libro.
+    </p>
+    <div class="libro-acciones">
+      <a href="assets/docs/mi-libro.pdf" target="_blank" rel="noopener" class="btn">📥 PDF</a>
+      <button type="button" class="btn btn-secundario" data-libro-preview
+              data-pdf="assets/docs/mi-libro.pdf">👁️ Vista previa</button>
+    </div>
+  </div>
+
+  <div class="libro-preview">
+    <p class="preview-placeholder">Haz clic en <strong>Vista previa</strong></p>
+  </div>
+</article>
+
+
+<main class="main-content">
+    <h1 class="page-title">Panel de Control</h1>
+    <p class="page-subtitle">Bienvenido a tu sistema de gestión bibliotecaria inteligente</p>
+
+    <section class="search-section">
+        <div class="search-bar" id="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Buscar..." id="search">
+            <button class="btn btn-primary" id="search btn" style="display:none;">Buscar</button>
+        </div>
+        <div id="container-search-bar" class="search-bar-2">
+        </div>
+        <div class="filters" id="filters">
+            <div class="filter-chip active">Todos</div>
+            <div class="filter-chip">Novela</div>
+            <div class="filter-chip">Ciencia</div>
+            <div class="filter-chip">Historia</div>
+            <div class="filter-chip">Tecnología</div>
+            <div class="filter-chip">Infantil</div>
+        </div>
+    </section>
+
+    <div class="stats-grid" id="stats-grid">
+        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value">12,480</div><div class="stat-label">Libros registrados</div></div>
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value">3,215</div><div class="stat-label">Usuarios activos</div></div>
+        <div class="stat-card"><div class="stat-icon">📖</div><div class="stat-value">847</div><div class="stat-label">Préstamos activos</div></div>
+        <div class="stat-card"><div class="stat-icon">⏰</div><div class="stat-value">32</div><div class="stat-label">Devoluciones hoy</div></div>
+    </div>
+
+    <div class="section-header" style="display:none;">
+        <h2>👥 Gestión de Usuarios <span style="color:var(--secondary); font-size:0.75rem; font-weight:400;">— Método: Inputs inline</span></h2>
+    </div>
+
+    <div class="table-wrapper" id="tablaUsuarios">
+        <table class="data-table">
+            <thead>
+                <tr id="titulosTabla">
+                    <th style="width: 50px;">#</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>Correo</th>
+                    <th style="width: 120px; text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+                <tr><td>1</td><td>María Camila Rojas</td><td>Bibliotecaria</td><td>maria.rojas@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+                <tr><td>2</td><td>Juan López Pérez</td><td>Estudiante</td><td>juan.lopez@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+                <tr><td>3</td><td>Ana García</td><td>Docente</td><td>ana.garcia@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+                <tr><td>4</td><td>Roberto Silva</td><td>Investigador</td><td>roberto.silva@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-actions">
+        <button class="btn btn-primary" id="btnAgregarFila">➕ Añadir</button>
+    </div>
+</main>
+
+<button class="chat-toggle" onclick="toggleChat()">🤖</button>
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <h3><span class="status"></span> Asistente IA</h3>
+        <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="msg bot">¡Hola! 👋 Soy tu asistente bibliotecario con IA. ¿En qué puedo ayudarte hoy?</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Escribe tu mensaje..." onkeypress="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">➤</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div id="loginForm">
+            <h2>Iniciar Sesión</h2>
+            <p class="sub">Accede a tu cuenta de biblioteca</p>
+            <div class="form-group"><label>Correo electrónico</label><input id="email" type="email" placeholder="usuario@ejemplo.com"></div>
+            <div class="form-group"><label>Contraseña</label><input id="password" type="password" placeholder="••••••••"></div>
+            <button class="btn btn-primary" id="login">Ingresar</button>
+            <p class="modal-switch">¿No tienes cuenta? <a onclick="switchForm('register')">Regístrate</a></p>
+        </div>
+        <div id="registerForm" style="display:none;">
+            <h2>Crear Cuenta</h2>
+            <p class="sub">Únete a nuestra biblioteca digital</p>
+            <div class="form-group"><label>Nombre completo</label><input type="text" placeholder="Tu nombre"></div>
+            <div class="form-group"><label>Correo electrónico</label><input type="email" placeholder="usuario@ejemplo.com"></div>
+            <div class="form-group"><label>Contraseña</label><input type="password" placeholder="••••••••"></div>
+            <button class="btn btn-primary" id="register">Registrarme</button>
+            <p class="modal-switch">¿Ya tienes cuenta? <a onclick="switchForm('login')">Inicia sesión</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL (para añadir filas) -->
+<div class="modal-overlay" id="modalUsuarioOverlay" onclick="if(event.target===this) cerrarModalUsuario()">
+    <div class="modal">
+        <button class="modal-close" onclick="cerrarModalUsuario()">✕</button>
+        <h2 id="titulo_fila">Nueva Fila</h2>
+        <p class="sub" id="subtitulo_fila">Completa los datos para registrar una nueva fila en la tabla</p>
+        <div class="form-group">
+            <label id="s1">Selector1</label>
+            <select id="select1">
+                <option value="Bibliotecario">Bibliotecario</option>
+                <option value="Estudiante">Estudiante</option>
+                <option value="Docente">Docente</option>
+                <option value="Investigador">Investigador</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label id="s2">Selector2</label>
+            <select id="select2">
+                <option value="Bibliotecario">Bibliotecario</option>
+                <option value="Estudiante">Estudiante</option>
+                <option value="Docente">Docente</option>
+                <option value="Investigador">Investigador</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label id="i1">Input 1</label>
+            <input type="text" id="input1" placeholder="Ej: Laura Martínez">
+        </div>
+        <div class="form-group">
+            <label id="i2">Input 2</label>
+            <input type="email" id="input2" placeholder="usuario@biblio.com">
+        </div>
+        <div class="form-group">
+            <label id="i3">Input 3</label>
+            <input type="password" id="input3" placeholder="****">
+        </div>
+        <div class="form-group">
+            <label id="i4">Input 4</label>
+            <input type="text" id="input4" placeholder="****">
+        </div>
+        <div class="form-group">
+            <label id="i5">Input 5</label>
+            <input type="text" id="input5" placeholder="****">
+        </div>
+        <button class="btn btn-primary" id="btnGuardarUsuario">Guardar usuario</button>
+    </div>
+</div>
+
+
+<script>
+
+const url = 'http://localhost:3000/';
+let mode = '';
+let modem = '';
+
+document.getElementById('tablaUsuarios').style.display = 'none';
+document.getElementById('btnAgregarFila').style.display = 'none';
+const filters = document.getElementById('filters');
+while(0 < filters.children.length){
+    filters.removeChild(filters.firstChild);
+}
+
+async function ShowTable(query){
+    const tablaUsuarios = document.getElementById('tablaUsuarios');
+    tablaUsuarios.style.display = 'flex';
+    const response = await fetch(url + 'api/books', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      //credentials: 'include',   // ← ¡envía y recibe cookies!
+      body: JSON.stringify({ query })
+    });
+    const res = await response.json();
+
+    const filters = document.getElementById('filters');
+    while(0 < filters.children.length){
+        filters.removeChild(filters.firstChild);
+    }
+
+    const titulosTabla = document.getElementById('titulosTabla');
+    const cuerpoTabla = document.getElementById('cuerpoTabla');
+    while(0 < titulosTabla.children.length){
+        titulosTabla.removeChild(titulosTabla.firstChild);
+    }
+
+    for(let i of Object.keys(res[0])){
+        const th = document.createElement('th');
+        th.textContent = i;
+        titulosTabla.appendChild(th);
+
+        const div = document.createElement('div');
+        div.className = 'filter-chip';
+        div.textContent = i;
+        div.addEventListener('click', () => {
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            div.classList.add('active');
+            mode = div.textContent;
+        });
+        filters.appendChild(div);
+    }
+
+    const th = document.createElement('th');
+    th.textContent = 'Eliminar';
+    titulosTabla.appendChild(th);
+
+    while(0 < cuerpoTabla.children.length){
+        cuerpoTabla.removeChild(cuerpoTabla.firstChild);
+    }
+    
+    for(let i of res){
+        const tr = document.createElement('tr');
+        for(let ii of Object.values(i)){
+            const td = document.createElement('td');
+            td.textContent = ii;
+            tr.appendChild(td);
+        }
+        const button = document.createElement('button');
+        button.className = 'btn-delete';
+        button.textContent = '🗑️';
+        const td = document.createElement('td');
+        td.className = 'acciones';
+        td.appendChild(button);
+        tr.appendChild(td);
+        cuerpoTabla.appendChild(tr);
+    }
+}
+
+const dashboard = document.getElementById('dashboard');
+dashboard.addEventListener('click',()=>{
+    const tablaUsuarios = document.getElementById('tablaUsuarios');
+    tablaUsuarios.style.display = 'none';
+    document.getElementById('btnAgregarFila').style.display = 'none';
+    document.getElementById('stats-grid').style.display = 'grid';
+    mode = '';
+    modem = '';
+    const filters = document.getElementById('filters');
+    while(0 < filters.children.length){
+        filters.removeChild(filters.firstChild);
+    }
+});
+
+const libros = document.getElementById('libros');
+libros.addEventListener('click',()=>{
+    ShowTable('SELECT * FROM libros;');
+    modem = 'libros';
+    document.getElementById('btnAgregarFila').style.display = 'block';
+    document.getElementById('stats-grid').style.display = 'none';
+});
+
+const usuarios = document.getElementById('usuarios');
+usuarios.addEventListener('click',()=>{
+    ShowTable('SELECT * FROM usuarios;');
+    modem = 'usuarios';
+    document.getElementById('btnAgregarFila').style.display = 'block';
+    document.getElementById('stats-grid').style.display = 'none';
+});
+
+const prestamos = document.getElementById('prestamos');
+prestamos.addEventListener('click',()=>{
+    ShowTable('SELECT * FROM prestamos;');
+    modem = 'prestamos';
+    document.getElementById('btnAgregarFila').style.display = 'block';
+    document.getElementById('stats-grid').style.display = 'none';
+});
+
+const search_bar = document.getElementById('container-search-bar');
+const search = document.getElementById('search');
+search.addEventListener('input',async ()=>{
+    while(0 < search_bar.children.length){
+        search_bar.removeChild(search_bar.lastChild);
+    }
+    const mode2 = `${search.value}%`;
+    if(modem !== '' && mode2 !== '%'){
+    const response = await fetch(url + 'api/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',   // ← ¡envía y recibe cookies!
+      body: JSON.stringify({ modem,mode2 })
+    });
+    const res = await response.json();
+    const libro_card = document.getElementById('libro-card');
+        for(let i of res){
+            const article = libro_card.cloneNode(true);
+            article.style.display ='flex';
+            console.log(i);
+            article.children[1].children[1].children[0].children[1].textContent = i.titulo;
+            article.children[1].children[1].children[1].children[1].textContent = i.autor;
+            article.children[1].children[1].children[2].children[1].textContent = i.editorial;
+            article.children[1].children[1].children[3].children[1].textContent = i.año;
+            article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
+            article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
+            search_bar.appendChild(article);
+        }
+    }
+});
+
+if(document.cookie){
+    document.getElementById('logout').style.display = 'flex';
+    document.getElementById('btn_login').style.display = 'none';
+    document.getElementById('btn_register').style.display = 'none';    
+}else{
+    document.getElementById('logout').style.display = 'none';
+    document.getElementById('btn_login').style.display = 'flex';
+    document.getElementById('btn_register').style.display = 'flex';    
+}
+
+const logout = document.getElementById('logout');
+logout.addEventListener('click',async ()=> {
+    const response = await fetch(url + 'api/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',   // ← ¡envía y recibe cookies!
+      //body: JSON.stringify({ correo,contraseña })
+    });
+    const res = await response.json();
+    if(res){
+        document.getElementById('logout').style.display = 'none';
+        document.getElementById('btn_login').style.display = 'flex';
+        document.getElementById('btn_register').style.display = 'flex';
+        console.log(document.cookie);
+    }
+});
+
+const login = document.getElementById('login');
+login.addEventListener('click',async ()=> {
+    const correo = document.getElementById('email').value;
+    const contraseña = document.getElementById('password').value;
+    const response = await fetch(url + 'api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',   // ← ¡envía y recibe cookies!
+      body: JSON.stringify({ correo,contraseña })
+    });
+    const res = await response.json();
+    if(res){
+        document.getElementById('logout').style.display = 'flex';
+        document.getElementById('btn_login').style.display = 'none';
+        document.getElementById('btn_register').style.display = 'none';
+        closeModal();
+        console.log(document.cookie);
+    }
+});
+
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+function toggleChat() { document.getElementById('chatWindow').classList.toggle('open'); }
+
+function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const body  = document.getElementById('chatBody');
+    const text  = input.value.trim();
+    if (!text) return;
+    const userMsg = document.createElement('div');
+    userMsg.className = 'msg user'; userMsg.textContent = text;
+    body.appendChild(userMsg); input.value = '';
+    body.scrollTop = body.scrollHeight;
+    setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'msg bot'; botMsg.textContent = getBotReply(text);
+        body.appendChild(botMsg); body.scrollTop = body.scrollHeight;
+    }, 700);
+}
+function getBotReply(text) {
+    const t = text.toLowerCase();
+    if (t.includes('libro')) return '📚 Puedes buscar libros en la barra superior.';
+    if (t.includes('usuario')) return '👥 En "Gestión de Usuarios" puedes administrar cuentas.';
+    if (t.includes('hola')) return '¡Hola! 😊 ¿En qué te ayudo?';
+    return 'Entiendo 🤔. ¿Necesitas algo más?';
+}
+
+function openModal(type) {
+    document.getElementById('modalOverlay').classList.add('open');
+    switchForm(type);
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+function switchForm(type) {
+    const login = document.getElementById('loginForm');
+    const register = document.getElementById('registerForm');
+    if (type === 'login') { login.style.display='block'; register.style.display='none'; }
+    else { login.style.display='none'; register.style.display='block'; }
+}
+
+document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        mode = chip.textContent;
+        //console.log(mode);
+    });
+});
+document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        if (window.innerWidth <= 900) toggleSidebar();
+    });
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ============================================================
+   TABLA - MÉTODO: MODAL CON FORMULARIO
+   ============================================================ */
+(function () {
+    const cuerpoTabla = document.getElementById('cuerpoTabla');
+    const btnAgregar  = document.getElementById('btnAgregarFila');
+    const modalUsuario = document.getElementById('modalUsuarioOverlay');
+    const btnGuardar = document.getElementById('btnGuardarUsuario');
+    const select1 = document.getElementById('select1');const s1 = document.getElementById('s1');
+    const select2 = document.getElementById('select2');const s2 = document.getElementById('s2');
+    const input1 = document.getElementById('input1');const i1 = document.getElementById('i1');
+    const input2 = document.getElementById('input2');const i2 = document.getElementById('i2');
+    const input3 = document.getElementById('input3');const i3 = document.getElementById('i3');
+    const input4 = document.getElementById('input4');const i4 = document.getElementById('i4');
+    const input5 = document.getElementById('input5');const i5 = document.getElementById('i5');
+    const titulo_fila = document.getElementById('titulo_fila');
+    const subtitulo_fila = document.getElementById('subtitulo_fila');
+
+    if (!cuerpoTabla) return;
+
+    /* ELIMINAR */
+    cuerpoTabla.addEventListener('click',async function (e) {
+        const btn = e.target.closest('.btn-delete');
+        if (!btn) return;
+        const fila = btn.closest('tr');
+        if (!fila) return;
+        fila.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        fila.style.opacity = '0';
+        fila.style.transform = 'translateX(30px)';
+        setTimeout(() => { fila.remove(); /*renumerarFilas();*/ }, 250);
+        //console.log(fila.firstChild.textContent);
+        const id = Number(fila.firstChild.textContent);
+        const table = modem;
+        const response = await fetch(url + 'api/delete', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            //credentials: 'include',   // ← ¡envía y recibe cookies!
+            body: JSON.stringify({ id,table })
+        });
+        const res = await response.json();   
+        
+    });
+
+    /* ABRIR MODAL USUARIO */
+    btnAgregar.addEventListener('click', async function () {
+        if(modem === 'libros'){
+            titulo_fila.textContent = 'Nuevo Libro';
+            subtitulo_fila.textContent = 'Completa los datos para registrar un nuevo libro';
+            select1.style.display = 'none';s1.style.display = 'none';
+            select2.style.display = 'none';s2.style.display = 'none';
+            input1.style.display = 'block';input1.value = '';i1.style.display = 'block';input1.type = 'text';input1.placeholder = 'El Cuento';i1.textContent = 'Titulo';
+            input2.style.display = 'block';input2.value = '';i2.style.display = 'block';input2.type = 'text';input2.placeholder = 'Pepe';i2.textContent = 'Autor';
+            input3.style.display = 'block';input3.value = '';i3.style.display = 'block';input3.type = 'text';input3.placeholder = 'Edit';i3.textContent = 'Editorial';
+            input4.style.display = 'block';input4.value = '';i4.style.display = 'block';input4.type = 'text';input4.placeholder = '1984';i4.textContent = 'Año';
+            input5.style.display = 'block';input5.value = '';i5.style.display = 'block';input5.type = 'number';input5.placeholder = '000';i5.textContent = 'Cantidad_Total (unidades)';
+        }
+
+        if(modem === 'usuarios'){
+            titulo_fila.textContent = 'Nuevo Usuario';
+            subtitulo_fila.textContent = 'Completa los datos para registrar un nuevo usuario';
+            select1.style.display = 'block';s1.style.display = 'block';
+            select1.innerHTML = `
+                <option value="Bibliotecario">Bibliotecario</option>
+                <option value="Estudiante">Estudiante</option>
+                <option value="Docente">Docente</option>
+                <option value="Investigador">Investigador</option>
+            `;
+            select2.style.display = 'none';s2.style.display = 'none';
+            input1.style.display = 'block';input1.value = '';i1.style.display = 'block';input1.type = 'text';input1.placeholder = 'Ej: Laura Martínez';i1.textContent = 'Nombre';
+            input2.style.display = 'block';input2.value = '';i2.style.display = 'block';input2.type = 'text';input2.placeholder = 'usuario@email.com';i2.textContent = 'Correo';
+            input3.style.display = 'block';input3.value = '';i3.style.display = 'block';input3.type = 'text';input3.placeholder = '******';i3.textContent = 'Contraseña';
+            input4.style.display = 'none';i4.style.display = 'none';
+            input5.style.display = 'none';i5.style.display = 'none';
+        }
+
+        if(modem === 'prestamos'){
+            titulo_fila.textContent = 'Nuevo Prestamo';
+            subtitulo_fila.textContent = 'Completa los datos para registrar un nuevo prestamo';
+            const response1 = await fetch(url + 'api/id1', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                //credentials: 'include',   // ← ¡envía y recibe cookies!
+            });
+            const res1 = await response1.json();
+            const response2 = await fetch(url + 'api/id2', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                //credentials: 'include',   // ← ¡envía y recibe cookies!
+            });
+            const res2 = await response2.json();
+            select1.style.display = 'block';s1.style.display = 'block';s1.textContent = 'id usuario';while(0 < select1.children.length){select1.removeChild(select1.firstChild);}for(let i of res1){const option = document.createElement('option');option.value = i.id;option.textContent = i.titulo;select1.appendChild(option);}
+            select2.style.display = 'block';s2.style.display = 'block';s2.textContent = 'id libros';while(0 < select2.children.length){select2.removeChild(select2.firstChild);}for(let i of res2){const option = document.createElement('option');option.value = i.id;option.textContent = i.nombre;select2.appendChild(option);}
+            input1.style.display = 'block';i1.textContent = 'Fecha de prestamo';input1.type = 'date';input1.style.background = 'white';input1.style.color = 'black';input1.min="2026-01-01";input1.max="2030-12-31";
+            input2.style.display = 'none';input2.value = '';i2.style.display = 'none';
+            input3.style.display = 'none';input3.value = '';i3.style.display = 'none';
+            input4.style.display = 'none';input4.value = '';i4.style.display = 'none';
+            input5.style.display = 'none';input5.value = '';i5.style.display = 'none';
+        }
+        modalUsuario.classList.add('open');
+        setTimeout(() => input1.focus(), 100);
+    });
+
+    /* CERRAR MODAL */
+    window.cerrarModalUsuario = function () {
+        modalUsuario.classList.remove('open');
+    };
+
+    /* GUARDAR USUARIO */
+    btnGuardar.addEventListener('click', async function () {
+        if(modem === 'libros'){
+            const titulo = document.getElementById('input1').value;
+            const autor = document.getElementById('input2').value;
+            const editorial = document.getElementById('input3').value;
+            const año = document.getElementById('input4').value;
+            const cantidad_total = document.getElementById('input5').value;
+
+            if (!titulo) {
+                document.getElementById('input1').style.background = '#ff6b6b';document.getElementById('input1').style.borderColor = '#ff6b6b';
+                document.getElementById('input1').focus();
+                setTimeout(() => {document.getElementById('input1').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input1').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            if (!autor) {
+                document.getElementById('input2').style.background = '#ff6b6b';document.getElementById('input2').style.borderColor = '#ff6b6b';
+                document.getElementById('input2').focus();
+                setTimeout(() => {document.getElementById('input2').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input2').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            if (!editorial) {
+                document.getElementById('input3').style.background = '#ff6b6b';document.getElementById('input3').style.borderColor = '#ff6b6b';
+                document.getElementById('input3').focus();
+                setTimeout(() => {document.getElementById('input3').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input3').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            if (!año) {
+                document.getElementById('input4').style.background = '#ff6b6b';document.getElementById('input4').style.borderColor = '#ff6b6b';
+                document.getElementById('input4').focus();
+                setTimeout(() => {document.getElementById('input4').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input4').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            if (!cantidad_total) {
+                document.getElementById('input5').style.background = '#ff6b6b';document.getElementById('input5').style.borderColor = '#ff6b6b';
+                document.getElementById('input5').focus();
+                setTimeout(() => {document.getElementById('input5').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input5').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            const numero = cuerpoTabla.rows.length + 1;
+            const nuevaFila = document.createElement('tr');
+            nuevaFila.style.opacity = '0';
+            nuevaFila.style.transform = 'translateY(-10px)';
+            nuevaFila.innerHTML = `
+                <td>${numero}</td>
+                <td>${escapeHtml(titulo)}</td>
+                <td>${escapeHtml(autor)}</td>
+                <td>${escapeHtml(editorial)}</td>
+                <td>${escapeHtml(año)}</td>
+                <td>${escapeHtml(cantidad_total)}</td>
+                <td>${escapeHtml(cantidad_total)}</td>
+                <td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td>
+                `;
+            cuerpoTabla.appendChild(nuevaFila);
+            requestAnimationFrame(() => {
+                nuevaFila.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                nuevaFila.style.opacity = '1';
+                nuevaFila.style.transform = 'translateY(0)';
+            });
+            const response = await fetch(url + 'api/nr_l', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                //credentials: 'include',   // ← ¡envía y recibe cookies!
+                body: JSON.stringify({ titulo,autor,editorial,año,cantidad_total })
+            });
+            const res = await response.json();
+            cerrarModalUsuario();
+        }
+
+        if(modem === 'usuarios'){
+            const rol = document.getElementById('select1').value;
+            const nombre = document.getElementById('input1').value;
+            const correo = document.getElementById('input2').value;
+            const contraseña = document.getElementById('input3').value;
+
+            if (!nombre) {
+                document.getElementById('input1').style.background = '#ff6b6b';document.getElementById('input1').style.borderColor = '#ff6b6b';
+                document.getElementById('input1').focus();
+                setTimeout(() => {document.getElementById('input1').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input1').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            if (!correo || !correo.includes('@')) {
+                document.getElementById('input2').style.background = '#ff6b6b';document.getElementById('input2').style.borderColor = '#ff6b6b';
+                document.getElementById('input2').focus();
+                setTimeout(() => {document.getElementById('input2').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input2').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            if (!contraseña) {
+                document.getElementById('input3').style.background = '#ff6b6b';document.getElementById('input3').style.borderColor = '#ff6b6b';
+                document.getElementById('input3').focus();
+                setTimeout(() => {document.getElementById('input3').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input3').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            const numero = cuerpoTabla.rows.length + 1;
+            const nuevaFila = document.createElement('tr');
+            const estado = 'Sesión Desactivada';
+            nuevaFila.style.opacity = '0';
+            nuevaFila.style.transform = 'translateY(-10px)';
+            nuevaFila.innerHTML = `
+                <td>${numero}</td>
+                <td>${escapeHtml(nombre)}</td>
+                <td>${escapeHtml(rol)}</td>
+                <td>${escapeHtml(correo)}</td>
+                <td>${escapeHtml(contraseña)}</td>
+                <td>${escapeHtml(estado)}</td>
+                <td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td>
+                `;
+            cuerpoTabla.appendChild(nuevaFila);
+            requestAnimationFrame(() => {
+                nuevaFila.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                nuevaFila.style.opacity = '1';
+                nuevaFila.style.transform = 'translateY(0)';
+            });
+            const response = await fetch(url + 'api/nr_u', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                //credentials: 'include',   // ← ¡envía y recibe cookies!
+                body: JSON.stringify({ nombre,rol,correo,contraseña,estado })
+            });
+            const res = await response.json();
+            cerrarModalUsuario();
+        }
+
+        if(modem === 'prestamos'){
+            const usuario_id = document.getElementById('select1').value;
+            const libro_id = document.getElementById('select2').value;
+            const fecha = document.getElementById('input1').value;
+
+            if (!fecha) {
+                document.getElementById('input1').style.background = '#ff6b6b';document.getElementById('input1').style.borderColor = '#ff6b6b';
+                document.getElementById('input1').focus();
+                setTimeout(() => {document.getElementById('input1').style.background = 'rgba(0,0,0,0.3)';document.getElementById('input1').style.borderColor = '#00d4ff';}, 1200);
+                return;
+            }
+
+            const numero = cuerpoTabla.rows.length + 1;
+            const nuevaFila = document.createElement('tr');
+            nuevaFila.style.opacity = '0';
+            nuevaFila.style.transform = 'translateY(-10px)';
+            nuevaFila.innerHTML = `
+                <td>${numero}</td>
+                <td>${escapeHtml(usuario_id)}</td>
+                <td>${escapeHtml(libro_id)}</td>
+                <td>${escapeHtml(fecha)}</td>
+                <td>${escapeHtml('...')}</td>
+                <td>${escapeHtml('...')}</td>
+                <td>${escapeHtml('...')}</td>
+                <td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td>
+                `;
+            cuerpoTabla.appendChild(nuevaFila);
+            requestAnimationFrame(() => {
+                nuevaFila.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                nuevaFila.style.opacity = '1';
+                nuevaFila.style.transform = 'translateY(0)';
+            });
+            const response = await fetch(url + 'api/nr_p', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                //credentials: 'include',   // ← ¡envía y recibe cookies!
+                body: JSON.stringify({ usuario_id,libro_id,fecha })
+            });
+            const res = await response.json();
+            cerrarModalUsuario();
+        }
+        cerrarModalUsuario();
+    });
+/*
+    function renumerarFilas() {
+        [...cuerpoTabla.rows].forEach((fila, i) => { fila.cells[0].textContent = i + 1; });
+    }
+*/
+    function escapeHtml(str) {
+        return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+})();
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); cerrarModalUsuario(); }
+});
+
+/* ---------------------------------------------------------- */
+
+///*
+(function () {
+  'use strict';
+
+  const PDF_WORKER_SRC = 'libs/pdf.worker.min.js';
+  const MAX_PAGES = 2; // menos páginas = más liviano
+
+  function initLibroCard(card) {
+    const btn = card.querySelector('[data-libro-preview]');
+    const preview = card.querySelector('.libro-preview');
+    if (!btn || !preview || btn.dataset.libroInit) return;
+    btn.dataset.libroInit = 'true';
+
+    btn.addEventListener('click', async () => {
+      const pdfUrl = btn.dataset.pdf;
+      if (!pdfUrl || typeof window.pdfjsLib === 'undefined') {
+        preview.innerHTML = '<p class="error-text">⚠️ PDF.js no está disponible.</p>';
+        return;
+      }
+
+      if (!window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
+      }
+
+      preview.innerHTML = '<p class="loading-text">⏳ Cargando…</p>';
+      btn.disabled = true;
+
+      try {
+        const pdf = await window.pdfjsLib.getDocument(pdfUrl).promise;
+        preview.innerHTML = '<div class="pdf-pages"></div>';
+        const cont = preview.querySelector('.pdf-pages');
+
+        for (let n = 1; n <= Math.min(pdf.numPages, MAX_PAGES); n++) {
+          const page = await pdf.getPage(n);
+          const vp1 = page.getViewport({ scale: 1 });
+          const scale = (preview.clientWidth - 24) / vp1.width;
+          const vp = page.getViewport({ scale });
+
+          const canvas = document.createElement('canvas');
+          canvas.width = vp.width;
+          canvas.height = vp.height;
+          cont.appendChild(canvas);
+
+          await page.render({
+            canvasContext: canvas.getContext('2d'),
+            viewport: vp
+          }).promise;
+        }
+      } catch (e) {
+        console.error(e);
+        preview.innerHTML = '<p class="error-text">⚠️ No se pudo cargar el PDF.</p>';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+
+  function initAll() {
+    document.querySelectorAll('.libro-card').forEach(initLibroCard);
+  }
+
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', initAll)
+    : initAll();
+
+  window.LibroCard = { init: initLibroCard, initAll };
+})();
+
+//*/
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+/* BUSCADOR */
+.search-section {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 20px; margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+}
+.search-bar-2 {
+    display: flex;
+    flex-direction:column;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    width:100%;
+    height:100vh;
+    border:1px solid var(--secondary);
+    background: var(--bg);
+    padding:20px;
+
+    overflow: auto;
+    scrollbar-gutter: stable both-edges;
+    scrollbar-color: var(--secondary) transparent;
+    
+    margin-top: 20px;
+    border-radius:5px;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+}
+
+/* 1. Estiliza el riel del scroll (para que sea transparente o se integre al fondo) */
+.search-bar-2::-webkit-scrollbar {
+  width: 10px;  /* Ancho para el scroll vertical (Y) */
+  height: 10px; /* Alto para el scroll horizontal (X) */
+  /*background: #00d4ff;/**/
+}
+
+/* 2. Estiliza la barra arrastrable */
+.search-bar-2::-webkit-scrollbar-thumb {
+  background: #00d4ff; /* Color sutil y transparente */
+  border-radius: 5px;
+}
+
+/* 3. Evita que el fondo tape el contenido */
+.search-bar-2::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+.ps {
+    height:10vh;
+    background: var(--bg-soft);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+    position: relative;
+}
+.search-bar input {
+    flex: 1; padding: 14px 18px 14px 45px; border-radius: 12px;
+    border: 1px solid var(--glass-border); background: rgba(0, 0, 0, 0.25);
+    color: white; font-size: 1rem; outline: none; transition: all 0.3s;
+}
+.search-bar input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15); }
+.search-bar input::placeholder { color: var(--text-muted); }
+.search-icon {
+    position: absolute; left: 15px; top: 50%;
+    transform: translateY(-50%); font-size: 1.1rem;
+    pointer-events: none; opacity: 0.7;
+}
+.search-bar .btn { padding: 14px 24px; }
+.filters { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.filter-chip {
+    padding: 6px 14px; border-radius: 20px;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
+    color: var(--text-muted); font-size: 0.85rem; cursor: pointer;
+    transition: all 0.3s;
+}
+.filter-chip:hover, .filter-chip.active {
+    background: var(--primary); color: white; border-color: var(--primary);
+}
+
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.section-header h2 { font-size: 1.2rem; }
+.stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px; margin-bottom: 25px;
+}
+.stat-card {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 14px; padding: 18px; backdrop-filter: blur(10px);
+    transition: all 0.4s ease; cursor: pointer;
+}
+.stat-card:hover {
+    transform: translateY(-5px); border-color: var(--secondary);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+.stat-card .stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.stat-card .stat-value { font-size: 1.6rem; font-weight: 700; }
+.stat-card .stat-label { color: var(--text-muted); font-size: 0.85rem; }

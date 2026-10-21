@@ -2,17 +2,19 @@ import { fetchete } from './fetchete.js';
 import { select,funsearch } from './Select.js';
 import { session } from './Session.js';
 
-const ca = document.getElementById('c');ca.style.display='none';window.addEventListener('keydown',(ev)=>{if(ev.key === '/'){if(ca.style.display === 'none'){ca.style.display = 'flex';}else{ca.style.display = 'none';}}});
+//const ca = document.getElementById('c');ca.style.display='none';window.addEventListener('keydown',(ev)=>{if(ev.key === '/'){if(ca.style.display === 'none'){ca.style.display = 'flex';}else{ca.style.display = 'none';}}});
 const tmain = document.getElementById('main');
 export const container = document.getElementById("container");
 export const nav = document.getElementById("nav");
 export const nav2 = document.getElementById("nav2");
-export const search = document.getElementById("search");
+//export const search = document.getElementById("search");
 export const ul = document.getElementById("ul");
-//export const url = 'http://localhost:3000/';
-export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
+export const url = 'http://localhost:3000/';
+//export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
+
 export var t = {};//Objeto de Tabla Global
 
+/*
 const logout = document.getElementById('logout');
 logout.addEventListener('click',async ()=>{
     await fetch(url + 'api/logout', {
@@ -21,8 +23,7 @@ logout.addEventListener('click',async ()=>{
     });
     location.reload();
 });
-
-//https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/api/logout
+*/
 
 export let ttt;
 
@@ -63,7 +64,7 @@ nsc.appendChild(title);
 nsc.appendChild(txt);
 //------------------
 let temporizador;
-search.addEventListener('input',()=>{clearTimeout(temporizador);temporizador = setTimeout(() => {funsearch(search.value);},500);});
+//search.addEventListener('input',()=>{clearTimeout(temporizador);temporizador = setTimeout(() => {funsearch(search.value);},500);});
 
 export async function newprompt(option,p,column,table,id){
   const modal = document.createElement('div');modal.classList.add('modal');
@@ -163,14 +164,14 @@ export async function newprompt(option,p,column,table,id){
       modalc.appendChild(prompt_input);
     } 
   }
-  const prompt_footer = document.createElement('a');
+  const prompt_footer = document.createElement('button');
   //prompt_footer.href = "https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/api/register";
   prompt_footer.classList.add('prompt_footer');
   prompt_footer.textContent = option.footer;modalc.appendChild(prompt_footer);document.body.appendChild(modal);
   modalc.classList.remove('ocultar');modalc.classList.add('mostrar');
 }
 
-async function init(www,ww){
+async function init(ww){
   async function obtenerPerfil() {
     const res = await fetch(url + 'api/me', {
       method: 'GET',
@@ -185,16 +186,13 @@ async function init(www,ww){
     }
   }
 
-  if(www){
     if(ww){
       obtenerPerfil();
     }else{
       newprompt({titulo:'Register',texto:'Introduce tus datos como usuario',inputs:[{type:'text',text:'nombre'},{type:'text',text:'contraseña'},{type:'button',text:'Register',fun:'register'}],footer:'Login'});
     }
-  }
   tmain.classList.add('mostrar');
   select(false);
 }
-init(true,true);//login
-//init(true,false);//register
-//init(false,false);
+init(true);//login
+//init(false);//register

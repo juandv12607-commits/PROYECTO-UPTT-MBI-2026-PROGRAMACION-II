@@ -3,7 +3,10 @@ dotenv.config();
 import multer from 'multer';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(process.env.TU_SUPABASE_URL, process.env.TU_SUPABASE_ANON_KEY)
+const TU_SUPABASE_URL = process.env.TU_SUPABASE_URL || "https://cvdxxfmzerqedmxxfsrs.supabase.co";
+const TU_SUPABASE_ANON_KEY = process.env.TU_SUPABASE_ANON_KEY || 'sb_publishable_rpBA493YCHwRcU6Z7ZKhBA_Epgp6JLt';
+
+const supabase = createClient(TU_SUPABASE_URL, TU_SUPABASE_ANON_KEY)
 const SupabaseCustomStorage = {
     _handleFile: async function (req, file, cb) {
         try {

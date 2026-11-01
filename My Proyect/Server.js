@@ -10,7 +10,7 @@ import dotenv from 'dotenv';
 dotenv.config(); 
 import {createClient} from '@supabase/supabase-js';
 const supabase = createClient(process.env.TU_SUPABASE_URL, process.env.TU_SUPABASE_ANON_KEY);
-import {upload} from './storage.js';
+import {upload} from './Storage.js';
 import db from './DataBase.js';
 const app = express();
 

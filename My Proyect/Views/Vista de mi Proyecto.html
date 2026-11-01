@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Digital - Tabla con Inputs Inline</title>
+<link rel="stylesheet" href="./Style/Animations.css">
+<link rel="stylesheet" href="./Style/SideBar.css">
+<link rel="stylesheet" href="./Style/NavBar.css">
+<link rel="stylesheet" href="./Style/Inputs.css">
+<link rel="stylesheet" href="./Style/Fondo 3D.css">
+<link rel="stylesheet" href="./Style/ChatBot.css">
+<link rel="stylesheet" href="./Style/Main.css">
+<link rel="stylesheet" href="./Style/Search.css">
+<link rel="stylesheet" href="./Style/Modal.css">
+<link rel="stylesheet" href="./Style/Table.css">
+<link rel="stylesheet" href="./Style/Books.css">
+<link rel="stylesheet" href="./Style/Style.css">
+</head>
+<body>
+
+<!-- PDF.js para vista previa real del PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+
+<div class="bg-3d-container">
+    <div class="bg-3d-cube"><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div></div>
+    <div class="bg-3d-cube"><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div></div>
+    <div class="bg-3d-cube"><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div></div>
+</div>
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+
+<nav class="navbar">
+    <div class="logo">
+        <div class="logo-icon"><img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMBpy-c6ompWKKq8ueTyNqAKBQ1bNYkiLSqQc7ACOzHA&s=10" alt="📚"></div> <!--📚-->
+        <div class="logo-text">Biblioteca<span>Digital</span></div>
+    </div>
+    <div class="nav-actions">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+        <button id="logout" class="btn btn-outline">🔒 <span class="label">Cerrar Sesión</span></button>
+        <button id="btn_login" class="btn btn-outline">🔑 <span class="label">Iniciar Sesión</span></button>
+        <button id="btn_register" class="btn btn-primary">✨ <span class="label">Registrarse</span></button>
+    </div>
+</nav>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">Principal</div>
+    <div class="sidebar-item active" id="dashboard"><span class="icon">🏠</span> Dashboard</div>
+    <div class="sidebar-item" id="libros"><span class="icon">📖</span> Catálogo de Libros</div>
+    <div class="sidebar-item" id="usuarios"><span class="icon">👥</span> Gestión de Usuarios</div>
+    <div class="sidebar-item" id="prestamos"><span class="icon">📤</span> Préstamos</div>
+    <!--
+    <div class="sidebar-item"><span class="icon">📥</span> Devoluciones</div>
+    <div class="sidebar-title">Análisis</div>
+    <div class="sidebar-item"><span class="icon">📊</span> Reportes</div>
+    <div class="sidebar-item"><span class="icon">⭐</span> Favoritos</div>
+    <div class="sidebar-title">Sistema</div>
+    <div class="sidebar-item"><span class="icon">⚙️</span> Configuración</div>
+    <div class="sidebar-item"><span class="icon">❓</span> Ayuda</div>
+    -->
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<article id="libro-card" class="libro-card" itemscope itemtype="https://schema.org/Book" style="display:none;">
+  <div class="libro-portada" style="display:none;">
+    <img src="" alt="Portada" itemprop="image" loading="lazy">
+  </div>
+
+  <div class="libro-datos">
+    <h2 class="libro-titulo" itemprop="name">Mi Libro de Ejemplo</h2>
+    <div class="libro-meta">
+      <span><strong>Titulo:</strong> <span itemprop="title" id="titulo">Nombre</span></span>
+      <span><strong>Autor:</strong> <span itemprop="author" id="autor">Nombre</span></span>
+      <span><strong>Año:</strong> <span itemprop="datePublished" id="año">2025</span></span>
+      <span><strong>Editorial:</strong> <span itemprop="datePublished" id="editorial">Edit</span></span>
+      <span><strong>Cantidad_Total:</strong> <span itemprop="datePublished" id="cantidad_total">25</span></span>
+      <span><strong>Cantidad_Disponible:</strong> <span itemprop="datePublished" id="cantidad_disponible">25</span></span>
+    </div>
+    <div class="libro-acciones">
+      <a target="_blank" class="btn">📥 PDF</a>
+    </div>
+  </div>
+
+  <div style="display:none;" class="libro-preview">
+    <p class="preview-placeholder">Haz clic en <strong>Vista previa</strong></p>
+  </div>
+</article>
+
+<main class="main-content" id="main-content">
+    <h1 class="page-title">Panel de Control</h1>
+    <p class="page-subtitle">Bienvenido a tu sistema de gestión bibliotecaria inteligente</p>
+
+    <section id="search-section" class="search-section">
+        <div class="search-bar" id="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Buscar..." id="search">
+            <button class="btn btn-primary" id="search btn" style="display:none;">Buscar</button>
+        </div>
+        <div id="container-search-bar" class="search-bar-2">
+        </div>
+    </section>
+
+    <div class="stats-grid" id="stats-grid" style="display:none;">
+        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value">12,480</div><div class="stat-label">Libros registrados</div></div>
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value">3,215</div><div class="stat-label">Usuarios activos</div></div>
+        <div class="stat-card"><div class="stat-icon">📖</div><div class="stat-value">847</div><div class="stat-label">Préstamos activos</div></div>
+        <div class="stat-card"><div class="stat-icon">⏰</div><div class="stat-value">32</div><div class="stat-label">Devoluciones hoy</div></div>
+    </div>
+
+    <div class="section-header" style="display:none;">
+        <h2>👥 Gestión de Usuarios <span style="color:var(--secondary); font-size:0.75rem; font-weight:400;">— Método: Inputs inline</span></h2>
+    </div>
+
+    <div id="nsc"></div>
+
+    <div class="table-wrapper" id="tablaUsuarios">
+        <table class="data-table">
+            <thead>
+                <tr id="titulosTabla">
+                    <th style="width: 50px;">#</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>Correo</th>
+                    <th style="width: 120px; text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+                <tr><td>1</td><td>María Camila Rojas</td><td>Bibliotecaria</td><td>maria.rojas@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+                <tr><td>2</td><td>Juan López Pérez</td><td>Estudiante</td><td>juan.lopez@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+                <tr><td>3</td><td>Ana García</td><td>Docente</td><td>ana.garcia@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+                <tr><td>4</td><td>Roberto Silva</td><td>Investigador</td><td>roberto.silva@biblio.com</td><td class="acciones"><button class="btn-delete" title="Eliminar">🗑️</button></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-actions">
+        <button class="btn btn-primary" id="btnAgregarFila">➕ Añadir</button>
+    </div>
+</main>
+
+<button class="chat-toggle" id="chat-toggle">🤖</button>
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <h3><span class="status"></span> Asistente IA <span id="..."></span></h3>
+        <button class="chat-close" id="chat-close">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="msg bot">¡Hola! 👋 Soy tu asistente bibliotecario con IA. ¿En qué puedo ayudarte hoy?</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+        <button id="sendMessage">➤</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <button class="modal-close" id="modal-close">✕</button>
+        <div id="loginForm">
+            <h2>Iniciar Sesión</h2>
+            <p class="sub">Accede a tu cuenta de biblioteca</p>
+            <div class="form-group"><label>Correo electrónico</label><input id="email-l" type="email" placeholder="usuario@ejemplo.com"></div>
+            <div class="form-group"><label>Contraseña</label><input id="password-l" type="password" placeholder="••••••••"></div>
+            <button class="btn btn-primary" id="login">Ingresar</button>
+            <p class="modal-switch">¿No tienes cuenta? <a id="modal-switch-l">Regístrate</a></p>
+        </div>
+        <div id="registerForm" style="display:none;">
+            <h2>Crear Cuenta</h2>
+            <p class="sub">Únete a nuestra biblioteca digital</p>
+            <div class="form-group"><label>Nombre completo</label><input type="text" placeholder="Tu nombre"></div>
+            <div class="form-group"><label>Correo electrónico</label><input type="email" placeholder="usuario@ejemplo.com"></div>
+            <div class="form-group"><label>Contraseña</label><input type="password" placeholder="••••••••"></div>
+            <button class="btn btn-primary" id="register">Registrarme</button>
+            <p class="modal-switch">¿Ya tienes cuenta? <a id="modal-switch-r">Inicia sesión</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL (para añadir filas) -->
+<div class="modal-overlay" id="modalUsuarioOverlay" onclick="if(event.target===this) cerrarModalUsuario()">
+    <div class="modal">
+        <button class="modal-close" onclick="cerrarModalUsuario()">✕</button>
+        <h2 id="titulo_fila">Nueva Fila</h2>
+        <p class="sub" id="subtitulo_fila">Completa los datos para registrar una nueva fila en la tabla</p>
+        <div class="form-group">
+            <label id="s1">Selector1</label>
+            <select id="select1">
+                <option value="Bibliotecario">Bibliotecario</option>
+                <option value="Estudiante">Estudiante</option>
+                <option value="Docente">Docente</option>
+                <option value="Investigador">Investigador</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label id="s2">Selector2</label>
+            <select id="select2">
+                <option value="Bibliotecario">Bibliotecario</option>
+                <option value="Estudiante">Estudiante</option>
+                <option value="Docente">Docente</option>
+                <option value="Investigador">Investigador</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label id="i1">Input 1</label>
+            <input type="text" id="input1" placeholder="Ej: Laura Martínez">
+        </div>
+        <div class="form-group">
+            <label id="i2">Input 2</label>
+            <input type="email" id="input2" placeholder="usuario@biblio.com">
+        </div>
+        <div class="form-group">
+            <label id="i3">Input 3</label>
+            <input type="password" id="input3" placeholder="****">
+        </div>
+        <div class="form-group">
+            <label id="i4">Input 4</label>
+            <input type="text" id="input4" placeholder="****">
+        </div>
+        <div class="form-group">
+            <label id="i5">Input 5</label>
+            <input type="text" id="input5" placeholder="****">
+        </div>
+        <button class="btn btn-primary" id="btnGuardarUsuario">Guardar usuario</button>
+        <button class="btn btn-primary" id="btnActualizarUsuario">Actualizar usuario</button>
+        <p id="p" style="display:none;"></p>
+    </div>
+</div>
+
+<script type="module" src="Script.js"></script>
+<script type="module" src="Events.js"></script>
+<script type="module" src="AddRow.js"></script>
+
+</body>
+</html>

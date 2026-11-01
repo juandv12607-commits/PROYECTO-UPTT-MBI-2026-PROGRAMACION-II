@@ -1,0 +1,1 @@
+export function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }

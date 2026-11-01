@@ -1,0 +1,66 @@
+/* TABLA */
+.table-wrapper {
+    display:flex;
+    /*width:calc(70vw);/**/
+    
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px; /*overflow: hidden;*/
+    backdrop-filter: blur(10px);
+    margin-bottom: 15px;
+    animation: fadeIn 0.8s ease;
+
+    overflow: auto;
+    scrollbar-color: var(--secondary) transparent;
+}
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-light);
+    font-size: 0.92rem;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  width: 10px;  /* Ancho para el scroll vertical (Y) */
+  height: 10px; /* Alto para el scroll horizontal (X) */
+  /*background: #00d4ff;/**/
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #00d4ff; /* Color sutil y transparente */
+  border-radius: 5px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+
+.data-table thead {
+    background: linear-gradient(135deg, rgba(74, 58, 255, 0.35), rgba(0, 212, 255, 0.15));
+    border-bottom: 1px solid var(--glass-border);
+}
+.data-table th {
+    padding: 15px 18px; text-align: left;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--secondary); position: relative;
+}
+.data-table th::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+    opacity: 0.5;
+}
+.data-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+.data-table tbody tr:last-child { border-bottom: none; }
+.data-table tbody tr:hover {
+    background: rgba(74, 58, 255, 0.12);
+    transform: scale(1.005);
+    box-shadow: 0 4px 20px rgba(74, 58, 255, 0.15);
+}
+.data-table td { padding: 14px 18px; color: var(--text-light); vertical-align: middle; }
+.data-table td:first-child { font-weight: 700; color: var(--secondary); font-size: 0.85rem; }
+.data-table td.acciones { text-align: center; }

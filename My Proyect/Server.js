@@ -9,7 +9,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config(); 
 import {createClient} from '@supabase/supabase-js';
-const supabase = createClient(process.env.TU_SUPABASE_URL, process.env.TU_SUPABASE_ANON_KEY);
+const TU_SUPABASE_URL = process.env.TU_SUPABASE_URL || "https://cvdxxfmzerqedmxxfsrs.supabase.co";
+const TU_SUPABASE_ANON_KEY = process.env.TU_SUPABASE_ANON_KEY || 'sb_publishable_rpBA493YCHwRcU6Z7ZKhBA_Epgp6JLt';
+const supabase = createClient(TU_SUPABASE_URL, TU_SUPABASE_ANON_KEY);
 import {upload} from './Storage.js';
 import db from './DataBase.js';
 const app = express();
@@ -105,46 +107,6 @@ app.post('/upload', upload.single('filete'), (req, res) => {
     });
   });
 });
-
-
-  /*
-  // Verificación de seguridad por si no llega el archivo o el ID
-  if (!req.file || !req.body.id) {
-    return res.status(400).send('Faltan archivos o ID en la petición.');
-  }
-
-  // Sanitizar el nombre para evitar el "StorageApiError: Invalid key" en Supabase
-  const nombreLimpio = req.file.originalname
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9.\-_]/g, "-")
-    .replace(/-+/g, "-");
-
-  // Obtener la URL pública usando el nombre sanitizado
-  const { data } = supabase.storage
-    .from('files')
-    .getPublicUrl(nombreLimpio); // <-- Cambiado de originalname a nombreLimpio
-
-  console.log('URL Generada:', data.publicUrl);
-
-  // Obtener el ID correctamente desde req.body
-  const idu = req.body.id; 
-  const id = idu.replace(/\D/g, ""); 
-  
-  // Inyección segura: Aunque es mejor usar placeholders (?), dejamos tu query estructurada correctamente
-  const query = `UPDATE libros SET url = '${data.publicUrl}' WHERE id = ${id};`;
-  
-  db.query(query, (err, results, fields) => {
-    if (err) {
-      console.log('JD BBDD ERROR: ' + err);
-      return res.status(500).send('Error en la base de datos');
-    }
-    
-    // IMPORTANTE: Siempre debes responderle al cliente (fetch) para que no se quede colgado
-    res.status(200).json({ success: true, url: data.publicUrl });
-  });
-  */
-//});
 
 // 5. Escuchar en el puerto dinámico de la nube
 //app.use(express.static(path.join(__dirname, 'Views')));

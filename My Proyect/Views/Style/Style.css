@@ -1,0 +1,84 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+:root {
+    --primary: #4a3aff;
+    --primary-dark: #2e1fd4;
+    --secondary: #00d4ff;
+    --bg-dark: #0f0c29;
+    --bg-mid: #302b63;
+    --bg-light: #24243e;
+    --text-light: #ffffff;
+    --text-muted: #b8b8d1;
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --sidebar-width: 240px;
+    --navbar-height: 65px;
+    --bg-soft: #1e293b;
+    --bg: #0f172a;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.logo-img{
+    width:80%;
+    height:80%;
+    border-radius: 50%;
+}
+
+/* INFO del COLEGIO */
+.nsc{
+  overflow-y: auto;/**/
+  overflow-x: hidden;/**/
+  box-sizing:border-box;
+  /*width:80%;/**/
+  /*height:80%;/**/
+  margin:2rem;
+  padding:20px;
+  border-radius:20px;
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+}
+.nsc.ocultar{animation: desaparecer 0.6s ease-out forwards;}
+.nsc.mostrar{animation: aparecer 0.6s ease-out forwards;}
+.dimg{
+    width:100%;
+    height:45%;
+    border-radius:20px;
+    padding:20px;
+    border:1px solid var(--secondary);
+    background: var(--bg);
+}
+.img{
+    border-radius:20px;
+    width:100%;
+    height:100%;
+}
+.title{
+    width:100%;
+    height:auto;
+    border-radius:20px;
+    font-size:40px;
+    padding:20px;
+    border:1px solid var(--secondary);
+    background: var(--bg);
+}
+.txt{
+    width:100%;
+    height:auto;
+    border-radius:20px;
+    padding:20px;
+    border:1px solid var(--secondary);
+    background: var(--bg);
+}
+
+.qr{
+    width:100%;
+    /*height: 10%;/**/
+    /*bottom:0;/**/
+}

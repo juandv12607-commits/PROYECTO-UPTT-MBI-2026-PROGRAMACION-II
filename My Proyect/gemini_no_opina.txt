@@ -1,0 +1,76 @@
+DOCUMENTACIÓN OFICIAL DEL SISTEMA DE GESTIÓN DE LA BIBLIOTECA (SCHOOL)
+
+=========================================
+1. DESCRIPCIÓN GENERAL DEL SISTEMA
+=========================================
+Este sistema web es una plataforma automatizada diseñada para la gestión, control y administración de material
+bibliotecario, usuarios y préstamos de libros dentro de una base de datos. Permite realizar operaciones CRUD completas
+(Crear, Leer, Actualizar, Eliminar) sobre los registros, además de subida y sustitución de archivos digitales vinculados
+a cada libro. Todo esto desde un usuario administrador.
+
+=========================================
+2. ROLES DE USUARIO DISPONIBLES
+=========================================
+El sistema maneja de forma estricta los siguientes roles para clasificar a los integrantes de la institución:
+- Administrador (gestiona toda la información de la plataforma, incluyendo usuarios, libros, prestamos y archivos)
+- Estudiante
+- Bibliotecario
+- Docente
+- Investigador
+
+=========================================
+3. MÓDULOS PRINCIPALES Y OPERACIONES
+=========================================
+
+--- MÓDULO DE LIBROS ---
+Almacena y administra todo el catálogo físico y digital de la biblioteca.
+* Datos manejados por libro: Título, Autor, Editorial, Año, Cantidad Total, Disponibles y la URL del archivo digital
+(PDF/Documento).
+* Registro de nuevo libro (acción solo habilitada para Administrador): Requiere ingresar de forma obligatoria todos los campos
+de texto y una cantidad numérica en unidades.
+* Subida de Archivo Digital / E-book (acción solo habilitada para Administrador): Mediante un botón con icono de bandeja de
+salida (📤), el personal puede cargar un archivo adjunto y guardarlo desde el sitio. Si el libro ya tenía un archivo
+registrado previamente, el sistema detecta de forma automática la URL vieja, la elimina por completo para no ocupar espacio
+basura y registra la nueva URL en la base de datos.
+
+--- MÓDULO DE USUARIOS ---
+Gestiona el padrón y control de acceso de las personas asociadas a la biblioteca.
+* Datos manejados por usuario: ID interno, Nombre, Rol, Cédula (identificador numérico único de máximo 9 dígitos) y Contraseña.
+* Registro e inicio de sesión: Los usuarios pueden registrarse directamente en la plataforma introduciendo su nombre, cedula de
+identidad y contraseña. El inicio de sesión (Login) se realiza validando de forma segura la Cédula y la Contraseña en la base
+de datos.
+
+--- MÓDULO DE PRÉSTAMOS ---
+Controla la circulación del material bibliotecario vinculando un usuario con un libro.
+* Datos manejados por préstamo: ID de préstamo, Usuario asignado, Libro prestado, Fecha de préstamo y Fecha de devolución.
+* Creación de préstamo: El sistema despliega un menú interactivo donde se cargan de forma dinámica los títulos de los libros y los nombres de los usuarios existentes. El operador debe seleccionar los elementos correspondientes e ingresar la Fecha de préstamo de forma obligatoria mediante un calendario en pantalla. Por defecto, la fecha de devolución estimada se registra inicialmente como 'automatico' y los estados iniciales se configuran en espera.
+
+=========================================
+4. GUÍA DE USO DE LA INTERFAZ DE TABLAS (Vistas)
+=========================================
+La administración general se realiza de forma visual e intuitiva desde una interfaz de tablas interactivas con las siguientes herramientas mecánicas:
+
+1. Registrar Elemento (acción solo habilitada para Administrador): Al presionar el botón "Agregar Fila" (➕), el sistema abre
+un modal flotante inteligente que adapta sus campos automáticamente según la sección en la que te encuentres
+(Libros, Usuarios o Préstamos). Si dejas campos obligatorios vacíos, el sistema resaltará el campo en rojo y bloqueará el
+guardado hasta que se corrija.
+2. Modificar Registro (acción solo habilitada para Administrador): Al presionar el botón de lápiz (✏️) al lado de cualquier
+fila, el modal se cargará con los datos existentes permitiendo la edición y guardado de los cambios en tiempo real en la base
+de datos.
+3. Eliminar Registro (acción solo habilitada para Administrador): Al presionar el botón de papelera (🗑️), la fila ejecuta
+una animación visual de desvanecimiento hacia la derecha y se elimina de forma definitiva e irreversible tanto de la pantalla
+como de la base de datos.
+4. Barra de Búsqueda Inteligente: El sistema cuenta con un motor de búsqueda global. Al ingresar un texto y seleccionar
+la tabla, se ejecuta un escaneo dinámico columna por columna buscando coincidencias para devolver de forma asíncrona todos los
+resultados que contengan dicha palabra; coincidiendo con un libro, usuario o prestamo de libro según el caso.
+
+=========================================
+5. PROTOCOLO DE SEGURIDAD Y CONECTIVIDAD
+=========================================
+- Autenticación: El sistema protege las credenciales mediante Tokens JWT (JSON Web Tokens) de alta seguridad que expiran en 1
+día.
+- Almacenamiento de Tokens: El token se aloja del lado del cliente mediante Cookies para la máxima protección.
+- Cierre de Sesión (Logout): Al salir del sistema, las cookies se destruyen limpiando el rastro de la sesión del dispositivo
+de forma segura.
+- Conexión Remota: La base de datos opera bajo un entorno de producción en la nube administrado de
+forma segura mediante conexiones encriptadas.

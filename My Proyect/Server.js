@@ -56,9 +56,9 @@ app.post('/upload', upload.single('filete'), (req, res) => {
   const id = idu.replace(/\D/g, ""); 
 
   // 2. PRIMER PASO: Consultar si ya existe un archivo registrado para este ID
-  const queryBuscar = `SELECT url FROM libros WHERE id = ${id};`;
+  const queryBuscar = `SELECT url FROM libros WHERE id = ?;`;
 
-  db.query(queryBuscar, async (err, results) => {
+  db.query(queryBuscar,[id], async (err, results) => {
     if (err) {
       console.log('Error al buscar URL existente: ' + err);
       return res.status(500).send('Error en la base de datos al verificar archivo previo');

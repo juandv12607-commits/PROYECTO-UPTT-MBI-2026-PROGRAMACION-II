@@ -10,17 +10,6 @@ const __dirname = path.dirname(__filename);
 
 // Leer el certificado CA descargado de Aiven
 const caCert = fs.readFileSync(path.join(__dirname, 'ca.pem'), 'utf-8');
-/*
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '1234',
-    database: 'SCHOOL',//SCHOOL
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-*/
 
 const pool = mysql.createPool({
     host: process.env.DATABASE_HOST || 'mysql-2ed6ac4a-juandv12607-f7c9.e.aivencloud.com',

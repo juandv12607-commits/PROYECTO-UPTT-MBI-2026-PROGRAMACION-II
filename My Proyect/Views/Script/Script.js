@@ -12,22 +12,22 @@ INSERT INTO libros (titulo,autor,editorial,año,cantida_total,disponibles) VALUE
 //export const url = 'http://localhost:3000/';
 export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
 
-try{
-const id123 = Number(localStorage.getItem('user'));
+// Script.js — al inicio, después de los imports
+export let user = null;   // ← Declaración global del módulo
 
-const response = await fetch(url + 'api/my', {
+try {
+    const id123 = Number(localStorage.getItem('user'));
+    const response = await fetch(url + 'api/my', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',   // ← ¡envía y recibe cookies!
       body: JSON.stringify({ id123 })
     });
-const res123 = await response.json();
-
-let user = res123[0];
-
-console.log(user);
-}catch(err){
-    console.log('No hay usuario logeado: ',err);
+    const res123 = await response.json();
+    user = res123[0];      // ← Asignación (sin 'let')
+    console.log(user);
+} catch(err) {
+    console.log('No hay usuario logeado: ', err);
 }
 
 const session = async (table) => {

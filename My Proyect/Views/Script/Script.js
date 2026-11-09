@@ -37,7 +37,7 @@ const session = async (table) => {
         tablaUsuarios.style.display = 'flex';
         ShowTable(table, user.rol);
         tablaUsuarios.table = `${table}`;
-        btnAgregarFila.style.display = 'block';
+        //btnAgregarFila.style.display = 'block';
         stats_grid.style.display = 'none';
         
         nsc.style.display = 'none';
@@ -47,7 +47,7 @@ const session = async (table) => {
         while(0 < search_bar.children.length){search_bar.removeChild(search_bar.lastChild);}
     }else{
         tablaUsuarios.style.display = 'none';
-        btnAgregarFila.style.display = 'none';
+        //btnAgregarFila.style.display = 'none';
         stats_grid.style.display = 'none';
 
         tablaUsuarios.table = 'libros';

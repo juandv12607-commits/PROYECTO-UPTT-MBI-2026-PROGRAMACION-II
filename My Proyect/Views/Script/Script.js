@@ -319,7 +319,7 @@ login.addEventListener('click',async () => {
         nsc.style.display = 'block';
         while(0 < search_bar.children.length){search_bar.removeChild(search_bar.lastChild);}
         search.value = '';
-        window.location.reload();
+        //window.location.reload();
         //console.log(document.cookie);
     }
 });

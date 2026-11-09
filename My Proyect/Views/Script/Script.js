@@ -3,6 +3,12 @@ import {ShowTable} from './ShowTable.js';
 import {toggleSidebar} from './ToggleSideBar.js';
 import {sendMessage} from './SendMessage.js';
 
+/*
+<div>
+        <img class="qr" src="Mi_código_QR.png" alt="QR">
+    </div>
+*/
+
 //export const url = 'http://localhost:3000/';
 export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
 
@@ -25,7 +31,7 @@ try {
 
 const session = async (table) => {
     const tablaUsuarios = document.getElementById('tablaUsuarios');
-    const btnAgregarFila = document.getElementById('btnAgregarFila');
+    //const btnAgregarFila = document.getElementById('btnAgregarFila');
     const stats_grid = document.getElementById('stats-grid');
     const search_section = document.getElementById('search-section');
     

@@ -15,6 +15,8 @@ export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/
 // Script.js — al inicio, después de los imports
 export let user = null;   // ← Declaración global del módulo
 
+console.log(document.cookie);
+
 try {
     const id123 = Number(localStorage.getItem('user'));
     const response = await fetch(url + 'api/my', {

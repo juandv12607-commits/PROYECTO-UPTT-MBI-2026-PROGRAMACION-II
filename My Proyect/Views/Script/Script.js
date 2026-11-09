@@ -293,6 +293,7 @@ login.addEventListener('click',async () => {
     const res = await response.json();
 
     if(res.ok){
+        user = res.user;localStorage.setItem('user',`${res.user.id}`);
         document.getElementById('logout').style.display = 'flex';
         document.getElementById('btn_login').style.display = 'none';
         document.getElementById('btn_register').style.display = 'none';
@@ -302,7 +303,6 @@ login.addEventListener('click',async () => {
             document.getElementById('search-section').style.display = 'none'; 
             document.getElementById('sidebar').style.transform = 'translateX(0px)'; 
             document.getElementById('main-content').style.marginLeft = '240px';
-            user = res.user;localStorage.setItem('user',`${res.user.id}`);
         }
         if(document.cookie){
             const tablaUsuarios = document.getElementById('tablaUsuarios');

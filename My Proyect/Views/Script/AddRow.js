@@ -294,8 +294,8 @@ import {url} from './Script.js';
         }
 
         if(document.getElementById('tablaUsuarios').table === 'prestamos'){
-            const usuario_id = document.getElementById('select1').value;
-            const libro_id = document.getElementById('select2').value;
+            const libro_id = document.getElementById('select1').value;
+            const usuario_id = document.getElementById('select2').value;
             const fecha = document.getElementById('input1').value;
 
             if (!fecha) {

@@ -243,7 +243,7 @@ consultarIAConModelo(prompt, 0)
                 // Guardar token en cookie HttpOnly
                 res.cookie('auth_token', token, {
                     httpOnly: true,        // JavaScript no puede leerla
-                    secure: process.env.TLS || true, // true en producción con HTTPS
+                    secure: process.env.NODE_ENV === 'production', // true en producción con HTTPS
                     sameSite: 'lax',       // protección CSRF
                     maxAge: 24 * 60 * 60 * 1000, //24 * 60 * 60 * 1000 = 1 día
                     path: '/'

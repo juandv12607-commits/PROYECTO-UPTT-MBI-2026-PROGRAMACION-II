@@ -297,6 +297,7 @@ login.addEventListener('click',async () => {
         document.getElementById('btn_login').style.display = 'none';
         document.getElementById('btn_register').style.display = 'none';
         closeModal();
+        console.log(document.cookie);
         if(document.cookie){
             document.getElementById('search-section').style.display = 'none'; 
             document.getElementById('sidebar').style.transform = 'translateX(0px)'; 

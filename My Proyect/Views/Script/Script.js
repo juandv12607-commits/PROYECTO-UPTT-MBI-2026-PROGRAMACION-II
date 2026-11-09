@@ -97,6 +97,7 @@ if(isLoggedIn()){
     document.getElementById('logout').style.display = 'none';
     document.getElementById('btn_login').style.display = 'flex';
     document.getElementById('btn_register').style.display = 'flex';
+    document.getElementById('btnAgregarFila').style.display = 'none';
 }
 
 const search_bar = document.getElementById('container-search-bar');

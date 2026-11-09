@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS libros (
 
 CREATE TABLE IF NOT EXISTS prestamos (
     id INT AUTO_INCREMENT PRIMARY KEY, 
-    usuario_id INT  DEFAULT 1,
+    usuario_id INT DEFAULT 1,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id), 
     libro_id INT  DEFAULT 1,
     FOREIGN KEY (libro_id) REFERENCES libros(id), 

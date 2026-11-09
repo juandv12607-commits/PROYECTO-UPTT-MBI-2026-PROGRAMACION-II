@@ -292,6 +292,10 @@ login.addEventListener('click',async () => {
     });
     const res = await response.json();
 
+    // 👇 AGREGA ESTO PARA VER QUÉ DEVUELVE EL SERVIDOR
+    console.log('Respuesta del login:', res);
+    console.log('Status HTTP:', response.status);
+
     if(res.ok){
         user = res.user;localStorage.setItem('user',`${res.user.id}`);
         document.getElementById('logout').style.display = 'flex';
@@ -315,6 +319,7 @@ login.addEventListener('click',async () => {
         nsc.style.display = 'block';
         while(0 < search_bar.children.length){search_bar.removeChild(search_bar.lastChild);}
         search.value = '';
+        window.location.reload();
         //console.log(document.cookie);
     }
 });

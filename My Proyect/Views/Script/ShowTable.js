@@ -141,8 +141,8 @@ export async function ShowTable(table,rol){
                     });
                     const res2 = await response2.json();
                     
-                    select1.style.display = 'block';s1.style.display = 'block';s1.textContent = 'id usuario';while(0 < select1.children.length){select1.removeChild(select1.firstChild);}for(let i of res2){const option = document.createElement('option');option.value = i.id;option.textContent = i.titulo;select1.appendChild(option);}
-                    select2.style.display = 'block';s2.style.display = 'block';s2.textContent = 'id libros';while(0 < select2.children.length){select2.removeChild(select2.firstChild);}for(let i of res1){const option = document.createElement('option');option.value = i.id;option.textContent = i.nombre;select2.appendChild(option);}
+                    select1.style.display = 'block';s1.style.display = 'block';s1.textContent = 'id usuario';while(0 < select1.children.length){select1.removeChild(select1.firstChild);}for(let i of res1){const option = document.createElement('option');option.value = i.id;option.textContent = i.titulo;select1.appendChild(option);}
+                    select2.style.display = 'block';s2.style.display = 'block';s2.textContent = 'id libros';while(0 < select2.children.length){select2.removeChild(select2.firstChild);}for(let i of res2){const option = document.createElement('option');option.value = i.id;option.textContent = i.nombre;select2.appendChild(option);}
                     input1.style.display = 'block';i1.textContent = 'Fecha de prestamo';input1.type = 'date';input1.style.background = 'white';input1.style.color = 'black';input1.min="2026-01-01";input1.max="2030-12-31";
                     input2.style.display = 'block';i2.textContent = 'Fecha de devolución';input2.type = 'date';input2.style.background = 'white';input2.style.color = 'black';input2.min="2026-01-01";input2.max="2030-12-31";
                     input3.style.display = 'none';input3.value = '';i3.style.display = 'none';

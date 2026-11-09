@@ -130,10 +130,14 @@ libros.addEventListener('click',()=>{
     document.getElementById('btnAgregarFila').textContent = 'Guardar Libro';
     document.getElementById('btnActualizarUsuario').textContent = 'Actualizar Libro';
     document.getElementById('btnGuardarUsuario').textContent = 'Guardar Libro';
-    if(isLoggedIn()){// && user.rol === 'Admin'
+    if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
         document.getElementById('btnGuardarUsuario').style.display = 'flex';
         document.getElementById('btnAgregarFila').style.display = 'flex';
         document.getElementById('btnActualizarUsuario').style.display = 'flex';
+    }else if(isLoggedIn() && user.rol !== 'Admin'){
+        document.getElementById('btnGuardarUsuario').style.display = 'none';
+        document.getElementById('btnAgregarFila').style.display = 'none';
+        document.getElementById('btnActualizarUsuario').style.display = 'none';
     }else{
         document.getElementById('btnGuardarUsuario').style.display = 'none';
         document.getElementById('btnAgregarFila').style.display = 'none';
@@ -147,10 +151,14 @@ usuarios.addEventListener('click',()=>{
     document.getElementById('btnAgregarFila').textContent = 'Guardar Usuario';
     document.getElementById('btnActualizarUsuario').textContent = 'Actualizar Usuario';
     document.getElementById('btnGuardarUsuario').textContent = 'Guardar Usuario';
-    if(isLoggedIn()){// && user.rol === 'Admin'
+    if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
         document.getElementById('btnGuardarUsuario').style.display = 'flex';
         document.getElementById('btnAgregarFila').style.display = 'flex';
         document.getElementById('btnActualizarUsuario').style.display = 'flex';
+    }else if(isLoggedIn() && user.rol !== 'Admin'){
+        document.getElementById('btnGuardarUsuario').style.display = 'none';
+        document.getElementById('btnAgregarFila').style.display = 'none';
+        document.getElementById('btnActualizarUsuario').style.display = 'none';
     }else{
         document.getElementById('btnGuardarUsuario').style.display = 'none';
         document.getElementById('btnAgregarFila').style.display = 'none';
@@ -164,10 +172,14 @@ prestamos.addEventListener('click',()=>{
     document.getElementById('btnAgregarFila').textContent = 'Guardar Prestamo';
     document.getElementById('btnActualizarUsuario').textContent = 'Actualizar Prestamos';
     document.getElementById('btnGuardarUsuario').textContent = 'Guardar Prestamos';
-    if(isLoggedIn()){// && user.rol === 'Admin'
+    if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
         document.getElementById('btnGuardarUsuario').style.display = 'flex';
         document.getElementById('btnAgregarFila').style.display = 'flex';
         document.getElementById('btnActualizarUsuario').style.display = 'flex';
+    }else if(isLoggedIn() && user.rol !== 'Admin'){
+        document.getElementById('btnGuardarUsuario').style.display = 'none';
+        document.getElementById('btnAgregarFila').style.display = 'none';
+        document.getElementById('btnActualizarUsuario').style.display = 'none';
     }else{
         document.getElementById('btnGuardarUsuario').style.display = 'none';
         document.getElementById('btnAgregarFila').style.display = 'none';

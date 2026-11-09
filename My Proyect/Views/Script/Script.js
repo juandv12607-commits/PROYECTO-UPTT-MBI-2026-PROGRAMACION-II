@@ -124,11 +124,12 @@ dashboard.addEventListener('click',() => {
 
 const libros = document.getElementById('libros');
 libros.addEventListener('click',()=>{
+    console.log('Valor de user al hacer clic en libros:', user); // 👈 Añade esto
     session('libros');
     document.getElementById('btnAgregarFila').textContent = 'Guardar Libro';
     document.getElementById('btnActualizarUsuario').textContent = 'Actualizar Libro';
     document.getElementById('btnGuardarUsuario').textContent = 'Guardar Libro';
-    if(isLoggedIn() && user.rol === 'Admin'){
+    if(user && user.rol === 'Admin'){// && user.rol === 'Admin'
         document.getElementById('btnGuardarUsuario').style.display = 'flex';
         document.getElementById('btnAgregarFila').style.display = 'flex';
         document.getElementById('btnActualizarUsuario').style.display = 'flex';

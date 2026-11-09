@@ -12,6 +12,8 @@ export async function ShowTable(table,rol){
         idUsuario = userData ? userData.id : null;
     } catch(e) { console.error('Error leyendo usuario:', e); }
 
+    console.log(idUsuario);
+
     if(rol === 'Admin'){
         q = `SELECT * FROM ${table};`;
     }else{

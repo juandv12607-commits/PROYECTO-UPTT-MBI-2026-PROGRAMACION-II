@@ -196,13 +196,12 @@ search.addEventListener('input',()=>{
                     const article = libro_card.cloneNode(true);
                     article.style.display ='flex';
                     article.children[1].children[0].textContent = i.titulo;
-                    article.children[1].children[1].children[0].children[1].textContent = i.id;
-                    article.children[1].children[1].children[1].children[1].textContent = i.titulo;
-                    article.children[1].children[1].children[2].children[1].textContent = i.autor;
-                    article.children[1].children[1].children[4].children[1].textContent = i.editorial;
-                    article.children[1].children[1].children[3].children[1].textContent = i.año;
-                    article.children[1].children[1].children[5].children[1].textContent = i.cantidad_total;
-                    article.children[1].children[1].children[6].children[1].textContent = i.disponibles;
+                    article.children[1].children[1].children[0].children[1].textContent = i.titulo;
+                    article.children[1].children[1].children[1].children[1].textContent = i.autor;
+                    article.children[1].children[1].children[3].children[1].textContent = i.editorial;
+                    article.children[1].children[1].children[2].children[1].textContent = i.año;
+                    article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
+                    article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
                     article.children[1].children[2].children[0].href = i.url;
                     search_bar.appendChild(article);
                 }

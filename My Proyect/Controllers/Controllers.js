@@ -1,6 +1,10 @@
 import db from '../DataBase.js';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import { GoogleGenAI } from "@google/genai";
 const ai = new GoogleGenAI({apiKey:process.env.IA_KEY});
 
@@ -145,7 +149,9 @@ function consultarIAConModelo(prompt, indiceModelo) {
     if (indiceModelo >= MODELOS_DISPONIBLES.length) {
         return Promise.reject(new Error("Ningún modelo de Gemini se encuentra disponible en este momento."));
     }
-    const infoContexto = fs.readFileSync('gemini_no_opina.txt', 'utf-8');
+    // Sube un nivel desde Controllers/ hasta la raíz
+    const infoContexto = fs.readFileSync(path.join(__dirname, '..', 'gemini_no_opina.txt'), 'utf-8');
+
 
     const modeloActual = MODELOS_DISPONIBLES[indiceModelo];
     console.log(`Intentando conectar con el modelo: ${modeloActual}`);

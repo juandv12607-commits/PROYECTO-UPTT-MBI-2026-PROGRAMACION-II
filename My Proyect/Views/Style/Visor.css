@@ -61,7 +61,7 @@
         /* Botones de navegación laterales */
         .nav-button {
             position: absolute;
-            top: 70%;
+            top: 80%;
             transform: translateY(-50%);
             background: rgba(30, 30, 60, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);

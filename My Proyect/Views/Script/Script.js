@@ -66,9 +66,6 @@ const session = async (table) => {
     }else if(table === 'prestamos'){
         page_title.textContent = 'Lista de Prestamos';
         page_subtitle.textContent = 'Lista de Prestamos que corresponden a tu usuario';
-    }else{
-        page_title.textContent = 'Panel de Inicio';
-        page_subtitle.textContent = 'Bienvenido a tu sistema de gestión bibliotecaria inteligente';
     }
 
     movil();
@@ -171,6 +168,8 @@ document.getElementById('btnAgregarFila').style.display = 'none';
 
 const dashboard = document.getElementById('dashboard');
 dashboard.addEventListener('click',() => {
+    page_title.textContent = 'Panel de Inicio';
+    page_subtitle.textContent = 'Bienvenido a tu sistema de gestión bibliotecaria inteligente';
     if(isLoggedIn()){
         const tablaUsuarios = document.getElementById('tablaUsuarios');
         tablaUsuarios.style.display = 'none';

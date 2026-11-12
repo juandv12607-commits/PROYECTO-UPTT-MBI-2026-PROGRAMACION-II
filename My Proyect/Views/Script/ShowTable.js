@@ -12,7 +12,7 @@ export async function ShowTable(table,rol){
         idUsuario = userData ? userData.id : null;
     } catch(e) { console.error('Error leyendo usuario:', e); }
 
-    console.log(idUsuario);
+    //console.log(idUsuario);
 
     if(rol === 'Admin'){
         q = `SELECT * FROM ${table};`;
@@ -64,6 +64,7 @@ export async function ShowTable(table,rol){
             for(let ii of Object.values(i)){
                 const td = document.createElement('td');
                 td.textContent = ii;
+                //if(ii === res[0].id)td.id = ii,console.log(ii);
                 tr.appendChild(td);
             }
 

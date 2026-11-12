@@ -4,10 +4,22 @@ import {toggleSidebar} from './ToggleSideBar.js';
 import {sendMessage} from './SendMessage.js';
 
 /*
-<div>
-        <img class="qr" src="Mi_código_QR.png" alt="QR">
-    </div>
+sql vulnerable
+session para todo
+titulos entre logs
+ocultar boton de mune lateral x
+ia consiente de la bbdd
+dos filas en el search
+reload al login y register x
+favoritos
+rol en login y register
+estado disponibles auto en prestamos
+boton para: 
+ver en tabla
+vista previa nativa
 */
+
+const menu_toggle = document.getElementById('menu-toggle');
 
 //export const url = 'http://localhost:3000/';
 export const url = 'https://proyecto-uptt-mbi-2026-programacion-ii.onrender.com/';
@@ -23,7 +35,7 @@ try {
     const userData = JSON.parse(localStorage.getItem('user'));
     if (userData && userData.id) {
         user = userData;
-        console.log('Usuario cargado desde localStorage:', user);
+        //console.log('Usuario cargado desde localStorage:', user);
     }
 } catch(err) {
     console.log('No hay usuario en localStorage o el formato es inválido:', err);
@@ -35,6 +47,26 @@ const session = async (table) => {
     const stats_grid = document.getElementById('stats-grid');
     const search_section = document.getElementById('search-section');
     
+    if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
+        document.getElementById('btnGuardarUsuario').style.display = 'flex';
+        document.getElementById('btnAgregarFila').style.display = 'flex';
+        document.getElementById('btnActualizarUsuario').style.display = 'flex';
+
+        menu_toggle.style.display = 'flex';
+    }else if(isLoggedIn() && user.rol !== 'Admin'){
+        document.getElementById('btnGuardarUsuario').style.display = 'none';
+        document.getElementById('btnAgregarFila').style.display = 'none';
+        document.getElementById('btnActualizarUsuario').style.display = 'none';
+    
+        menu_toggle.style.display = 'flex';
+    }else{
+        document.getElementById('btnGuardarUsuario').style.display = 'none';
+        document.getElementById('btnAgregarFila').style.display = 'none';
+        document.getElementById('btnActualizarUsuario').style.display = 'none';
+
+        menu_toggle.style.display = 'none';
+    }
+
     if(isLoggedIn()){
         document.getElementById('logout').style.display = 'flex';
         document.getElementById('btn_login').style.display = 'none';
@@ -90,6 +122,8 @@ document.getElementById('tablaUsuarios').table = '';
 export let table = '';
 
 if(isLoggedIn()){
+    menu_toggle.style.display = 'flex';
+
     document.getElementById('tablaUsuarios').table = '';
     document.getElementById('search-section').style.display = 'none';
     document.getElementById('logout').style.display = 'flex';
@@ -104,6 +138,8 @@ if(isLoggedIn()){
     document.getElementById('btn_login').style.display = 'flex';
     document.getElementById('btn_register').style.display = 'flex';
     document.getElementById('btnAgregarFila').style.display = 'none';
+
+    menu_toggle.style.display = 'none';
 }
 
 const search_bar = document.getElementById('container-search-bar');
@@ -131,24 +167,11 @@ dashboard.addEventListener('click',() => {
 
 const libros = document.getElementById('libros');
 libros.addEventListener('click',()=>{
-    console.log('Valor de user al hacer clic en libros:', user); // 👈 Añade esto
+    //console.log('Valor de user al hacer clic en libros:', user); // 👈 Añade esto
     session('libros');
     document.getElementById('btnAgregarFila').textContent = 'Guardar Libro';
     document.getElementById('btnActualizarUsuario').textContent = 'Actualizar Libro';
     document.getElementById('btnGuardarUsuario').textContent = 'Guardar Libro';
-    if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
-        document.getElementById('btnGuardarUsuario').style.display = 'flex';
-        document.getElementById('btnAgregarFila').style.display = 'flex';
-        document.getElementById('btnActualizarUsuario').style.display = 'flex';
-    }else if(isLoggedIn() && user.rol !== 'Admin'){
-        document.getElementById('btnGuardarUsuario').style.display = 'none';
-        document.getElementById('btnAgregarFila').style.display = 'none';
-        document.getElementById('btnActualizarUsuario').style.display = 'none';
-    }else{
-        document.getElementById('btnGuardarUsuario').style.display = 'none';
-        document.getElementById('btnAgregarFila').style.display = 'none';
-        document.getElementById('btnActualizarUsuario').style.display = 'none';
-    }
 });
 
 const usuarios = document.getElementById('usuarios');
@@ -157,19 +180,6 @@ usuarios.addEventListener('click',()=>{
     document.getElementById('btnAgregarFila').textContent = 'Guardar Usuario';
     document.getElementById('btnActualizarUsuario').textContent = 'Actualizar Usuario';
     document.getElementById('btnGuardarUsuario').textContent = 'Guardar Usuario';
-    if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
-        document.getElementById('btnGuardarUsuario').style.display = 'flex';
-        document.getElementById('btnAgregarFila').style.display = 'flex';
-        document.getElementById('btnActualizarUsuario').style.display = 'flex';
-    }else if(isLoggedIn() && user.rol !== 'Admin'){
-        document.getElementById('btnGuardarUsuario').style.display = 'none';
-        document.getElementById('btnAgregarFila').style.display = 'none';
-        document.getElementById('btnActualizarUsuario').style.display = 'none';
-    }else{
-        document.getElementById('btnGuardarUsuario').style.display = 'none';
-        document.getElementById('btnAgregarFila').style.display = 'none';
-        document.getElementById('btnActualizarUsuario').style.display = 'none';
-    }
 });
 
 const prestamos = document.getElementById('prestamos');
@@ -178,19 +188,6 @@ prestamos.addEventListener('click',()=>{
     document.getElementById('btnAgregarFila').textContent = 'Guardar Prestamo';
     document.getElementById('btnActualizarUsuario').textContent = 'Actualizar Prestamos';
     document.getElementById('btnGuardarUsuario').textContent = 'Guardar Prestamos';
-    if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
-        document.getElementById('btnGuardarUsuario').style.display = 'flex';
-        document.getElementById('btnAgregarFila').style.display = 'flex';
-        document.getElementById('btnActualizarUsuario').style.display = 'flex';
-    }else if(isLoggedIn() && user.rol !== 'Admin'){
-        document.getElementById('btnGuardarUsuario').style.display = 'none';
-        document.getElementById('btnAgregarFila').style.display = 'none';
-        document.getElementById('btnActualizarUsuario').style.display = 'none';
-    }else{
-        document.getElementById('btnGuardarUsuario').style.display = 'none';
-        document.getElementById('btnAgregarFila').style.display = 'none';
-        document.getElementById('btnActualizarUsuario').style.display = 'none';
-    }
 });
 
 search.addEventListener('input',()=>{
@@ -222,6 +219,7 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
                     article.children[1].children[2].children[0].href = i.url;
+                    article.children[1].children[2].children[1].href = i.id;
                     search_bar.appendChild(article);
                 }
             }else{
@@ -267,6 +265,9 @@ logout.addEventListener('click',async ()=> {
     document.getElementById('nsc').style.display = 'block';
     document.getElementById('btnAgregarFila').style.display = 'none';
     document.getElementById('tablaUsuarios').table = 'libros';
+
+    menu_toggle.style.display = 'none';
+    window.location.reload();
 });
 
 const login = document.getElementById('login');
@@ -311,6 +312,9 @@ login.addEventListener('click',async () => {
         nsc.style.display = 'block';
         while(0 < search_bar.children.length){search_bar.removeChild(search_bar.lastChild);}
         search.value = '';
+
+        menu_toggle.style.display = 'flex';
+        window.location.reload();
     }
 });
 
@@ -344,6 +348,9 @@ register.addEventListener('click',async () => {
         document.getElementById('search-section').style.display = 'none'; 
         document.getElementById('sidebar').style.transform = 'translateX(0px)'; 
         document.getElementById('main-content').style.marginLeft = '240px';
+
+        menu_toggle.style.display = 'flex';
+        window.location.reload();
     }
 });
 

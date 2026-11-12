@@ -3,17 +3,17 @@ import {url,subirAutomatico} from './Script.js';
 export async function ShowTable(table,rol){
     const tablaUsuarios = document.getElementById('tablaUsuarios');
     tablaUsuarios.style.display = 'flex';
-    let q;
     
     // Obtener ID del usuario desde localStorage
-    let idUsuario = null;
+    let idUsuario1 = null;
     try {
         const userData = JSON.parse(localStorage.getItem('user'));
-        idUsuario = userData ? userData.id : null;
+        idUsuario1 = userData ? userData.id : null;
     } catch(e) { console.error('Error leyendo usuario:', e); }
 
     //console.log(idUsuario);
 
+    /*
     if(rol === 'Admin'){
         q = `SELECT * FROM ${table};`;
     }else{
@@ -25,13 +25,16 @@ export async function ShowTable(table,rol){
             q = `SELECT * FROM ${table} WHERE usuario_id = ${idUsuario};`;
         }
     }
+    */
     
-    const query = q;
+    //const query = q;
+    const tabla = table;
+    const idUsuario = idUsuario1;
     const response = await fetch(url + 'api/books', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ tabla,idUsuario })
     });
     const res = await response.json();
 

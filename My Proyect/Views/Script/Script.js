@@ -219,7 +219,7 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
                     article.children[1].children[2].children[0].href = i.url;
-                    article.children[1].children[2].children[1].href = i.id;
+                    article.children[1].children[2].children[1].href = '#' + i.id;
                     search_bar.appendChild(article);
                 }
             }else{

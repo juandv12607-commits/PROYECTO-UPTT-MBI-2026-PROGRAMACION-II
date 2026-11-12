@@ -12,9 +12,20 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super-secreto-no-hardcode-en-produ
 
 class controller{    
     static books(req,res){
-       const {query} = req.body;
-       // ⚠️ ADVERTENCIA: Este endpoint es inseguro (Inyección SQL). 
-       // Se mantiene por compatibilidad, pero debe ser refactorizado.
+        const {tabla,idUsuario} = req.body;
+        let q;
+    if(rol === 'Admin'){
+        q = `SELECT * FROM ${tabla};`;
+    }else{
+        if(table === 'libros'){
+            q = `SELECT * FROM ${tabla};`;
+        }else if(table === 'usuarios'){
+            q = `SELECT * FROM ${tabla} WHERE id = ${idUsuario};`;
+        }else{
+            q = `SELECT * FROM ${tabla} WHERE usuario_id = ${idUsuario};`;
+        }
+    }
+    const query = q;
        db.query(query,(err, results, fields) => {
             if(err){console.log(err);return;}
             res.json(results);

@@ -25,11 +25,8 @@ class controller{
             q = `SELECT * FROM ${tabla} WHERE usuario_id = ${idUsuario};`;
         }
     }
-    const query = q;
-       db.query(query,(err, results, fields) => {
-            if(err){console.log(err);return;}
-            res.json(results);
-        });
+        const query = q;
+        db.query(query,(err, results, fields) => {if(err){console.log(err);return;}res.json(results);});
     }
 
     static search(req,res){

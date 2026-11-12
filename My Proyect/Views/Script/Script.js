@@ -41,8 +41,10 @@ function movil(){
 // Verifica si la pantalla es de tamaño móvil o si el navegador es de teléfono
 const esMovil = window.innerWidth <= 900 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);//768
 
-if (esMovil && menu_toggle) {
-    menu_toggle.style.display = 'none'; // Oculta el botón visualmente
+if (esMovil && isLoggedIn()) {
+    menu_toggle.style.display = 'flex';
+}else{
+    menu_toggle.style.display = 'none';
 }
 
 }
@@ -221,9 +223,10 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
                     article.children[1].children[2].children[0].href = i.url;
-                    article.children[1].children[2].children[1].href = '#';
-                    //article.children[1].children[2].children[1].dataDestino = i.id;
-
+                    
+if(isLoggedIn()){
+article.children[1].children[2].children[1].style.display = 'flex';
+article.children[1].children[2].children[1].href = '#';
 article.children[1].children[2].children[1].addEventListener('click', function (evento) {
     // 1. Evita que la página recargue o salte arriba por el href="#"
     evento.preventDefault();
@@ -243,7 +246,9 @@ article.children[1].children[2].children[1].addEventListener('click', function (
     document.getElementById(i.id).style.borderColor = '#ff6b6b';
     setTimeout(() => {document.getElementById(i.id).style.borderColor = '#00d4ff';}, 1200);     
   });
-
+}else{
+    article.children[1].children[2].children[1].style.display = 'none';
+}
                     search_bar.appendChild(article);
                 }
             }else{

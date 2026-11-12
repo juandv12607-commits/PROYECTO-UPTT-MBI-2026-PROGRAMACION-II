@@ -219,7 +219,26 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
                     article.children[1].children[2].children[0].href = i.url;
-                    article.children[1].children[2].children[1].href = '#' + i.id;
+                    article.children[1].children[2].children[1].href = '#';
+                    //article.children[1].children[2].children[1].dataDestino = i.id;
+
+article.children[1].children[2].children[1].addEventListener('click', function (evento) {
+    // 1. Evita que la página recargue o salte arriba por el href="#"
+    evento.preventDefault();
+
+    // 2. Lee únicamente el ID guardado en data-destino
+    //const idTitulo = i.id;
+    const elementoDestino = document.getElementById(i.id);
+
+    // 3. Desplaza la pantalla hacia ese título si existe
+    if (elementoDestino) {
+      elementoDestino.scrollIntoView({
+        behavior: 'smooth', // Desplazamiento animado
+        block: 'start'      // Alinea el título arriba de la pantalla
+      });
+    }
+  });
+
                     search_bar.appendChild(article);
                 }
             }else{

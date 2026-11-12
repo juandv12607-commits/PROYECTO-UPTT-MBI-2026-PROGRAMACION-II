@@ -28,13 +28,14 @@ export async function ShowTable(table,rol){
     */
     
     //const query = q;
+    const role = rol
     const tabla = table;
     const idUsuario = idUsuario1;
     const response = await fetch(url + 'api/books', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ tabla,idUsuario })
+        body: JSON.stringify({ tabla,idUsuario,role })
     });
     const res = await response.json();
 

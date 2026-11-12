@@ -12,14 +12,14 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super-secreto-no-hardcode-en-produ
 
 class controller{    
     static books(req,res){
-        const {tabla,idUsuario} = req.body;
+        const {tabla,idUsuario,role} = req.body;
         let q;
-    if(rol === 'Admin'){
+    if(role === 'Admin'){
         q = `SELECT * FROM ${tabla};`;
     }else{
-        if(table === 'libros'){
+        if(tabla === 'libros'){
             q = `SELECT * FROM ${tabla};`;
-        }else if(table === 'usuarios'){
+        }else if(tabla === 'usuarios'){
             q = `SELECT * FROM ${tabla} WHERE id = ${idUsuario};`;
         }else{
             q = `SELECT * FROM ${tabla} WHERE usuario_id = ${idUsuario};`;

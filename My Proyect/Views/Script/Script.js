@@ -5,18 +5,14 @@ import {sendMessage} from './SendMessage.js';
 
 /*
 sql vulnerable
-session para todo
 titulos entre logs
-ocultar boton de mune lateral x
+ocultar boton de menu lateral x
 ia consiente de la bbdd
 dos filas en el search
-reload al login y register x
 favoritos
 rol en login y register
 estado disponibles auto en prestamos
-boton para: 
-ver en tabla
-vista previa nativa
+boton para:vista previa nativa
 */
 
 const menu_toggle = document.getElementById('menu-toggle');
@@ -41,12 +37,24 @@ try {
     console.log('No hay usuario en localStorage o el formato es inválido:', err);
 }
 
+function movil(){
+// Verifica si la pantalla es de tamaño móvil o si el navegador es de teléfono
+const esMovil = window.innerWidth <= 900 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);//768
+
+if (esMovil && menu_toggle) {
+    menu_toggle.style.display = 'none'; // Oculta el botón visualmente
+}
+
+}
+
 const session = async (table) => {
     const tablaUsuarios = document.getElementById('tablaUsuarios');
     //const btnAgregarFila = document.getElementById('btnAgregarFila');
     const stats_grid = document.getElementById('stats-grid');
     const search_section = document.getElementById('search-section');
     
+    movil();
+
     if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
         document.getElementById('btnGuardarUsuario').style.display = 'flex';
         document.getElementById('btnAgregarFila').style.display = 'flex';
@@ -57,14 +65,10 @@ const session = async (table) => {
         document.getElementById('btnGuardarUsuario').style.display = 'none';
         document.getElementById('btnAgregarFila').style.display = 'none';
         document.getElementById('btnActualizarUsuario').style.display = 'none';
-    
-        menu_toggle.style.display = 'flex';
     }else{
         document.getElementById('btnGuardarUsuario').style.display = 'none';
         document.getElementById('btnAgregarFila').style.display = 'none';
         document.getElementById('btnActualizarUsuario').style.display = 'none';
-
-        menu_toggle.style.display = 'none';
     }
 
     if(isLoggedIn()){
@@ -121,9 +125,9 @@ document.getElementById('tablaUsuarios').table = '';
 
 export let table = '';
 
-if(isLoggedIn()){
-    menu_toggle.style.display = 'flex';
+movil();
 
+if(isLoggedIn()){
     document.getElementById('tablaUsuarios').table = '';
     document.getElementById('search-section').style.display = 'none';
     document.getElementById('logout').style.display = 'flex';
@@ -138,8 +142,6 @@ if(isLoggedIn()){
     document.getElementById('btn_login').style.display = 'flex';
     document.getElementById('btn_register').style.display = 'flex';
     document.getElementById('btnAgregarFila').style.display = 'none';
-
-    menu_toggle.style.display = 'none';
 }
 
 const search_bar = document.getElementById('container-search-bar');
@@ -234,9 +236,12 @@ article.children[1].children[2].children[1].addEventListener('click', function (
     if (elementoDestino) {
       elementoDestino.scrollIntoView({
         behavior: 'smooth', // Desplazamiento animado
-        block: 'start'      // Alinea el título arriba de la pantalla
+        block: 'center'     // Alinea el título al centro de la pantalla
       });
     }
+
+    document.getElementById(i.id).style.borderColor = '#ff6b6b';
+    setTimeout(() => {document.getElementById(i.id).style.borderColor = '#00d4ff';}, 1200);     
   });
 
                     search_bar.appendChild(article);
@@ -285,7 +290,7 @@ logout.addEventListener('click',async ()=> {
     document.getElementById('btnAgregarFila').style.display = 'none';
     document.getElementById('tablaUsuarios').table = 'libros';
 
-    menu_toggle.style.display = 'none';
+    movil();
     window.location.reload();
 });
 
@@ -332,7 +337,7 @@ login.addEventListener('click',async () => {
         while(0 < search_bar.children.length){search_bar.removeChild(search_bar.lastChild);}
         search.value = '';
 
-        menu_toggle.style.display = 'flex';
+        movil();
         window.location.reload();
     }
 });
@@ -368,7 +373,7 @@ register.addEventListener('click',async () => {
         document.getElementById('sidebar').style.transform = 'translateX(0px)'; 
         document.getElementById('main-content').style.marginLeft = '240px';
 
-        menu_toggle.style.display = 'flex';
+        movil();
         window.location.reload();
     }
 });

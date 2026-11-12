@@ -5,15 +5,17 @@ import {sendMessage} from './SendMessage.js';
 
 /*
 sql vulnerable
-titulos entre logs
-ocultar boton de menu lateral x
 ia consiente de la bbdd
 dos filas en el search
 favoritos
 rol en login y register
 estado disponibles auto en prestamos
 boton para:vista previa nativa
+footer
 */
+
+const page_title = document.getElementById("page-title");
+const page_subtitle = document.getElementById("page-subtitle");
 
 const menu_toggle = document.getElementById('menu-toggle');
 
@@ -55,6 +57,20 @@ const session = async (table) => {
     const stats_grid = document.getElementById('stats-grid');
     const search_section = document.getElementById('search-section');
     
+    if(table === 'libros'){
+        page_title.textContent = 'Catálogo de Libros';
+        page_subtitle.textContent = 'Aquí podras ver el catálogo completo de Libros disponibles en la Biblioteca de la Unidad Educativa "Nuestra Señora de Coromoto"';
+    }else if(table === 'usuarios'){
+        page_title.textContent = 'Información de Usuario';
+        page_subtitle.textContent = 'Recopilación de tus datos de Usuario';
+    }else if(table === 'prestamos'){
+        page_title.textContent = 'Lista de Prestamos';
+        page_subtitle.textContent = 'Lista de Prestamos que corresponden a tu usuario';
+    }else{
+        page_title.textContent = 'Panel de Inicio';
+        page_subtitle.textContent = 'Bienvenido a tu sistema de gestión bibliotecaria inteligente';
+    }
+
     movil();
 
     if(isLoggedIn() && user.rol === 'Admin'){// && user.rol === 'Admin'
@@ -243,8 +259,10 @@ article.children[1].children[2].children[1].addEventListener('click', function (
       });
     }
 
+    const color_anterior = document.getElementById(i.id).style.borderColor;
     document.getElementById(i.id).style.borderColor = '#ff6b6b';
-    setTimeout(() => {document.getElementById(i.id).style.borderColor = '#00d4ff';}, 1200);     
+    setTimeout(() => {document.getElementById(i.id).style.borderColor = '#00d4ff';}, 1200);
+    setTimeout(() => {document.getElementById(i.id).style.borderColor = color_anterior;}, 2400);     
   });
 }else{
     article.children[1].children[2].children[1].style.display = 'none';

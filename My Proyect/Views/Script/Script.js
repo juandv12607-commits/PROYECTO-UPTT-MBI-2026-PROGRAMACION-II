@@ -245,7 +245,7 @@ if(i.url){
 //article.children[1].children[2].children[0].href = i.url;
 
 //article.children[1].children[2].children[2].href = i.url;//ver en pestaña nueva
-article.children[1].children[2].children[3].style.display = 'flex';
+article.children[1].children[2].children[3].style.display = 'block';
 article.children[1].children[2].children[3].children[0].src = i.url;
 
 article.children[1].children[2].children[1].addEventListener('click', function (evento) {

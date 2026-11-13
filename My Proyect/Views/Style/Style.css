@@ -49,3 +49,9 @@ embed {
     border: none;
     display: block;
 }
+
+.btn-2 {
+    width:auto;
+    height:auto;
+    padding:20px;
+}

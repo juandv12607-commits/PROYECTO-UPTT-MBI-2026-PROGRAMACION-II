@@ -272,7 +272,7 @@ article.children[1].children[2].children[1].addEventListener('click', function (
 }else{
     article.children[1].children[2].children[0].style.display = 'none';
     //article.children[1].children[2].children[1].style.display = 'none';
-    article.children[1].children[2].children[3].style.display = 'none';
+    //article.children[1].children[2].children[3].style.display = 'none';
 }
                     search_bar.appendChild(article);
                 }

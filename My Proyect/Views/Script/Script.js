@@ -10,8 +10,8 @@ dos filas en el search
 favoritos
 rol en login y register
 disponibles auto en prestamos
-boton para:vista previa nativa
 footer
+boton flotante para subir al buscador
 */
 
 const page_title = document.getElementById("page-title");

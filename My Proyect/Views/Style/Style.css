@@ -38,8 +38,9 @@ body {
 }
 
 .contenedor {
-    height: 50%; /* calc(100vh - 52px);*/
+    height: 100%; /* calc(100vh - 52px);*/
     width: 50%;
+    border:red;
 }
 
 embed {

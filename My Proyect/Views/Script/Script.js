@@ -9,7 +9,7 @@ ia consiente de la bbdd
 dos filas en el search
 favoritos
 rol en login y register
-estado disponibles auto en prestamos
+disponibles auto en prestamos
 boton para:vista previa nativa
 footer
 */
@@ -237,11 +237,18 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[2].children[1].textContent = i.año;
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
-                    article.children[1].children[2].children[0].href = i.url;
+                    
                     
 if(isLoggedIn()){
+article.children[1].children[2].children[0].style.display = 'flex';
+article.children[1].children[2].children[0].href = i.url;
 article.children[1].children[2].children[1].style.display = 'flex';
 article.children[1].children[2].children[1].href = '#';
+
+//article.children[1].children[2].children[2].href = i.url;//ver en pestaña nueva
+article.children[1].children[2].children[3].style.display = 'flex';
+article.children[1].children[2].children[3].children[0].src = i.url;
+
 article.children[1].children[2].children[1].addEventListener('click', function (evento) {
     // 1. Evita que la página recargue o salte arriba por el href="#"
     evento.preventDefault();
@@ -264,7 +271,9 @@ article.children[1].children[2].children[1].addEventListener('click', function (
     setTimeout(() => {document.getElementById(i.id).style.borderColor = color_anterior;}, 2400);     
   });
 }else{
+    article.children[1].children[2].children[0].style.display = 'none';
     article.children[1].children[2].children[1].style.display = 'none';
+    article.children[1].children[2].children[3].style.display = 'none';
 }
                     search_bar.appendChild(article);
                 }

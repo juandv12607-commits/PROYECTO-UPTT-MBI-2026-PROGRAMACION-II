@@ -237,13 +237,12 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[2].children[1].textContent = i.año;
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
+                    article.children[1].children[2].children[1].style.display = 'flex';
+                    article.children[1].children[2].children[1].href = '#';
                     
-                    
-if(isLoggedIn()){
+if(i.url){
 article.children[1].children[2].children[0].style.display = 'flex';
 article.children[1].children[2].children[0].href = i.url;
-article.children[1].children[2].children[1].style.display = 'flex';
-article.children[1].children[2].children[1].href = '#';
 
 //article.children[1].children[2].children[2].href = i.url;//ver en pestaña nueva
 article.children[1].children[2].children[3].style.display = 'flex';

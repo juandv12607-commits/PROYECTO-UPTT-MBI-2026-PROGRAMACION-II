@@ -38,7 +38,7 @@ body {
 }
 
 .contenedor {
-    height: 100%; /* calc(100vh - 52px);*/
+    height: calc(50vh); /* 52px */
     width: 50%;
     border:red;
 }

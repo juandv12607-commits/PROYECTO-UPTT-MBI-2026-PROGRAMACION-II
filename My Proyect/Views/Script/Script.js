@@ -237,7 +237,7 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[2].children[1].textContent = i.año;
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
-                    article.children[1].children[2].children[1].style.display = 'flex';
+                    //article.children[1].children[2].children[1].style.display = 'flex';
                     article.children[1].children[2].children[1].href = '#';
                     
 if(i.url){
@@ -271,7 +271,7 @@ article.children[1].children[2].children[1].addEventListener('click', function (
   });
 }else{
     article.children[1].children[2].children[0].style.display = 'none';
-    article.children[1].children[2].children[1].style.display = 'none';
+    //article.children[1].children[2].children[1].style.display = 'none';
     article.children[1].children[2].children[3].style.display = 'none';
 }
                     search_bar.appendChild(article);

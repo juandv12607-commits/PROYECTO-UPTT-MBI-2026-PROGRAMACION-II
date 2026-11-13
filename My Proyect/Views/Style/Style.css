@@ -51,7 +51,11 @@ embed {
 }
 
 .btn-2 {
-    width:auto;
-    height:auto;
-    padding:20px;
+    /*width:auto;/**/
+    /*height:auto;/**/
+    /*padding:20px;/**/
+    padding: 9px 18px; border: none; border-radius: 8px;
+    cursor: pointer; font-weight: 600; font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: inline-flex; align-items: center; gap: 6px;
 }

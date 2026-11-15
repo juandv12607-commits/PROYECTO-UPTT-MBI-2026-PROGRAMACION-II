@@ -326,7 +326,6 @@ search.addEventListener('input',()=>{
                     article.children[1].children[1].children[2].children[1].textContent = i.año;
                     article.children[1].children[1].children[4].children[1].textContent = i.cantidad_total;
                     //article.children[1].children[1].children[5].children[1].textContent = i.disponibles;
-article.children[1].children[1].children[5].style.display = 'flex';
 article.children[1].children[1].children[5].href = '#';
 article.children[1].children[1].children[5].addEventListener('click', function (evento) {
     // 1. Evita que la página recargue o salte arriba por el href="#"
@@ -348,6 +347,12 @@ article.children[1].children[1].children[5].addEventListener('click', function (
     document.getElementById(i.id).style.borderColor = '#00d4ff';
     setTimeout(() => {document.getElementById(i.id).style.borderColor = color_anterior;}, 3000);     
 });
+
+if(isLoggedIn()){
+    article.children[1].children[1].children[5].style.display = 'flex';
+}else{
+    article.children[1].children[1].children[5].style.display = 'none';
+}
 
 if(i.url){
 article.children[1].children[2].children[0].children[0].src = i.url + '#toolbar=1&navpanes=1&view=FitH';

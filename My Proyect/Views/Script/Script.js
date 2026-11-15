@@ -350,8 +350,10 @@ article.children[1].children[1].children[5].addEventListener('click', function (
 
 if(isLoggedIn()){
     article.children[1].children[1].children[5].style.display = 'flex';
+    article.children[1].children[1].children[6].children[0].style.display = 'flex';
 }else{
     article.children[1].children[1].children[5].style.display = 'none';
+    article.children[1].children[1].children[6].children[0].style.display = 'none';
 }
 
 if(i.url){

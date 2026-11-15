@@ -13,7 +13,7 @@
 .search-bar-2 {
     display: grid;
     grid-template-columns: repeat(2,calc(50%));
-    grid-auto-rows: calc(40vh);
+    grid-auto-rows: calc(50vh);
     gap: 20px;
     position: relative;/**/
     width:100%;

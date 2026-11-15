@@ -53,7 +53,7 @@
 
 @media (max-width < 900px) {
     .menu-toggle { display: block; }
-    .libro-card { font-size: small; }
+    .contenedor { display:none; }
 }
 
 @media (max-width: 700px) {

@@ -35,5 +35,9 @@ router.post('/logout',controller.logout);
 router.post('/register',controller.register);
 router.post('/ia', controller.ia);
 router.post('/my', controller.my);
+router.post('/st_libros', controller.st_libros);
+router.post('/st_usuarios', controller.st_usuarios);
+router.post('/st_prestamos', controller.st_prestamos);
+router.post('/st_devoluciones', controller.st_devoluciones);
 
 export default router;

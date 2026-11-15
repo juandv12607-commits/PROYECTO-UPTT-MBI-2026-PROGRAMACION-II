@@ -9,8 +9,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config(); 
 import {createClient} from '@supabase/supabase-js';
-const TU_SUPABASE_URL = process.env.TU_SUPABASE_URL || "https://cvdxxfmzerqedmxxfsrs.supabase.co";
-const TU_SUPABASE_ANON_KEY = process.env.TU_SUPABASE_ANON_KEY || 'sb_publishable_rpBA493YCHwRcU6Z7ZKhBA_Epgp6JLt';
+const TU_SUPABASE_URL = process.env.TU_SUPABASE_URL;// || "https://cvdxxfmzerqedmxxfsrs.supabase.co";
+const TU_SUPABASE_ANON_KEY = process.env.TU_SUPABASE_ANON_KEY;// || 'sb_publishable_rpBA493YCHwRcU6Z7ZKhBA_Epgp6JLt';
 const supabase = createClient(TU_SUPABASE_URL, TU_SUPABASE_ANON_KEY);
 import {upload} from './Storage.js';
 import db from './DataBase.js';
@@ -19,7 +19,7 @@ const app = express();
 app.set('trust proxy', 1); 
 
 // 1. Leer el puerto dinámico asignado por Render (o usar 10000 por defecto)
-const port = process.env.PORT || 10000;
+const port = process.env.PORT;// || 10000;
 
 // 2. Middlewares de procesamiento (CORS configurado para producción)
 app.use(cors({

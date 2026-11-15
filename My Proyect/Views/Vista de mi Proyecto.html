@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biblioteca Digital - Tabla con Inputs Inline</title>
+<title>Biblioteca Digital</title>
 <link rel="stylesheet" href="./Style/Animations.css">
 <link rel="stylesheet" href="./Style/SideBar.css">
 <link rel="stylesheet" href="./Style/NavBar.css">
@@ -51,6 +51,8 @@
     <div class="sidebar-item" id="libros"><span class="icon">📖</span>Catálogo de Libros</div>
     <div class="sidebar-item" id="usuarios"><span class="icon">👥</span>Usuario</div>
     <div class="sidebar-item" id="prestamos"><span class="icon">🧾</span>Préstamos</div>
+    <div class="sidebar-title">Análisis</div>
+    <div class="sidebar-item" id="reportes"><span class="icon">📊</span>Estadisticas</div>
     <!--
     <div class="sidebar-item"><span class="icon">📥</span> Devoluciones</div>
     <div class="sidebar-title">Análisis</div>
@@ -60,11 +62,10 @@
     <div class="sidebar-item"><span class="icon">⚙️</span> Configuración</div>
     <div class="sidebar-item"><span class="icon">❓</span> Ayuda</div>
     -->
-
-    <div>
-        <img class="qr" src="Mi_código_QR.png" alt="QR">
+    <div class="footer-side">
+        <img class="f-node" src="Mi_código_QR.png" alt="QR">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1237.708906589101!2d-70.44774349996882!3d9.357860935483968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e62d54697b9aac3%3A0x367bdae9deb814ae!2sColegio%20Nuestra%20Senora%20del%20Coromoto!5e0!3m2!1ses!2sve!4v1794689704102!5m2!1ses!2sve" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
-
 </aside>
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
@@ -81,12 +82,12 @@
       <span><strong>Año:</strong> <span itemprop="datePublished" id="año">2025</span></span>
       <span><strong>Editorial:</strong> <span itemprop="datePublished" id="editorial">Edit</span></span>
       <span><strong>Cantidad_Total:</strong> <span itemprop="datePublished" id="cantidad_total">25</span></span>
-      <span><strong>Cantidad_Disponible:</strong> <span itemprop="datePublished" id="cantidad_disponible">25</span></span>
-      <a target="_blank" class="btn">📋 Ver en la Tabla</a>
+      <span><a target="_blank" class="btn">📋 Ver en la Tabla</a></span>
     </div>
     <div class="libro-acciones">
       <a target="_blank" style="display:none;" class="btn">📥 PDF</a>
       <a target="_blank" style="display:none;">↗️ Ver Libro en otra pestaña</a>
+      
       <div class="contenedor" style="display:none;">
         <embed
             type="application/pdf"
@@ -96,9 +97,6 @@
     </div>
   </div>
 
-  <div style="display:none;" class="libro-preview">
-    <p class="preview-placeholder">Haz clic en <strong>Vista previa</strong></p>
-  </div>
 </article>
 
 <main class="main-content" id="main-content">
@@ -116,14 +114,10 @@
     </section>
 
     <div class="stats-grid" id="stats-grid" style="display:none;">
-        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value">12,480</div><div class="stat-label">Libros registrados</div></div>
-        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value">3,215</div><div class="stat-label">Usuarios activos</div></div>
-        <div class="stat-card"><div class="stat-icon">📖</div><div class="stat-value">847</div><div class="stat-label">Préstamos activos</div></div>
-        <div class="stat-card"><div class="stat-icon">⏰</div><div class="stat-value">32</div><div class="stat-label">Devoluciones hoy</div></div>
-    </div>
-
-    <div class="section-header" style="display:none;">
-        <h2>👥 Gestión de Usuarios <span style="color:var(--secondary); font-size:0.75rem; font-weight:400;">— Método: Inputs inline</span></h2>
+        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value" id="v-l">12,480</div><div class="stat-label">Libros</div></div>
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value" id="v-u">3,215</div><div class="stat-label">Usuarios</div></div>
+        <div class="stat-card"><div class="stat-icon">📖</div><div class="stat-value" id="v-p">847</div><div class="stat-label">Préstamos</div></div>
+        <div class="stat-card"><div class="stat-icon">⏰</div><div class="stat-value" id="v-d">32</div><div class="stat-label">Devoluciones</div></div>
     </div>
 
     <div id="nsc" class="viewer-container">
@@ -159,8 +153,23 @@
     <div class="table-actions">
         <button class="btn btn-primary" id="btnAgregarFila">➕ Añadir</button>
     </div>
+    <div id="copyright" class="copyright">© 2026 Unidad Educativa "Nuestra Señora de Coromoto". Todos los derechos reservados.</div>
 </main>
+<footer style="display:none;">
+        <h1>Agilidad y Eficiencia en sus Procesos Judiciales y Contables</h1>
+        <p style="color:#ccc; margin:8px 0 16px;font-size:3vw;">Te asesoramos en tu caso</p>
 
+        <div class="piletazos">
+            <div class="datos" style="align-items: center;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.15731147074!2d-70.49603848308547!3d9.407591363550571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e62d5da7cb87e85%3A0xf6daa7175b915b9e!2sABOGADO%20%26%20CONTADOR%20LUIS%20ALBERTO%20ARAUJO%20ARAUJO!5e0!3m2!1ses!2sve!4v1783715616678!5m2!1ses!2sve" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                    Ubicación por Google Maps.
+                </iframe>
+            </div>    
+        </div>
+        <small style="display: block;color: #888;font-size: 0.85rem;margin-top: 10px;">&copy; 2026 Luis Alberto Araujo Araujo. Todos los derechos reservados.</small>
+</footer>
+
+<button class="chat-toggle-2" id="chat-toggle-2">🔝</button>
 <button class="chat-toggle" id="chat-toggle">🤖</button>
 <div class="chat-window" id="chatWindow">
     <div class="chat-header">

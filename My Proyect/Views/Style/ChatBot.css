@@ -1,4 +1,13 @@
 /* CHATBOT */
+.chat-toggle-2 {
+    position: fixed; bottom: 100px; right: 25px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none; color: white; font-size: 1.6rem;
+    cursor: pointer; box-shadow: 0 8px 25px rgba(74, 58, 255, 0.6);
+    z-index: 200; transition: transform 0.3s;
+    animation: pulseGlow 2.5s infinite;
+}
 .chat-toggle {
     position: fixed; bottom: 25px; right: 25px;
     width: 60px; height: 60px; border-radius: 50%;

@@ -96,7 +96,7 @@ import {url} from './Script.js';
             select1.style.display = 'block';s1.style.display = 'block';s1.textContent = 'id libros';while(0 < select1.children.length){select1.removeChild(select1.firstChild);}for(let i of res1){const option = document.createElement('option');option.value = i.id;option.textContent = i.titulo;select1.appendChild(option);}
             select2.style.display = 'block';s2.style.display = 'block';s2.textContent = 'id usuarios';while(0 < select2.children.length){select2.removeChild(select2.firstChild);}for(let i of res2){const option = document.createElement('option');option.value = i.id;option.textContent = i.nombre;select2.appendChild(option);}
             input1.style.display = 'block';i1.textContent = 'Fecha de prestamo';input1.type = 'date';input1.style.background = 'white';input1.style.color = 'black';input1.min="2026-01-01";input1.max="2030-12-31";
-            input2.style.display = 'none';input2.value = '';i2.style.display = 'none';
+            input2.style.display = 'block';i2.textContent = 'Fecha de devolución';input2.type = 'date';input2.style.background = 'white';input2.style.color = 'black';input2.min="2026-01-01";input2.max="2030-12-31";
             input3.style.display = 'none';input3.value = '';i3.style.display = 'none';
             input4.style.display = 'none';input4.value = '';i4.style.display = 'none';
             input5.style.display = 'none';input5.value = '';i5.style.display = 'none';
@@ -170,15 +170,18 @@ import {url} from './Script.js';
             const usuario_id = Number(select1.value);
             const libro_id = Number(select2.value);
             const fecha = input1.value;
+            const fecha2 = input2.value;
             if (!fecha) {input1.style.background = '#ff6b6b';input1.style.borderColor = '#ff6b6b';input1.focus();setTimeout(() => {input1.style.background = 'rgba(0,0,0,0.3)';input1.style.borderColor = '#00d4ff';}, 1200);return;}
+            if (!fecha2) {input2.style.background = '#ff6b6b';input2.style.borderColor = '#ff6b6b';input2.focus();setTimeout(() => {input2.style.background = 'rgba(0,0,0,0.3)';input2.style.borderColor = '#00d4ff';}, 1200);return;}
             const fila = document.getElementById(p.textContent);
             fila.children[3].textContent = fecha;
+            fila.children[4].textContent = fecha2;
             const id = Number(p.textContent);
             const response = await fetch(url + 'api/ur_p', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',   // ← ¡envía y recibe cookies!
-                body: JSON.stringify({ usuario_id,libro_id,fecha,id })
+                body: JSON.stringify({ usuario_id,libro_id,fecha,fecha2,id })
             });
             const res = await response.json();
             cerrarModalUsuario();

@@ -69,8 +69,8 @@ body {
 .embed {
     border: none;
     display: block;
-    width:90%;
-    height:90%;
+    width:100%;
+    height:calc(20vh);/*100%;/**/
 }
 
 .btn-2 {

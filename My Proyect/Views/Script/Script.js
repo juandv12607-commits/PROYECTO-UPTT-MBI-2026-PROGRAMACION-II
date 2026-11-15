@@ -351,7 +351,7 @@ article.children[1].children[1].children[5].addEventListener('click', function (
 
 
 if(i.url){
-article.children[1].children[2].children[2].children[0].src = i.url;
+article.children[1].children[2].children[2].children[0].src = i.url + '#toolbar=1&navpanes=1&view=FitH';
 article.children[1].children[2].children[2].style.display = 'block';
 }else{
 article.children[1].children[2].children[2].style.display = 'none';

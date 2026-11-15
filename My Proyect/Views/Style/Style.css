@@ -63,15 +63,18 @@ body {
     flex-direction: column;
     height: calc(20vh); /* 52px */
     width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
     /*border:red;/**/
 }
 
 .embed {
     border: none;
     display: block;
-    width:100%;
-    flex:1;
-    min-height: 500px;
+    /*width:100%;/**/
+    /*flex:1;/**/
+    /*min-height: 500px;/**/
+    aspect-ratio: 16 / 9;
     /*height:calc(25vh);/*100%;/**/
 }
 

@@ -61,8 +61,8 @@ body {
 .contenedor {
     display:flex;
     flex-direction: column;
-    height: 80%;/*calc(50vh); /* 52px */
-    width: 100%;
+    height: calc(40vh); /* 52px */
+    width: 80%;
     box-sizing: border-box;
     overflow: hidden;
     /*border:red;/**/

@@ -56,6 +56,10 @@
     .contenedor { display:none; }
 }
 
+@media (width < 800px) {
+    .contenedor { display:none; }
+}
+
 @media (max-width: 700px) {
     .table-wrapper { overflow-x: auto; }
     .data-table { min-width: 700px; }

@@ -61,7 +61,7 @@ body {
 .contenedor {
     display:flex;
     flex-direction: column;
-    height: calc(20vh); /* 52px */
+    height: calc(50vh); /* 52px */
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
@@ -73,7 +73,7 @@ body {
     display: block;
     width:100%;/**/
     flex:1;/**/
-    min-height: 500px;/**/
+    min-height: 800px;/**/
     /*height:calc(25vh);/*100%;/**/
 }
 

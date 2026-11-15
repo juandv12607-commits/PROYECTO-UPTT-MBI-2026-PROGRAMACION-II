@@ -60,6 +60,7 @@ body {
 
 .contenedor {
     display:flex;
+    flex-direction: column;
     height: calc(25vh); /* 52px */
     width: 100%;
     /*border:red;/**/
@@ -68,8 +69,9 @@ body {
 .embed {
     border: none;
     display: block;
-    flex:1;
     width:100%;
+    flex:1;
+    min-height: 500px;
     /*height:calc(25vh);/*100%;/**/
 }
 

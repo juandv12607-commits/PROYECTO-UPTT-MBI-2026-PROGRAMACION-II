@@ -53,11 +53,10 @@
 
 @media (max-width < 900px) {
     .menu-toggle { display: block; }
-    .contenedor { display:none; }
 }
 
 @media (width < 800px) {
-    .contenedor { display:none; }
+    .libro-card .libro-datos .libro-acciones .contenedor { display:none; }
 }
 
 @media (max-width: 700px) {
@@ -65,6 +64,7 @@
     .data-table { min-width: 700px; }
     .data-table th, .data-table td { padding: 11px 12px; font-size: 0.85rem; }
 }
+
 @media (max-width: 480px) {
     .page-title { font-size: 1.4rem; }
     .search-bar { flex-direction: column; }

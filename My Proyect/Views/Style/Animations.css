@@ -55,7 +55,7 @@
     .menu-toggle { display: block; }
 }
 
-@media (width < 800px) {
+@media (max-width < 800px) {
     .libro-card .libro-datos .libro-acciones .contenedor { display:none; }
 }
 

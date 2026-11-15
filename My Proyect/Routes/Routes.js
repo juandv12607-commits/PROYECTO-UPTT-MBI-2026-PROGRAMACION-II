@@ -1,8 +1,9 @@
 import express from 'express';
 const router = express.Router();
 import controller from '../Controllers/Controllers.js';
-import jwt from 'jsonwebtoken';
+//import jwt from 'jsonwebtoken';
 
+/*
 const JWT_SECRET = 'super-secreto-no-hardcode-en-produccion';
 
 // -------------- MIDDLEWARE DE AUTH --------------
@@ -19,6 +20,8 @@ function authenticate(req, res, next) {
     res.status(401).json({ error: 'Token inválido o expirado' });
   }
 }
+*/
+
 router.post('/books',controller.books);
 router.post('/search',controller.search);
 router.post('/id1',controller.id1);

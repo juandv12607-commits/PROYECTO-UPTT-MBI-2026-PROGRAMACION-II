@@ -346,7 +346,7 @@ article.children[1].children[1].children[5].addEventListener('click', function (
 
     const color_anterior = document.getElementById(i.id).style.borderColor;
     document.getElementById(i.id).style.borderColor = '#00d4ff';
-    setTimeout(() => {document.getElementById(i.id).style.borderColor = color_anterior;}, 1200);     
+    setTimeout(() => {document.getElementById(i.id).style.borderColor = color_anterior;}, 3000);     
 });
 
 

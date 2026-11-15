@@ -369,7 +369,6 @@ article.children[1].children[1].children[6].children[0].style.display = 'none';
 
 //article.children[1].children[1].children[7].children[0].style.display = 'none';
 
-article.children[1].children[1].children[5].style.display = 'none';
 article.children[1].children[2].children[0].style.display = 'none';
 }
 

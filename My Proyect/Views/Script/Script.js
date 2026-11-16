@@ -360,6 +360,7 @@ if(i.url){
 article.children[1].children[2].children[0].children[0].src = i.url + '#toolbar=1&navpanes=1&view=FitH';
 article.children[1].children[2].children[0].style.display = 'block';
 
+article.children[1].children[1].children[6].children[0].style.display = 'flex';
 article.children[1].children[1].children[6].children[0].href = i.url;
 
 /*

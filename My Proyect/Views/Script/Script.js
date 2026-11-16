@@ -350,10 +350,8 @@ article.children[1].children[1].children[5].addEventListener('click', function (
 
 if(isLoggedIn()){
     article.children[1].children[1].children[5].style.display = 'flex';
-    article.children[1].children[1].children[6].style.display = 'flex';
 }else{
     article.children[1].children[1].children[5].style.display = 'none';
-    article.children[1].children[1].children[6].style.display = 'none';
 }
 
 if(i.url){
@@ -363,18 +361,9 @@ article.children[1].children[2].children[0].style.display = 'block';
 article.children[1].children[1].children[6].children[0].style.display = 'flex';
 article.children[1].children[1].children[6].children[0].href = i.url;
 
-/*
-article.children[1].children[1].children[7].children[0].style.display = 'flex';
-article.children[1].children[1].children[7].children[0].href = i.url;
-*/
-
-//console.log(article.children[1].children[1].children[6].children[0]);
-
 }else{
 
 article.children[1].children[1].children[6].children[0].style.display = 'none';
-
-//article.children[1].children[1].children[7].children[0].style.display = 'none';
 
 article.children[1].children[2].children[0].style.display = 'none';
 }

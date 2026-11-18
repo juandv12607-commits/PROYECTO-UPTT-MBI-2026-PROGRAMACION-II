@@ -355,17 +355,15 @@ if(isLoggedIn()){
 }
 
 if(i.url){
-article.children[1].children[2].children[0].children[0].src = i.url + '#toolbar=1&navpanes=1&view=FitH';
-article.children[1].children[2].children[0].style.display = 'block';
-
-article.children[1].children[1].children[6].children[0].style.display = 'flex';
-article.children[1].children[1].children[6].children[0].href = i.url;
-
+article.children[1].children[2].children[0].children[0].src = i.url + '#toolbar=1&navpanes=1&view=FitH';//iframe
+article.children[1].children[2].children[0].style.display = 'block';//contenedor de iframe
+article.children[1].children[1].children[6].children[0].style.display = 'flex';//ver en otra pestaña
+article.children[1].children[1].children[6].children[0].href = i.url;//ver en otra pestaña
+article.children[1].children[1].children[5].children[0].style.display = 'flex';//ver en tabla
 }else{
-
-article.children[1].children[1].children[6].children[0].style.display = 'none';
-
-article.children[1].children[2].children[0].style.display = 'none';
+article.children[1].children[1].children[6].children[0].style.display = 'none';//ver en otra pestaña
+article.children[1].children[1].children[5].children[0].style.display = 'none';//ver en tabla
+article.children[1].children[2].children[0].style.display = 'none';//contenedor de iframe
 }
 
                     search_bar.appendChild(article);

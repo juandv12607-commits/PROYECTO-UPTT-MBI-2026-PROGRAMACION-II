@@ -11,23 +11,6 @@ export async function ShowTable(table,rol){
         idUsuario1 = userData ? userData.id : null;
     } catch(e) { console.error('Error leyendo usuario:', e); }
 
-    //console.log(idUsuario);
-
-    /*
-    if(rol === 'Admin'){
-        q = `SELECT * FROM ${table};`;
-    }else{
-        if(table === 'libros'){
-            q = `SELECT * FROM ${table};`;
-        }else if(table === 'usuarios'){
-            q = `SELECT * FROM ${table} WHERE id = ${idUsuario};`;
-        }else{
-            q = `SELECT * FROM ${table} WHERE usuario_id = ${idUsuario};`;
-        }
-    }
-    */
-    
-    //const query = q;
     const role = rol
     const tabla = table;
     const idUsuario = idUsuario1;

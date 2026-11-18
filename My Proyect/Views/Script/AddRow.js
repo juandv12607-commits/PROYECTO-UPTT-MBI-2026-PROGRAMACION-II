@@ -123,13 +123,13 @@ import {url} from './Script.js';
             if (!editorial) {input3.style.background = '#ff6b6b';input3.style.borderColor = '#ff6b6b';input3.focus();setTimeout(() => {input3.style.background = 'rgba(0,0,0,0.3)';input3.style.borderColor = '#00d4ff';}, 1200);return;}
             if (!año) {input4.style.background = '#ff6b6b';input4.style.borderColor = '#ff6b6b';input4.focus();setTimeout(() => {input4.style.background = 'rgba(0,0,0,0.3)';input4.style.borderColor = '#00d4ff';}, 1200);return;}
             if (!cantidad_total) {input5.style.background = '#ff6b6b';input5.style.borderColor = '#ff6b6b';input5.focus();setTimeout(() => {input5.style.background = 'rgba(0,0,0,0.3)';input5.style.borderColor = '#00d4ff';}, 1200);return;}
-            const fila = document.getElementById(p.textContent);
+            const fila = document.getElementById(p.textContent);console.log(p.textContent);
             fila.children[1].textContent = titulo;
             fila.children[2].textContent = autor;
             fila.children[3].textContent = editorial;
             fila.children[4].textContent = año;
             fila.children[5].textContent = cantidad_total;
-            fila.children[6].textContent = cantidad_total;
+            //fila.children[6].textContent = cantidad_total;
             const id = Number(p.textContent);
             const cantidadtotal = Number(cantidad_total);
             const response = await fetch(url + 'api/ur_l', {

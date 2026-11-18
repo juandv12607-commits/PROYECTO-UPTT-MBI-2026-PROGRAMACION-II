@@ -125,7 +125,7 @@ class controller{
 
     static nr_l(req,res){
         const {titulo,autor,editorial,año,cantidad_total} = req.body;
-        db.query(`INSERT INTO libros (titulo,autor,editorial,año,cantidad_total,disponibles) VALUES (?,?,?,?,?,?)`,[titulo,autor,editorial,año,cantidad_total,cantidad_total],(err, results, fields) => {
+        db.query(`INSERT INTO libros (titulo,autor,editorial,año,cantidad_total) VALUES (?,?,?,?,?,?)`,[titulo,autor,editorial,año,cantidad_total],(err, results, fields) => {
             if(err){console.log(err);return;}
             res.json(results);
         });
@@ -133,7 +133,7 @@ class controller{
 
     static ur_l(req,res){
         const {titulo,autor,editorial,año,cantidadtotal,id} = req.body;
-        db.query(`UPDATE libros SET titulo = ?, autor = ?, editorial = ?, año = ?, cantidad_total = ?, disponibles = ? WHERE id = ?;`,[titulo,autor,editorial,año,cantidadtotal,cantidadtotal,id],(err, results, fields) => {
+        db.query(`UPDATE libros SET titulo = ?, autor = ?, editorial = ?, año = ?, cantidad_total = ? WHERE id = ?;`,[titulo,autor,editorial,año,cantidadtotal,id],(err, results, fields) => {
             if(err){console.log(err);return;}
             res.json(results);
         });

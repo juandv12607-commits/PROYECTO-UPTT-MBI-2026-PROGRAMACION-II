@@ -4,7 +4,7 @@ DOCUMENTACIÓN OFICIAL DEL SISTEMA DE GESTIÓN DE LA BIBLIOTECA (SCHOOL)
 1. DESCRIPCIÓN GENERAL DEL SISTEMA
 =========================================
 Este sistema web es una plataforma automatizada diseñada para la gestión, control y administración de material
-bibliotecario, usuarios y préstamos de libros dentro de una base de datos. Permite realizar operaciones CRUD completas
+bibliotecario, usuarios y préstamos de libros dentro de una base de datos. Permite realizar operaciones tratamiento de información completas (CRUD)
 (Crear, Leer, Actualizar, Eliminar) sobre los registros, además de subida y sustitución de archivos digitales vinculados
 a cada libro. Todo esto desde un usuario administrador.
 
@@ -24,7 +24,7 @@ El sistema maneja de forma estricta los siguientes roles para clasificar a los i
 
 --- MÓDULO DE LIBROS ---
 Almacena y administra todo el catálogo físico y digital de la biblioteca.
-* Datos manejados por libro: Título, Autor, Editorial, Año, Cantidad Total, Disponibles y la URL del archivo digital
+* Datos manejados por libro: Título, Autor, Editorial, Año, Cantidad Total y la URL del archivo digital
 (PDF/Documento).
 * Registro de nuevo libro (acción solo habilitada para Administrador): Requiere ingresar de forma obligatoria todos los campos
 de texto y una cantidad numérica en unidades.
@@ -43,7 +43,8 @@ de datos.
 --- MÓDULO DE PRÉSTAMOS ---
 Controla la circulación del material bibliotecario vinculando un usuario con un libro.
 * Datos manejados por préstamo: ID de préstamo, Usuario asignado, Libro prestado, Fecha de préstamo y Fecha de devolución.
-* Creación de préstamo: El sistema despliega un menú interactivo donde se cargan de forma dinámica los títulos de los libros y los nombres de los usuarios existentes. El operador debe seleccionar los elementos correspondientes e ingresar la Fecha de préstamo de forma obligatoria mediante un calendario en pantalla. Por defecto, la fecha de devolución estimada se registra inicialmente como 'automatico' y los estados iniciales se configuran en espera.
+* Creación de préstamo: El sistema despliega un menú interactivo donde se cargan de forma dinámica los títulos de los libros y los nombres de los usuarios existentes.
+El operador debe seleccionar los elementos correspondientes e ingresar la Fecha de préstamo de forma obligatoria mediante un calendario en pantalla.
 
 =========================================
 4. GUÍA DE USO DE LA INTERFAZ DE TABLAS (Vistas)
@@ -67,10 +68,8 @@ resultados que contengan dicha palabra; coincidiendo con un libro, usuario o pre
 =========================================
 5. PROTOCOLO DE SEGURIDAD Y CONECTIVIDAD
 =========================================
-- Autenticación: El sistema protege las credenciales mediante Tokens JWT (JSON Web Tokens) de alta seguridad que expiran en 1
-día.
-- Almacenamiento de Tokens: El token se aloja del lado del cliente mediante Cookies para la máxima protección.
-- Cierre de Sesión (Logout): Al salir del sistema, las cookies se destruyen limpiando el rastro de la sesión del dispositivo
-de forma segura.
+- Autenticación: El sistema utiliza la cedula proporcionada por los usuarios como identificador único fácil de recordar.
+- Almacenamiento de seciones: El id del usuario se aloja del lado del cliente por protección.
+- Cierre de Sesión (Logout): Al salir del sistema, el id se destruye limpiando el rastro de la sesión del dispositivo.
 - Conexión Remota: La base de datos opera bajo un entorno de producción en la nube administrado de
 forma segura mediante conexiones encriptadas.
